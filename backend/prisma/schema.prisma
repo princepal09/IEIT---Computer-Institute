@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -6,4 +5,149 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+model Admin {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model SiteSettings {
+  id            String   @id @default(uuid())
+  instituteName String
+  logoUrl       String?
+  email         String?  @unique
+  phone         String?
+  whatsapp      String?
+  about         String?
+  facebookUrl   String?
+  instagramUrl  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Branch {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  address     String
+  phone       String?
+  email       String?
+  whatsapp    String?
+  mapUrl      String?
+  openingTime String?
+  closingTime String?
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  courses   BranchCourse[]
+  enquiries Enquiry[]
+}
+
+model Course {
+  id               String   @id @default(uuid())
+  name             String
+  slug             String   @unique
+  shortDescription String?
+  description      String?
+  duration         String?
+  eligibility      String?
+  fee              Decimal?
+  category         String?
+  imageUrl         String?
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  branches  BranchCourse[]
+  enquiries Enquiry[]
+}
+
+model BranchCourse {
+  id        String   @id @default(uuid())
+  branchId  String
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  branch Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([branchId, courseId])
+}
+
+model Enquiry {
+  id       String  @id @default(uuid())
+  name     String
+  phone    String
+  email    String?
+  branchId String
+  courseId String?
+  message  String?
+
+  status    EnquiryStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  branch Branch  @relation(fields: [branchId], references: [id])
+  course Course? @relation(fields: [courseId], references: [id])
+}
+
+model ContactMessage {
+  id        String               @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  status    ContactMessageStatus @default(UNREAD)
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+}
+
+model Gallery {
+  id           String   @id @default(uuid())
+  title        String?
+  description  String?
+  imageUrl     String
+  displayOrder Int      @default(0)
+  isPublished  Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isPublished, displayOrder])
+}
+
+model Notice {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String?
+  publishedAt DateTime?
+  expiresAt   DateTime?
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([isPublished, publishedAt])
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  CONVERTED
+  CLOSED
+}
+
+enum ContactMessageStatus {
+  UNREAD
+  READ
 }
