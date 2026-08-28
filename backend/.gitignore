@@ -5,6 +5,7 @@ node_modules/
 dist/
 build/
 
+/src/generated/
 # Environment variables
 .env
 .env.*
