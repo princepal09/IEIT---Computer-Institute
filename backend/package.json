@@ -15,6 +15,9 @@
     "clean": "rm -rf dist",
     "test": "echo \"Tests not configured yet\" && exit 0"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

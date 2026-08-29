@@ -10,7 +10,7 @@ build/
 .env
 .env.*
 !.env.example
-
+prisma/seed.ts
 # Logs
 logs/
 *.log
