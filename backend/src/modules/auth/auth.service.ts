@@ -15,7 +15,7 @@ export class AuthService {
     const admin = await this.repo.findAdminByEmail(email);
 
     if (!admin) {
-      throw new ApiError(401, 'Invail email, Unauthorized');
+      throw new ApiError(401, '"Invalid email or password"');
     }
 
     if (!admin.isActive) {
@@ -24,7 +24,7 @@ export class AuthService {
     const isPassword = await comparePassword(password, admin.passwordHash);
 
     if (!isPassword) {
-      throw new ApiError(401, 'Invail password');
+      throw new ApiError(401, '"Invalid email or password"');
     }
 
     const payloadAccess: IPayload = {
@@ -60,12 +60,14 @@ export class AuthService {
       new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     );
 
+    await this.repo.updateLastLogin(admin.id);
+
     return {
       id: admin.id,
       email: admin.email,
       name: admin.name,
       accessToken,
-      refreshToken
+      refreshToken,
     };
   }
 }

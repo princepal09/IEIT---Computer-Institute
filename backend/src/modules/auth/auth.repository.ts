@@ -8,13 +8,23 @@ export class AuthRepository implements IAuthRepository {
       where: { email },
     });
   }
-  async saveRefreshToken(token: string, adminId : string, expiresAt : Date): Promise<RefreshToken> {
+  async saveRefreshToken(token: string, adminId: string, expiresAt: Date): Promise<RefreshToken> {
     return await prisma.refreshToken.create({
-        data : {
-            token,
-            adminId,
-            expiresAt
-        }
-    })
+      data: {
+        token,
+        adminId,
+        expiresAt,
+      },
+    });
+  }
+  async updateLastLogin(adminId: string): Promise<Admin> {
+    return prisma.admin.update({
+      where: {
+        id: adminId,
+      },
+      data: {
+        lastLoginAt: new Date(),
+      },
+    });
   }
 }
