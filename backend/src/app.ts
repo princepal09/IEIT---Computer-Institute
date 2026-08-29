@@ -1,16 +1,28 @@
 import express, { Request, Response } from 'express';
-
-import ApiResponse from './utils/ApiResponse.js';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import helmet from 'helmet';
+import environment from './config/config.js';
 import errorMiddleware from './middlewares/globalError.middleware.js';
+import authRoutes from "./modules/auth/auth.route.js"
 
 const app = express();
 
-//Root Route
-app.get('/', (_req: Request, res: Response) => {
-  return res.status(200).json(new ApiResponse(200, 'IEIT API IS WORKING'));
-});
+app.use(helmet());
 
-// Health Check
+app.use(
+  cors({
+    origin: environment.CORS_ORIGIN,
+    credentials: true,
+  }),
+);
+
+app.use(express.json());
+
+app.use(cookieParser());
+
+app.use("/auth", authRoutes);
+
 app.get('/health', (_req: Request, res: Response) => {
   return res.status(200).json({
     status: 'ok',

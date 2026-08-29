@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-const env = {
+const environment = {
   NODE_ENV: process.env.NODE_ENV || 'development',
 
   PORT: Number(process.env.PORT) || 5000,
@@ -23,4 +23,4 @@ const env = {
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET!,
 };
 
-export default env;
+export default environment;
