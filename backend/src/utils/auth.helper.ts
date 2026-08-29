@@ -13,8 +13,14 @@ export const comparePassword = async (password: string, hashedPasswordInDb: stri
   return await bcrypt.compare(password, hashedPasswordInDb);
 };
 
-export const hashRefreshToken = async (refreshToken: string) => {
+export const hashRefreshToken = (refreshToken: string): string => {
   return crypto.createHash('sha256').update(refreshToken).digest('hex');
+};
+
+export const compareRefreshToken = (token: string, hashedToken: string): boolean => {
+  const hash = hashRefreshToken(token);
+
+  return crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(hashedToken));
 };
 
 export const setCookies = (res: Response, accessToken: string, refreshToken: string) => {

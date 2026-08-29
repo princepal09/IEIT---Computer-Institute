@@ -5,3 +5,9 @@ export interface IPayload {
   email: string;
   type: tokenType;
 }
+
+export interface ICurrentUserResponse {
+  id: string;
+  name: string;
+  email: string;
+}

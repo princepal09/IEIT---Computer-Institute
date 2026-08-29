@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use("/auth", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.get('/health', (_req: Request, res: Response) => {
   return res.status(200).json({
