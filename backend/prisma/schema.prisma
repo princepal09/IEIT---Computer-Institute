@@ -8,15 +8,16 @@ datasource db {
 }
 
 model Admin {
-  id           String         @id @default(uuid())
-  name         String
-  email        String         @unique
-  passwordHash String
-  isActive     Boolean        @default(true)
-  lastLoginAt  DateTime?
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  profileImage  String?
+  passwordHash  String
+  isActive      Boolean        @default(true)
+  lastLoginAt   DateTime?
   refreshTokens RefreshToken[]
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model RefreshToken {
