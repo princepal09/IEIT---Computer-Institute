@@ -7,6 +7,7 @@ export interface IAuthRepository {
   updateLastLogin(adminId: string): Promise<Admin>;
   findAdminById(adminId: string): Promise<ICurrentUserResponse | null>;
   findRefreshToken(token: string): Promise<RefreshToken | null>;
-  deleteRefreshToken(id: string): Promise<RefreshToken>;
+  deleteRefreshToken(id: string): Promise<void>;
   findRefreshTokensByAdminId(adminId: string): Promise<RefreshToken[]>;
+  deleteRefreshTokensByAdminId(adminId: string): Promise<void>;
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { authService } from './auth.container.js';
-import { setCookies } from '../../utils/auth.helper.js';
+import { destroyCookie, setCookies } from '../../utils/auth.helper.js';
 import ApiResponse from '../../utils/ApiResponse.js';
 import ApiError from '../../utils/AppError.js';
 import { asyncHandler } from '../../utils/AsyncHandler.js';
@@ -44,4 +44,32 @@ export const refreshTokenController = asyncHandler(async (req: Request, res: Res
 
   setCookies(res, result.accessToken, result.refreshToken);
   return res.status(200).json(new ApiResponse(200, null, 'Tokens refreshed successfully'));
+});
+
+export const logoutController = asyncHandler(async (req: Request, res: Response) => {
+  const refreshToken = req.cookies?.refreshToken;
+
+  if (refreshToken) {
+    await authService.logout(refreshToken);
+  }
+
+  destroyCookie(res);
+
+  return res.status(200).json(new ApiResponse(200, null, 'Logout successfully'));
+});
+
+export const logoutAllController = asyncHandler(async (req: Request, res: Response) => {
+  const adminId = req.user?.id;
+
+  if (!adminId) {
+    throw new ApiError(401, 'Not authorized');
+  }
+
+  await authService.logoutAll(adminId);
+
+  destroyCookie(res);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, null, 'Logged out from all devices successfully'));
 });

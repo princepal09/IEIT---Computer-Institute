@@ -50,8 +50,8 @@ export class AuthRepository implements IAuthRepository {
     });
   }
 
-  async deleteRefreshToken(id: string): Promise<RefreshToken> {
-    return await prisma.refreshToken.delete({
+  async deleteRefreshToken(id: string): Promise<void> {
+     await prisma.refreshToken.delete({
       where: { id },
     });
   }
@@ -64,4 +64,16 @@ export class AuthRepository implements IAuthRepository {
       },
     });
   }
+
+  async deleteRefreshTokensByAdminId(adminId: string): Promise<void> {
+    await prisma.refreshToken.deleteMany({
+      where : {
+        adminId
+      }
+    })
+  }
+
+
+
+
 }

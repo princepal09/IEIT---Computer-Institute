@@ -154,4 +154,20 @@ export class AuthService {
       refreshToken: newRefreshToken,
     };
   }
+
+  async logout(refreshToken: string): Promise<void> {
+    const decoded = verifyRefreshToken(refreshToken);
+    const tokens = await this.repo.findRefreshTokensByAdminId(decoded.id);
+
+    const matchedToken = tokens.find((token) => compareRefreshToken(refreshToken, token.token));
+
+    if (matchedToken) {
+      await this.repo.deleteRefreshToken(matchedToken.id);
+    }
+  }
+
+  async logoutAll(adminId : string) : Promise<void>{
+    await this.repo.deleteRefreshTokensByAdminId(adminId);
+  }
 }
+
