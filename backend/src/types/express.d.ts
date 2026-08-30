@@ -1,4 +1,4 @@
-import { ICurrentUserResponse } from "../modules/auth/auth.response.ts";
+import { ICurrentUserResponse } from "./index.ts";
 
 declare global {
   namespace Express {

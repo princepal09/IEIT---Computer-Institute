@@ -30,7 +30,20 @@ export const getMe = asyncHandler(async (req: Request, res: Response) => {
     throw new ApiError(401, 'Not authorized');
   }
 
-  return res.status(200).json(new ApiResponse(200, req.user, 'Admin details fetched successfully'));
+  if(!req.user){
+    throw new ApiError(400, "User not found")
+  }
+
+  const { id, email, name, profileImageUrl } = req.user;
+
+  const data = {
+    id,
+    email,
+    name,
+    profileImageUrl,
+  };
+
+  return res.status(200).json(new ApiResponse(200, data, 'Admin details fetched successfully'));
 });
 
 export const refreshTokenController = asyncHandler(async (req: Request, res: Response) => {
