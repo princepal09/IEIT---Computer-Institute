@@ -10,4 +10,12 @@ export interface IAuthRepository {
   deleteRefreshToken(id: string): Promise<void>;
   findRefreshTokensByAdminId(adminId: string): Promise<RefreshToken[]>;
   deleteRefreshTokensByAdminId(adminId: string): Promise<void>;
+  updateAdminProfile(
+    adminId: string,
+    data: {
+      name?: string;
+      profileImageUrl: string;
+      profileImagePublicId?: string;
+    },
+  ): Promise<ICurrentUserResponse | null>;
 }

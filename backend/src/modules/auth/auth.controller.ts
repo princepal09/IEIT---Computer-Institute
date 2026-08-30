@@ -73,3 +73,17 @@ export const logoutAllController = asyncHandler(async (req: Request, res: Respon
     .status(200)
     .json(new ApiResponse(200, null, 'Logged out from all devices successfully'));
 });
+
+export const updateProfile = asyncHandler(async (req: Request, res: Response) => {
+  const adminId = req.user?.id;
+
+  if (!adminId) {
+    throw new ApiError(401, 'Not authorized');
+  }
+
+  const result = await authService.updateProfile(adminId, req.body, req.file);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, result, 'Profile Updated Successfully'));
+});

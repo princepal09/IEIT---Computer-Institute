@@ -18,6 +18,7 @@ export class AuthRepository implements IAuthRepository {
       },
     });
   }
+
   async updateLastLogin(adminId: string): Promise<Admin> {
     return prisma.admin.update({
       where: {
@@ -38,6 +39,7 @@ export class AuthRepository implements IAuthRepository {
         id: true,
         email: true,
         name: true,
+        profileImageUrl: true,
       },
     });
 
@@ -51,7 +53,7 @@ export class AuthRepository implements IAuthRepository {
   }
 
   async deleteRefreshToken(id: string): Promise<void> {
-     await prisma.refreshToken.delete({
+    await prisma.refreshToken.delete({
       where: { id },
     });
   }
@@ -67,13 +69,30 @@ export class AuthRepository implements IAuthRepository {
 
   async deleteRefreshTokensByAdminId(adminId: string): Promise<void> {
     await prisma.refreshToken.deleteMany({
-      where : {
-        adminId
-      }
-    })
+      where: {
+        adminId,
+      },
+    });
   }
 
+  async updateAdminProfile(
+    adminId: string,
+    data: { name?: string; profileImageUrl: string; profileImagePublicId?: string },
+  ): Promise<ICurrentUserResponse | null> {
+    const user = await prisma.admin.update({
+      where: {
+        id: adminId,
+      },
+      data,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        profileImageUrl: true,
+        profileImagePublicId: true,
+      },
+    });
 
-
-
+    return user;
+  }
 }

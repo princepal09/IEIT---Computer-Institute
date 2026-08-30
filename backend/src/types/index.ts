@@ -10,4 +10,6 @@ export interface ICurrentUserResponse {
   id: string;
   name: string;
   email: string;
+  profileImageUrl: string | null;
+  profileImagePublicId?: string | null;
 }

@@ -8,8 +8,9 @@ import {
 } from '../../utils/jwt.helper.js';
 import { IAuthRepository } from './auth.interface.js';
 import { ICurrentUserResponse } from '../../types/index.js';
-import { loginUserDTO } from './auth.schema.js';
+import { loginUserDTO, UpdateProfileDTO } from './auth.schema.js';
 import { ILoginResponse } from './auth.response.js';
+import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
 
 export class AuthService {
   constructor(private repo: IAuthRepository) {}
@@ -166,8 +167,42 @@ export class AuthService {
     }
   }
 
-  async logoutAll(adminId : string) : Promise<void>{
+  async logoutAll(adminId: string): Promise<void> {
     await this.repo.deleteRefreshTokensByAdminId(adminId);
   }
-}
 
+  async updateProfile(
+    adminId: string,
+    data: UpdateProfileDTO,
+    file?: Express.Multer.File,
+  ): Promise<ICurrentUserResponse | null> {
+    const admin = await this.repo.findAdminById(adminId);
+    if (!admin) {
+      throw new ApiError(404, 'Admin not found');
+    }
+    let profileImageUrl = admin.profileImageUrl as string;
+    let profileImagePublicId = admin.profileImagePublicId as string;
+
+    if (file) {
+      const uploadedImage = await uploadToCloudinary(file, 'ieit/profiles');
+      profileImageUrl = uploadedImage.secure_url;
+      profileImagePublicId = uploadedImage.public_id;
+
+      if (admin.profileImagePublicId) {
+        await deleteFromCloudinary(admin.profileImagePublicId);
+      }
+    }
+
+    const updatedAdmin = await this.repo.updateAdminProfile(adminId, {
+      ...data,  
+      profileImageUrl,
+      profileImagePublicId,
+    });
+
+    if (!updatedAdmin) {
+      throw new ApiError(404, 'Admin not found');
+    }
+
+    return updatedAdmin;
+  }
+}
