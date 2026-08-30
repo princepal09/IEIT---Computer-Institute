@@ -51,6 +51,7 @@ model SiteSettings {
   id            String   @id @default(uuid())
   instituteName String
   logoUrl       String?
+  logoPublicId  String?
   email         String?  @unique
   phone         String?
   whatsapp      String?

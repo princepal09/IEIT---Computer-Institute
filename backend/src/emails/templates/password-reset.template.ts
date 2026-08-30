@@ -1,5 +1,5 @@
 export const passwordResetTemplate = (resetUrl: string, name?: string): string => {
-  const logoUrl = 'https://res.cloudinary.com/ueeujsm7/image/upload/v1788088282/ieitLogo.jpg';
+  const logoUrl = 'https://res.cloudinary.com/ueeujsm7/image/upload/v1788094445/ieit/site-settings/ipjlwdeqvwuv462lpipb.png';
 
   const safeName = name?.trim() || 'there';
 
