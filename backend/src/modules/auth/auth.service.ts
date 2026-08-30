@@ -1,6 +1,11 @@
 import { IPayload } from '../../types/index.js';
 import ApiError from '../../utils/AppError.js';
-import { comparePassword, compareRefreshToken, hashRefreshToken } from '../../utils/auth.helper.js';
+import {
+  comparePassword,
+  compareRefreshToken,
+  hashPassword,
+  hashRefreshToken,
+} from '../../utils/auth.helper.js';
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -8,7 +13,7 @@ import {
 } from '../../utils/jwt.helper.js';
 import { IAuthRepository } from './auth.interface.js';
 import { ICurrentUserResponse } from '../../types/index.js';
-import { loginUserDTO, UpdateProfileDTO } from './auth.schema.js';
+import { loginUserDTO, updatePasswordDTO, UpdateProfileDTO } from './auth.schema.js';
 import { ILoginResponse } from './auth.response.js';
 import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
 
@@ -194,7 +199,7 @@ export class AuthService {
     }
 
     const updatedAdmin = await this.repo.updateAdminProfile(adminId, {
-      ...data,  
+      ...data,
       profileImageUrl,
       profileImagePublicId,
     });
@@ -204,5 +209,31 @@ export class AuthService {
     }
 
     return updatedAdmin;
+  }
+
+  async updatePassword(body: updatePasswordDTO, adminId: string) {
+    const { currentPassword, newPassword } = body;
+
+    const user = await this.repo.findAdminByIdForUpdatePassword(adminId);
+
+    if (!user) {
+      throw new ApiError(404, 'User not found');
+    }
+
+    const isPwdMatch = await comparePassword(currentPassword, user.passwordHash);
+
+    if (!isPwdMatch) {
+      throw new ApiError(401, 'Current password is incorrect');
+    }
+
+    const newHashPassword = await hashPassword(newPassword);
+    if (!newHashPassword) {
+      throw new ApiError(500, 'Failed to hash the new Password');
+    }
+
+    await this.repo.updatePassword(adminId, newHashPassword);
+
+    await this.repo.deleteRefreshTokensByAdminId(adminId);
+    
   }
 }

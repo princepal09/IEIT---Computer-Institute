@@ -2,6 +2,7 @@ import { Admin, RefreshToken } from '../../generated/prisma/client.js';
 import { prisma } from '../../lib/prisma.js';
 import { IAuthRepository } from './auth.interface.js';
 import { ICurrentUserResponse } from '../../types/index.js';
+import { IUpdatePasswordResponse } from './auth.response.js';
 
 export class AuthRepository implements IAuthRepository {
   async findAdminByEmail(email: string): Promise<Admin | null> {
@@ -95,4 +96,30 @@ export class AuthRepository implements IAuthRepository {
 
     return user;
   }
+
+  async updatePassword(amdinId: string, currentPasswordHash: string): Promise<void> {
+    await prisma.admin.update({
+      where: {
+        id: amdinId,
+      },
+      data: {
+        passwordHash: currentPasswordHash,
+      },
+    });
+  }
+
+  async findAdminByIdForUpdatePassword(adminId: string): Promise<IUpdatePasswordResponse |  null> {
+    const user = await prisma.admin.findUnique({
+      where : {
+        id : adminId
+      },
+      select : {
+        passwordHash : true
+      }
+    })
+
+    return user;
+  }
+
 }
+

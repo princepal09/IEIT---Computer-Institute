@@ -5,3 +5,7 @@ export interface ILoginResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface IUpdatePasswordResponse{
+  passwordHash : string
+}

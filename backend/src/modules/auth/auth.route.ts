@@ -1,12 +1,13 @@
 import express from 'express';
 import { validate } from '../../middlewares/validate.middleware.js';
-import { loginUserSchema, updateProfileSchema } from './auth.schema.js';
+import { loginUserSchema, updatePasswordSchema, updateProfileSchema } from './auth.schema.js';
 import {
   getMe,
   loginController,
   logoutAllController,
   logoutController,
   refreshTokenController,
+  updatePasswordController,
   updateProfile,
 } from './auth.controller.js';
 import { verifyUser } from '../../middlewares/auth.middleware.js';
@@ -26,5 +27,11 @@ router.patch(
   upload.single('profileImage'),
   validate(updateProfileSchema),
   updateProfile,
+);
+router.patch(
+  '/change-password',
+  verifyUser(authService),
+  validate(updatePasswordSchema),
+  updatePasswordController,
 );
 export default router;

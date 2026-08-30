@@ -1,5 +1,6 @@
 import type { Admin, RefreshToken } from '../../generated/prisma/client.js';
 import { ICurrentUserResponse } from '../../types/index.js';
+import { IUpdatePasswordResponse } from './auth.response.js';
 
 export interface IAuthRepository {
   findAdminByEmail(email: string): Promise<Admin | null>;
@@ -18,4 +19,6 @@ export interface IAuthRepository {
       profileImagePublicId?: string;
     },
   ): Promise<ICurrentUserResponse | null>;
+  updatePassword(amdinId: string, currentPasswordHash: string): Promise<void>;
+  findAdminByIdForUpdatePassword(adminId : string): Promise<IUpdatePasswordResponse |  null>;
 }
