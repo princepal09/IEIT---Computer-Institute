@@ -63,21 +63,22 @@ model SiteSettings {
 }
 
 model Branch {
-  id          String   @id @default(uuid())
-  name        String
-  slug        String   @unique
-  description String?
-  address     String
-  phone       String?
-  email       String?
-  whatsapp    String?
-  mapUrl      String?
-  openingTime String?
-  closingTime String?
-  imageUrl    String?
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(uuid())
+  name          String
+  slug          String   @unique
+  description   String?
+  address       String
+  phone         String?
+  email         String?
+  whatsapp      String?
+  mapUrl        String?
+  openingTime   String?
+  closingTime   String?
+  imageUrl      String?
+  imagePublicId String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   courses   BranchCourse[]
   enquiries Enquiry[]
@@ -94,6 +95,7 @@ model Course {
   fee              Decimal?
   category         String?
   imageUrl         String?
+  imagePublicId String?
   isActive         Boolean  @default(true)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -147,7 +149,7 @@ model Gallery {
   id           String   @id @default(uuid())
   title        String?
   description  String?
-  imageUrl     String
+  imageUrl     String 
   displayOrder Int      @default(0)
   isPublished  Boolean  @default(false)
   createdAt    DateTime @default(now())
@@ -161,6 +163,7 @@ model Notice {
   title       String
   description String
   imageUrl    String?
+  imagePublicId String?
   publishedAt DateTime?
   expiresAt   DateTime?
   isPublished Boolean   @default(false)
