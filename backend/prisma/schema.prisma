@@ -95,7 +95,7 @@ model Course {
   fee              Decimal?
   category         String?
   imageUrl         String?
-  imagePublicId String?
+  imagePublicId    String?
   isActive         Boolean  @default(true)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -149,7 +149,7 @@ model Gallery {
   id           String   @id @default(uuid())
   title        String?
   description  String?
-  imageUrl     String 
+  imageUrl     String
   displayOrder Int      @default(0)
   isPublished  Boolean  @default(false)
   createdAt    DateTime @default(now())
@@ -159,16 +159,16 @@ model Gallery {
 }
 
 model Notice {
-  id          String    @id @default(uuid())
-  title       String
-  description String
-  imageUrl    String?
+  id            String    @id @default(uuid())
+  title         String
+  description   String
+  imageUrl      String?
   imagePublicId String?
-  publishedAt DateTime?
-  expiresAt   DateTime?
-  isPublished Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  publishedAt   DateTime?
+  expiresAt     DateTime?
+  isPublished   Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   @@index([isPublished, publishedAt])
 }
