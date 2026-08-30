@@ -41,7 +41,7 @@ export class AuthRepository implements IAuthRepository {
         email: true,
         name: true,
         profileImageUrl: true,
-        profileImagePublicId:true
+        profileImagePublicId: true,
       },
     });
 
@@ -108,18 +108,16 @@ export class AuthRepository implements IAuthRepository {
     });
   }
 
-  async findAdminByIdForUpdatePassword(adminId: string): Promise<IUpdatePasswordResponse |  null> {
+  async findAdminByIdForUpdatePassword(adminId: string): Promise<IUpdatePasswordResponse | null> {
     const user = await prisma.admin.findUnique({
-      where : {
-        id : adminId
+      where: {
+        id: adminId,
       },
-      select : {
-        passwordHash : true
-      }
-    })
+      select: {
+        passwordHash: true,
+      },
+    });
 
     return user;
   }
-
 }
-
