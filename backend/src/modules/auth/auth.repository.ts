@@ -41,6 +41,7 @@ export class AuthRepository implements IAuthRepository {
         email: true,
         name: true,
         profileImageUrl: true,
+        profileImagePublicId:true
       },
     });
 
