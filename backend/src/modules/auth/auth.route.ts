@@ -1,12 +1,20 @@
 import express from 'express';
 import { validate } from '../../middlewares/validate.middleware.js';
-import { loginUserSchema, updatePasswordSchema, updateProfileSchema } from './auth.schema.js';
 import {
+  forgotPasswordSchema,
+  loginUserSchema,
+  resetPasswordSchema,
+  updatePasswordSchema,
+  updateProfileSchema,
+} from './auth.schema.js';
+import {
+  forgotPasswordController,
   getMe,
   loginController,
   logoutAllController,
   logoutController,
   refreshTokenController,
+  resetPasswordController,
   updatePasswordController,
   updateProfile,
 } from './auth.controller.js';
@@ -34,4 +42,7 @@ router.patch(
   validate(updatePasswordSchema),
   updatePasswordController,
 );
+
+router.post('/forgot-password', validate(forgotPasswordSchema), forgotPasswordController);
+router.post('/reset-password', validate(resetPasswordSchema), resetPasswordController);
 export default router;

@@ -30,7 +30,21 @@ export const updatePasswordSchema = z
   })
   .strict();
 
+export const forgotPasswordSchema = z.object({
+  email: z.email('Invalid email address'),
+});
+export const resetPasswordSchema = z.object({
+  token: z.string().min(1, 'Reset token is required'),
+
+  newPassword: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(100, 'Password must not exceed 100 characters'),
+});
+
 export type loginUserDTO = z.infer<typeof loginUserSchema>;
 export type refreshTokenDTO = z.infer<typeof refreshTokenSchema>;
 export type UpdateProfileDTO = z.infer<typeof updateProfileSchema>;
 export type updatePasswordDTO = z.infer<typeof updatePasswordSchema>;
+export type ForgotPasswordDTO = z.infer<typeof forgotPasswordSchema>;
+export type ResetPasswordDTO = z.infer<typeof resetPasswordSchema>;

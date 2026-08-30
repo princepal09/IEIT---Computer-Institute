@@ -13,9 +13,20 @@ import {
 } from '../../utils/jwt.helper.js';
 import { IAuthRepository } from './auth.interface.js';
 import { ICurrentUserResponse } from '../../types/index.js';
-import { loginUserDTO, updatePasswordDTO, UpdateProfileDTO } from './auth.schema.js';
+import {
+  ForgotPasswordDTO,
+  loginUserDTO,
+  ResetPasswordDTO,
+  updatePasswordDTO,
+  UpdateProfileDTO,
+} from './auth.schema.js';
 import { ILoginResponse } from './auth.response.js';
 import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
+import {
+  generatePasswordResetToken,
+  hashPasswordResetToken,
+} from '../../utils/passwordReset.helper.js';
+import { sendPasswordEmail } from '../../emails/email.service.js';
 
 export class AuthService {
   constructor(private repo: IAuthRepository) {}
@@ -234,6 +245,48 @@ export class AuthService {
     await this.repo.updatePassword(adminId, newHashPassword);
 
     await this.repo.deleteRefreshTokensByAdminId(adminId);
-    
+  }
+
+  async forgotPassword(body: ForgotPasswordDTO) {
+    const { email } = body;
+
+    const admin = await this.repo.findAdminByEmail(email);
+
+    if (!admin) {
+      return;
+    }
+
+    await this.repo.deletePasswordResetTokensByAdminId(admin.id);
+
+    const resetToken = generatePasswordResetToken();
+    const tokenHash = hashPasswordResetToken(resetToken);
+
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+
+    await this.repo.createPasswordResetToken(admin.id, tokenHash, expiresAt);
+
+    await sendPasswordEmail(admin.email, resetToken, admin.name);
+  }
+
+  async resetPassword(body: ResetPasswordDTO) {
+    const { token, newPassword } = body;
+
+    const tokenHash = hashPasswordResetToken(token);
+
+    const resetToken = await this.repo.findPasswordResetToken(tokenHash);
+
+    if (!resetToken) {
+      throw new ApiError(400, 'Invalid or expired reset token');
+    }
+
+    if (resetToken.expiresAt.getTime() < Date.now()) {
+      await this.repo.deletePasswordResetToken(resetToken.id);
+
+      throw new ApiError(400, 'Invalid or expired reset token');
+    }
+
+    const newPasswordHash = await hashPassword(newPassword);
+
+    await this.repo.resetPasswordTransaction(resetToken.adminId, newPasswordHash, resetToken.id);
   }
 }

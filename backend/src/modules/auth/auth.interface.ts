@@ -3,7 +3,7 @@ import { ICurrentUserResponse } from '../../types/index.js';
 import { IUpdatePasswordResponse } from './auth.response.js';
 
 export interface IAuthRepository {
-  findAdminByEmail(email: string): Promise<Admin | null>;
+  findAdminByEmail(email: string): Promise<any>;
   saveRefreshToken(token: string, adminId: string, expiresAt: Date): Promise<RefreshToken>;
   updateLastLogin(adminId: string): Promise<Admin>;
   findAdminById(adminId: string): Promise<ICurrentUserResponse | null>;
@@ -20,5 +20,16 @@ export interface IAuthRepository {
     },
   ): Promise<ICurrentUserResponse | null>;
   updatePassword(amdinId: string, currentPasswordHash: string): Promise<void>;
-  findAdminByIdForUpdatePassword(adminId : string): Promise<IUpdatePasswordResponse |  null>;
+  findAdminByIdForUpdatePassword(adminId: string): Promise<IUpdatePasswordResponse | null>;
+
+  createPasswordResetToken(adminId: string, tokenHash: string, expiresAt: Date): Promise<any>;
+  findPasswordResetToken(tokenHash: string): Promise<any>;
+  deletePasswordResetToken(tokenId: string): Promise<void>;
+  deletePasswordResetTokensByAdminId(adminId: string): Promise<void>;
+
+  resetPasswordTransaction(
+    adminId: string,
+    passwordHash: string,
+    resetTokenId: string,
+  ): Promise<void>;
 }

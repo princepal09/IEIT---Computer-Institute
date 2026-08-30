@@ -30,8 +30,8 @@ export const getMe = asyncHandler(async (req: Request, res: Response) => {
     throw new ApiError(401, 'Not authorized');
   }
 
-  if(!req.user){
-    throw new ApiError(400, "User not found")
+  if (!req.user) {
+    throw new ApiError(400, 'User not found');
   }
 
   const { id, email, name, profileImageUrl } = req.user;
@@ -112,4 +112,26 @@ export const updatePasswordController = asyncHandler(async (req: Request, res: R
   return res
     .status(200)
     .json(new ApiResponse(200, null, 'Passsword Changed Successfully,  Please login again.'));
+});
+
+export const forgotPasswordController = asyncHandler(async (req: Request, res: Response) => {
+  await authService.forgotPassword(req.body);
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        null,
+        'If an account exists with this email, a password reset link has been sent',
+      ),
+    );
+});
+
+export const resetPasswordController = asyncHandler(async (req: Request, res: Response) => {
+  await authService.resetPassword(req.body);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, null, 'Password reset successfully. Please login again.'));
 });
