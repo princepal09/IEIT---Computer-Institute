@@ -10,6 +10,7 @@ import branchRoutes from './modules/branch/branch.route.js';
 import courseRoutes from './modules/course/course.route.js';
 import enquiryRoutes from './modules/enquiry/enquiry.route.js';
 import contactRoutes from './modules/contact/contact.route.js';
+import noticeRoutes from './modules/notice/notice.route.js';
 
 const app = express();
 
@@ -32,7 +33,7 @@ app.use('/api/v1/branch', branchRoutes);
 app.use('/api/v1/course', courseRoutes);
 app.use('/api/v1/enquiries', enquiryRoutes);
 app.use('/api/v1/contact', contactRoutes);
-
+app.use('/api/v1/notices', noticeRoutes);
 
 app.get('/health', (_req: Request, res: Response) => {
   return res.status(200).json({
