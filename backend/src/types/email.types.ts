@@ -16,3 +16,11 @@ export interface EnquiryEmailData {
     slug: string;
   } | null;
 }
+
+export interface ContactEmailData {
+  name: string;
+  email: string;
+  phone: string | null;
+  message: string;
+  createdAt?: Date;
+}
