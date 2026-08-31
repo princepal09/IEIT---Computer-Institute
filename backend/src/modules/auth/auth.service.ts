@@ -26,7 +26,7 @@ import {
   generatePasswordResetToken,
   hashPasswordResetToken,
 } from '../../utils/passwordReset.helper.js';
-import { sendPasswordEmail } from '../../emails/email.service.js';
+import { sendPasswordEmail } from '../../emails/services/send-password.email.js';
 
 export class AuthService {
   constructor(private readonly repo: IAuthRepository) {}
