@@ -11,27 +11,46 @@ export class CourseRepository implements ICourseRepository {
       imagePublicId?: string;
     },
   ): Promise<any> {
-    return prisma.course.create({
-      data: {
-        name: data.name,
-        slug: data.slug,
+    return prisma.$transaction(async (tx) => {
+      // 1. Create Course
+      const course = await tx.course.create({
+        data: {
+          name: data.name,
+          slug: data.slug,
+          shortDescription: data.shortDescription,
+          description: data.description,
+          duration: data.duration,
+          eligibility: data.eligibility,
+          fee: data.fee,
+          category: data.category,
+          imageUrl: data.imageUrl,
+          imagePublicId: data.imagePublicId,
+        },
+      });
 
-        shortDescription: data.shortDescription,
+      // 2. Create BranchCourse relationships
+      if (data.branchIds && data.branchIds.length > 0) {
+        await tx.branchCourse.createMany({
+          data: data.branchIds.map((branchId) => ({
+            branchId,
+            courseId: course.id,
+          })),
+        });
+      }
+      // 3. Return course with branches
+      return tx.course.findUnique({
+        where: {
+          id: course.id,
+        },
 
-        description: data.description,
-
-        duration: data.duration,
-
-        eligibility: data.eligibility,
-
-        fee: data.fee,
-
-        category: data.category,
-
-        imageUrl: data.imageUrl,
-
-        imagePublicId: data.imagePublicId,
-      },
+        include: {
+          branches: {
+            include: {
+              branch: true,
+            },
+          },
+        },
+      });
     });
   }
 
@@ -40,6 +59,13 @@ export class CourseRepository implements ICourseRepository {
       orderBy: {
         createdAt: 'desc',
       },
+      include:{
+        branches :{
+          include : {
+            branch : true
+          }
+        }
+      }
     });
   }
 
@@ -48,6 +74,13 @@ export class CourseRepository implements ICourseRepository {
       where: {
         id,
       },
+      include:{
+        branches: {
+            include : {
+              branch : true
+            }
+        }
+      }
     });
   }
 
@@ -55,7 +88,13 @@ export class CourseRepository implements ICourseRepository {
     return prisma.course.findUnique({
       where: {
         slug,
-      },
+      },include :{
+        branches : {
+          include : {
+            branch : true
+          }
+        }
+      }
     });
   }
 
@@ -143,6 +182,14 @@ export class CourseRepository implements ICourseRepository {
     return prisma.course.delete({
       where: {
         id,
+      },
+    });
+  }
+
+  async findBranchById(branchId: string): Promise<any | null> {
+    return prisma.branch.findUnique({
+      where: {
+        id: branchId,
       },
     });
   }

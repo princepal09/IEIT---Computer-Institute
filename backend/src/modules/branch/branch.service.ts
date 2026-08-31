@@ -3,13 +3,14 @@ import { IBranchRepository } from './branch.interface.js';
 import { createBranchSchemaDTO, updateBranchSchemaDTO } from './branch.schema.js';
 import { slugify } from '../../utils/slugify.js';
 import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
+import { IBranchResponse } from './branch.response.js';
 
 export class BranchService {
   constructor(private repo: IBranchRepository) {}
 
   //CREATE
 
-  async createBranch(data: createBranchSchemaDTO, file: Express.Multer.File) {
+  async createBranch(data: createBranchSchemaDTO, file?: Express.Multer.File) {
     const existingBranch = await this.repo.findBranchByName(data.name);
 
     if (existingBranch) {
@@ -56,7 +57,9 @@ export class BranchService {
 
   // GET ALL BRANCHES
   async getAllBranches() {
-    return this.repo.findAllBranches();
+    const branches = await this.repo.findAllBranches();
+    return branches.map((branch) => this.formatBranch(branch));
+
   }
 
   //GET BY ID
@@ -65,7 +68,7 @@ export class BranchService {
     if (!branch) {
       throw new ApiError(404, 'Branch not found');
     }
-    return branch;
+    return this.formatBranch(branch);
   }
 
   async getBranchBySlug(slug: string) {
@@ -74,7 +77,7 @@ export class BranchService {
       throw new ApiError(404, 'Branch not found');
     }
 
-    return branch;
+    return this.formatBranch(branch)
   }
 
   // UPDATE
@@ -150,27 +153,101 @@ export class BranchService {
     return updatedBranch;
   }
 
-
   //Delete branch
-  async deleteBranch(id:string){
+  async deleteBranch(id: string) {
     const branch = await this.repo.findBranchById(id);
 
-    if(!branch){
-      throw new ApiError(404,"Branch not found")
+    if (!branch) {
+      throw new ApiError(404, 'Branch not found');
     }
 
     const deletedBranch = await this.repo.deleteBranch(id);
 
-    if(branch.imagePublicId){
-      try{
+    if (branch.imagePublicId) {
+      try {
         await deleteFromCloudinary(branch.imagePublicId);
-      }catch(err){
-        console.error('Failed to delete branch image', err)
+      } catch (err) {
+        console.error('Failed to delete branch image', err);
       }
     }
 
     return deletedBranch;
   }
 
-  
+  async assignCourseToBranch(branchId: string, courseId: string) {
+    const branch = await this.repo.findBranchById(branchId);
+
+    if (!branch) {
+      throw new ApiError(404, 'Branch not found');
+    }
+
+    const course = await this.repo.findCourseById(courseId);
+
+    if (!course) {
+      throw new ApiError(404, 'Course not found');
+    }
+
+    const existing = await this.repo.findBranchCourse(branchId, courseId);
+    if (existing) {
+      throw new ApiError(409, 'Course is already assigned to this branch');
+    }
+
+    // CreateRelationship
+
+    const branchCourse = await this.repo.assignCourseToBranch(branchId, courseId);
+
+    return branchCourse;
+  }
+
+  async removeCourseFromBranch(branchId: string, courseId: string) {
+    const branch = await this.repo.findBranchById(branchId);
+    if (!branch) {
+      throw new ApiError(404, 'Branch not found');
+    }
+
+    // Check relationship
+    const branchCourse = await this.repo.findBranchCourse(branchId, courseId);
+
+    if (!branchCourse) {
+      throw new ApiError(404, 'Course is not assigned to this branch');
+    }
+    await this.repo.removeCourseFromBranch(branchId, courseId);
+  }
+
+  async getBranchCourses(branchId: string) {
+    const branch = await this.repo.findBranchById(branchId);
+
+    if (!branch) {
+      throw new ApiError(404, 'Branch not found');
+    }
+
+    return this.repo.findCoursesByBranch(branchId);
+  }
+
+  private formatBranch(branch: any): IBranchResponse {
+  return {
+    id: branch.id,
+    name: branch.name,
+    slug: branch.slug,
+    description: branch.description,
+    address: branch.address,
+    phone: branch.phone,
+    email: branch.email,
+    whatsapp: branch.whatsapp,
+    mapUrl: branch.mapUrl,
+    openingTime: branch.openingTime,
+    closingTime: branch.closingTime,
+    imageUrl: branch.imageUrl,
+    isActive: branch.isActive,
+
+    courses: branch.courses?.map((branchCourse: any) => ({
+      id: branchCourse.course.id,
+      name: branchCourse.course.name,
+      slug: branchCourse.course.slug,
+    })) ?? [],
+
+    createdAt: branch.createdAt,
+    updatedAt: branch.updatedAt,
+  };
+}
 }

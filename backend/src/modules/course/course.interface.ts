@@ -42,4 +42,6 @@ export interface ICourseRepository {
   deleteCourse(
     id: string,
   ): Promise<any>;
+  
+  findBranchById(id:string) : Promise<any>
 }

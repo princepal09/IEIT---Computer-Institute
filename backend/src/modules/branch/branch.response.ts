@@ -1,3 +1,10 @@
+
+export interface IBranchCourseResponse {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 export interface IBranchResponse {
   id: string;
   name: string;
@@ -12,6 +19,8 @@ export interface IBranchResponse {
   closingTime: string | null;
   imageUrl: string | null;
   isActive: boolean;
+
+  courses : IBranchCourseResponse[];
   createdAt: Date;
   updatedAt: Date;
 }

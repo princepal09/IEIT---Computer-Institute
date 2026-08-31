@@ -40,6 +40,21 @@ export const createCourseSchema = z.object({
   }, z.number().nonnegative('Fee cannot be negative').optional()),
 
   category: z.string().trim().max(100, 'Category must not exceed 100 characters').optional(),
+
+  branchIds: z.preprocess(
+    (value) => {
+      if (typeof value === 'string') {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return value;
+        }
+      }
+
+      return value;
+    },
+    z.array(z.string().uuid('Invalid branch ID')).optional(),
+  ),
 });
 
 export const updateCourseSchema = z.object({

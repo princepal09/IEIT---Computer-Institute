@@ -1,15 +1,13 @@
 import ApiError from '../../utils/AppError.js';
 import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
 import { slugify } from '../../utils/slugify.js';
-import { createBranchSchemaDTO } from '../branch/branch.schema.js';
 import { ICourseRepository } from './course.interface.js';
-import { updateCourseSchemaDTO } from './course.schema.js';
+import { createCourseSchemaDTO, updateCourseSchemaDTO } from './course.schema.js';
 
 export class CourseService {
   constructor(private readonly repo: ICourseRepository) {}
 
-  //CREATE COURSE
-  async createCourse(data: createBranchSchemaDTO, file: Express.Multer.File) {
+  async createCourse(data: createCourseSchemaDTO, file?: Express.Multer.File) {
     const existingCourse = await this.repo.findCourseByName(data.name);
 
     if (existingCourse) {
@@ -19,14 +17,43 @@ export class CourseService {
     const slug = slugify(data.name);
 
     const existingSlug = await this.repo.findCourseBySlug(slug);
+
     if (existingSlug) {
       throw new ApiError(409, 'Course with this slug already exists');
     }
-    let imageUrl: string | undefined;
 
+    // ---------------------------------------
+    // Validate branches
+    // ---------------------------------------
+
+    if (data.branchIds && data.branchIds.length > 0) {
+      // Remove duplicate branch IDs
+      const uniqueBranchIds = [...new Set(data.branchIds)];
+
+      if (uniqueBranchIds.length !== data.branchIds.length) {
+        throw new ApiError(400, 'Duplicate branch IDs are not allowed');
+      }
+
+      for (const branchId of uniqueBranchIds) {
+        const branch = await this.repo.findBranchById(branchId);
+
+        if (!branch) {
+          throw new ApiError(404, `Branch not found: ${branchId}`);
+        }
+
+        if (!branch.isActive) {
+          throw new ApiError(400, `Branch is inactive: ${branch.name}`);
+        }
+      }
+    }
+
+    // ---------------------------------------
+    // Upload image
+    // ---------------------------------------
+
+    let imageUrl: string | undefined;
     let imagePublicId: string | undefined;
 
-    // Upload image
     if (file) {
       const uploadedImage = await uploadToCloudinary(file, 'ieit/courses');
 
@@ -34,6 +61,10 @@ export class CourseService {
 
       imagePublicId = uploadedImage.public_id;
     }
+
+    // ---------------------------------------
+    // Create Course + BranchCourse
+    // ---------------------------------------
 
     try {
       const course = await this.repo.createCourse({
@@ -217,6 +248,12 @@ export class CourseService {
       imageUrl: course.imageUrl,
 
       isActive: course.isActive,
+      branches:
+        course.branches?.map((item: any) => ({
+          id: item.branch.id,
+          name: item.branch.name,
+          slug: item.branch.slug,
+        })) ?? [],
 
       createdAt: course.createdAt,
 
