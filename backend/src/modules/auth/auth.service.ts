@@ -29,7 +29,7 @@ import {
 import { sendPasswordEmail } from '../../emails/email.service.js';
 
 export class AuthService {
-  constructor(private repo: IAuthRepository) {}
+  constructor(private readonly repo: IAuthRepository) {}
 
   async adminLogin(body: loginUserDTO): Promise<ILoginResponse> {
     const { email, password } = body;
