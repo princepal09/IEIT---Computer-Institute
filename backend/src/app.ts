@@ -7,6 +7,8 @@ import errorMiddleware from './middlewares/globalError.middleware.js';
 import authRoutes from './modules/auth/auth.route.js';
 import siteSettingsRoutes from './modules/siteSettings/siteSettings.route.js';
 import branchRoutes from './modules/branch/branch.route.js';
+import courseRoutes from './modules/course/course.route.js';
+
 const app = express();
 
 app.use(helmet());
@@ -25,6 +27,7 @@ app.use(cookieParser());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/site-settings', siteSettingsRoutes);
 app.use('/api/v1/branch', branchRoutes);
+app.use('/api/v1/course', courseRoutes);
 
 app.get('/health', (_req: Request, res: Response) => {
   return res.status(200).json({

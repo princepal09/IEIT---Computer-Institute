@@ -1,0 +1,226 @@
+import ApiError from '../../utils/AppError.js';
+import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
+import { slugify } from '../../utils/slugify.js';
+import { createBranchSchemaDTO } from '../branch/branch.schema.js';
+import { ICourseRepository } from './course.interface.js';
+import { updateCourseSchemaDTO } from './course.schema.js';
+
+export class CourseService {
+  constructor(private readonly repo: ICourseRepository) {}
+
+  //CREATE COURSE
+  async createCourse(data: createBranchSchemaDTO, file: Express.Multer.File) {
+    const existingCourse = await this.repo.findCourseByName(data.name);
+
+    if (existingCourse) {
+      throw new ApiError(409, 'Course with this name already exists');
+    }
+
+    const slug = slugify(data.name);
+
+    const existingSlug = await this.repo.findCourseBySlug(slug);
+    if (existingSlug) {
+      throw new ApiError(409, 'Course with this slug already exists');
+    }
+    let imageUrl: string | undefined;
+
+    let imagePublicId: string | undefined;
+
+    // Upload image
+    if (file) {
+      const uploadedImage = await uploadToCloudinary(file, 'ieit/courses');
+
+      imageUrl = uploadedImage.secure_url;
+
+      imagePublicId = uploadedImage.public_id;
+    }
+
+    try {
+      const course = await this.repo.createCourse({
+        ...data,
+        slug,
+        imageUrl,
+        imagePublicId,
+      });
+
+      return this.formatCourse(course);
+    } catch (error) {
+      // DB failed after Cloudinary upload
+      if (imagePublicId) {
+        try {
+          await deleteFromCloudinary(imagePublicId);
+        } catch (cleanupError) {
+          console.error('Failed to cleanup uploaded course image:', cleanupError);
+        }
+      }
+
+      throw error;
+    }
+  }
+
+  //Get Course By Id
+
+  async getCourseById(id: string) {
+    const course = await this.repo.findCourseById(id);
+
+    if (!course) {
+      throw new ApiError(404, 'Course not found');
+    }
+
+    return this.formatCourse(course);
+  }
+
+  //GEt course by slug
+
+  async getCourseBySlug(slug: string) {
+    const course = await this.repo.findCourseBySlug(slug);
+
+    if (!course) {
+      throw new ApiError(404, 'Course not found');
+    }
+
+    return this.formatCourse(course);
+  }
+
+  //Update Course
+  async updateCourse(id: string, data: updateCourseSchemaDTO, file?: Express.Multer.File) {
+    // Find existing course
+    const course = await this.repo.findCourseById(id);
+
+    if (!course) {
+      throw new ApiError(404, 'Course not found');
+    }
+
+    let slug: string | undefined;
+
+    // If name changes
+    if (data.name && data.name !== course.name) {
+      slug = slugify(data.name);
+
+      const existingSlug = await this.repo.findCourseBySlug(slug);
+
+      if (existingSlug && existingSlug.id !== id) {
+        throw new ApiError(409, 'Course with this name already exists');
+      }
+    }
+
+    let imageUrl: string | undefined;
+
+    let imagePublicId: string | undefined;
+
+    const oldImagePublicId = course.imagePublicId;
+
+    // Upload new image
+    if (file) {
+      const uploadedImage = await uploadToCloudinary(file, 'ieit/courses');
+
+      imageUrl = uploadedImage.secure_url;
+
+      imagePublicId = uploadedImage.public_id;
+    }
+
+    let updatedCourse;
+
+    try {
+      updatedCourse = await this.repo.updateCourse(id, {
+        ...data,
+
+        ...(slug && {
+          slug,
+        }),
+
+        ...(file && {
+          imageUrl,
+          imagePublicId,
+        }),
+      });
+    } catch (error) {
+      // DB update failed
+      // Remove newly uploaded image
+      if (imagePublicId) {
+        try {
+          await deleteFromCloudinary(imagePublicId);
+        } catch (cleanupError) {
+          console.error('Failed to cleanup new course image:', cleanupError);
+        }
+      }
+
+      throw error;
+    }
+
+    // Delete OLD image only after DB update succeeds
+    if (file && oldImagePublicId && oldImagePublicId !== imagePublicId) {
+      try {
+        await deleteFromCloudinary(oldImagePublicId);
+      } catch (error) {
+        console.error('Failed to delete old course image:', error);
+      }
+    }
+
+    return this.formatCourse(updatedCourse);
+  }
+
+  //Delete Course
+  async deleteCourse(id: string) {
+    const course = await this.repo.findCourseById(id);
+
+    if (!course) {
+      throw new ApiError(404, 'Course not found');
+    }
+
+    const enquiryCount = await this.repo.countCourseEnquiries(id);
+
+    if (enquiryCount > 0) {
+      throw new ApiError(
+        409,
+        'Cannot delete course because it has enquiries. Deactivate it instead.',
+      );
+    }
+    const deletedCourse = await this.repo.deleteCourse(id);
+
+    //Delete Cloudinary Image
+    if (course.imagePublicId) {
+      try {
+        await deleteFromCloudinary(course.imagePublicId);
+      } catch (err) {
+        console.error('Failed to delete course image:', err);
+      }
+    }
+
+    return deletedCourse;
+  }
+
+  //GET ALL COURSES
+  async getAllCourses() {
+    const courses = await this.repo.findAllCourses();
+
+    return courses.map((course) => this.formatCourse(course));
+  }
+
+  //For Format Course
+
+  private formatCourse(course: any) {
+    return {
+      id: course.id,
+      name: course.name,
+      slug: course.slug,
+      shortDescription: course.shortDescription,
+      description: course.description,
+      duration: course.duration,
+      eligibility: course.eligibility,
+
+      // Decimal → string
+      fee: course.fee !== null ? course.fee.toString() : null,
+
+      category: course.category,
+
+      imageUrl: course.imageUrl,
+
+      isActive: course.isActive,
+
+      createdAt: course.createdAt,
+
+      updatedAt: course.updatedAt,
+    };
+  }
+}
