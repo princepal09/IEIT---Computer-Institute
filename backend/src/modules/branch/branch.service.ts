@@ -4,6 +4,8 @@ import { createBranchSchemaDTO, updateBranchSchemaDTO } from './branch.schema.js
 import { slugify } from '../../utils/slugify.js';
 import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
 import { IBranchResponse } from './branch.response.js';
+import { deleteCache, getCache, setCache } from '../../utils/cache.js';
+import { CACHE_KEYS } from '../../constants/cache-key.js';
 
 export class BranchService {
   constructor(private repo: IBranchRepository) {}
@@ -43,6 +45,8 @@ export class BranchService {
         imagePublicId,
       });
 
+      await deleteCache(CACHE_KEYS.BRANCHES);
+
       return branch;
     } catch (err) {
       if (imagePublicId) {
@@ -52,14 +56,30 @@ export class BranchService {
           console.error('Failed to cleanup the uploaded image', cleanupError);
         }
       }
+      throw err;
     }
   }
 
   // GET ALL BRANCHES
   async getAllBranches() {
-    const branches = await this.repo.findAllBranches();
-    return branches.map((branch) => this.formatBranch(branch));
+    const cachedBranches = await getCache<IBranchResponse[]>(CACHE_KEYS.BRANCHES);
 
+    //CACHED HIT
+    if (cachedBranches) {
+      return cachedBranches;
+    }
+
+    //CACHE MISS
+    const branches = await this.repo.findAllBranches();
+    const formattedBranches = branches.map((branch) => {
+      this.formatBranch(branch);
+    });
+
+    // Store in Redis.
+    // If Redis fails, setCache() silently handles it.
+    await setCache(CACHE_KEYS.BRANCHES, formattedBranches, 10 * 60);
+
+    return formattedBranches;
   }
 
   //GET BY ID
@@ -77,7 +97,7 @@ export class BranchService {
       throw new ApiError(404, 'Branch not found');
     }
 
-    return this.formatBranch(branch)
+    return this.formatBranch(branch);
   }
 
   // UPDATE
@@ -150,6 +170,8 @@ export class BranchService {
       }
     }
 
+    await deleteCache(CACHE_KEYS.BRANCHES);
+
     return updatedBranch;
   }
 
@@ -170,6 +192,8 @@ export class BranchService {
         console.error('Failed to delete branch image', err);
       }
     }
+
+    await deleteCache(CACHE_KEYS.BRANCHES);
 
     return deletedBranch;
   }
@@ -195,6 +219,7 @@ export class BranchService {
     // CreateRelationship
 
     const branchCourse = await this.repo.assignCourseToBranch(branchId, courseId);
+    await deleteCache(CACHE_KEYS.BRANCHES);
 
     return branchCourse;
   }
@@ -212,6 +237,7 @@ export class BranchService {
       throw new ApiError(404, 'Course is not assigned to this branch');
     }
     await this.repo.removeCourseFromBranch(branchId, courseId);
+    await deleteCache(CACHE_KEYS.BRANCHES);
   }
 
   async getBranchCourses(branchId: string) {
@@ -225,29 +251,30 @@ export class BranchService {
   }
 
   private formatBranch(branch: any): IBranchResponse {
-  return {
-    id: branch.id,
-    name: branch.name,
-    slug: branch.slug,
-    description: branch.description,
-    address: branch.address,
-    phone: branch.phone,
-    email: branch.email,
-    whatsapp: branch.whatsapp,
-    mapUrl: branch.mapUrl,
-    openingTime: branch.openingTime,
-    closingTime: branch.closingTime,
-    imageUrl: branch.imageUrl,
-    isActive: branch.isActive,
+    return {
+      id: branch.id,
+      name: branch.name,
+      slug: branch.slug,
+      description: branch.description,
+      address: branch.address,
+      phone: branch.phone,
+      email: branch.email,
+      whatsapp: branch.whatsapp,
+      mapUrl: branch.mapUrl,
+      openingTime: branch.openingTime,
+      closingTime: branch.closingTime,
+      imageUrl: branch.imageUrl,
+      isActive: branch.isActive,
 
-    courses: branch.courses?.map((branchCourse: any) => ({
-      id: branchCourse.course.id,
-      name: branchCourse.course.name,
-      slug: branchCourse.course.slug,
-    })) ?? [],
+      courses:
+        branch.courses?.map((branchCourse: any) => ({
+          id: branchCourse.course.id,
+          name: branchCourse.course.name,
+          slug: branchCourse.course.slug,
+        })) ?? [],
 
-    createdAt: branch.createdAt,
-    updatedAt: branch.updatedAt,
-  };
-}
+      createdAt: branch.createdAt,
+      updatedAt: branch.updatedAt,
+    };
+  }
 }
