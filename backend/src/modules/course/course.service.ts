@@ -1,7 +1,10 @@
+import { CACHE_KEYS } from '../../constants/cache-key.js';
 import ApiError from '../../utils/AppError.js';
+import { deleteCache, getCache, setCache } from '../../utils/cache.js';
 import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
 import { slugify } from '../../utils/slugify.js';
 import { ICourseRepository } from './course.interface.js';
+import { ICourseResponse } from './course.response.js';
 import { createCourseSchemaDTO, updateCourseSchemaDTO } from './course.schema.js';
 
 export class CourseService {
@@ -74,6 +77,7 @@ export class CourseService {
         imagePublicId,
       });
 
+      await deleteCache(CACHE_KEYS.COURSES);
       return this.formatCourse(course);
     } catch (error) {
       // DB failed after Cloudinary upload
@@ -188,6 +192,7 @@ export class CourseService {
       }
     }
 
+    await deleteCache(CACHE_KEYS.COURSES);
     return this.formatCourse(updatedCourse);
   }
 
@@ -218,14 +223,23 @@ export class CourseService {
       }
     }
 
+    await deleteCache(CACHE_KEYS.COURSES);
     return deletedCourse;
   }
 
   //GET ALL COURSES
   async getAllCourses() {
+    const cachedBranches = await getCache<ICourseResponse[]>(CACHE_KEYS.COURSES);
+
+    if (cachedBranches) {
+      return cachedBranches;
+    }
     const courses = await this.repo.findAllCourses();
 
-    return courses.map((course) => this.formatCourse(course));
+    const formattedCourse = courses.map((course) => this.formatCourse(course));
+
+    await setCache(CACHE_KEYS.COURSES, formattedCourse, 10 * 60);
+    return formattedCourse;
   }
 
   //For Format Course
