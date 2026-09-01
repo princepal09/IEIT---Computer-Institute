@@ -21,10 +21,11 @@ import {
 import { verifyUser } from '../../middlewares/auth.middleware.js';
 import { authService } from './auth.container.js';
 import { upload } from '../../middlewares/multer.middleware.js';
+import { forgotPasswordRateLimiter, loginRateLimiter } from '../../middlewares/rate-limit.middleware.js';
 
 const router = express.Router();
 
-router.post('/login', validate(loginUserSchema), loginController);
+router.post('/login', loginRateLimiter, validate(loginUserSchema), loginController);
 router.get('/me', verifyUser(authService), getMe);
 router.post('/refresh', refreshTokenController);
 router.post('/logout', verifyUser(authService), logoutController);
@@ -43,6 +44,6 @@ router.patch(
   updatePasswordController,
 );
 
-router.post('/forgot-password', validate(forgotPasswordSchema), forgotPasswordController);
+router.post('/forgot-password', forgotPasswordRateLimiter, validate(forgotPasswordSchema), forgotPasswordController);
 router.post('/reset-password', validate(resetPasswordSchema), resetPasswordController);
 export default router;
