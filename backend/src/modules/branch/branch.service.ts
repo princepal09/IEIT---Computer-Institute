@@ -71,9 +71,7 @@ export class BranchService {
 
     //CACHE MISS
     const branches = await this.repo.findAllBranches();
-    const formattedBranches = branches.map((branch) => {
-      this.formatBranch(branch);
-    });
+    const formattedBranches = branches.map((branch) => this.formatBranch(branch));
 
     // Store in Redis.
     // If Redis fails, setCache() silently handles it.

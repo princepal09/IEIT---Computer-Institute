@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/create', verifyUser(authService), upload.array('images', 5), createGallery);
 
 // Get all gallery images
-router.get('/all', verifyUser(authService), getAllGallery);
+router.get('/all', getAllGallery);
 
 // // Update gallery image
 // router.patch(
