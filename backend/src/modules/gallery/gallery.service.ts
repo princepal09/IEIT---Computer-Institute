@@ -1,4 +1,6 @@
+import { CACHE_KEYS } from '../../constants/cache-key.js';
 import ApiError from '../../utils/AppError.js';
+import { deleteCache, getCache, setCache } from '../../utils/cache.js';
 
 import { deleteFromCloudinary, uploadToCloudinary } from '../../utils/cloudinary.helper.js';
 
@@ -55,6 +57,7 @@ export class GalleryService {
       // --------------------------------------
 
       await this.repo.createManyGallery(galleryData);
+      await deleteCache(CACHE_KEYS.GALLERY);
     } catch (error) {
       for (const image of uploadedImages) {
         try {
@@ -69,9 +72,17 @@ export class GalleryService {
   }
 
   async getAllGallery() {
+    const cachedGallery = await getCache(CACHE_KEYS.GALLERY);
+
+    if (cachedGallery) {
+      return cachedGallery;
+    }
     const gallery = await this.repo.findAllGallery();
 
-    return gallery.map((image) => this.formatGallery(image));
+    const formattedGallery = gallery.map((image) => this.formatGallery(image));
+
+    await setCache(CACHE_KEYS.GALLERY, formattedGallery, 10 * 60);
+    return formattedGallery;
   }
 
   async getGalleryById(id: string) {
@@ -133,6 +144,8 @@ export class GalleryService {
         console.error('Failed to delete gallery image from Cloudinary:', error);
       }
     }
+
+    await deleteCache(CACHE_KEYS.GALLERY);
 
     return deletedGallery;
   }
