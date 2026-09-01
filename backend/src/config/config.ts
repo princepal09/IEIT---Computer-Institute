@@ -23,7 +23,8 @@ const environment = {
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET!,
   RESEND_API_KEY: process.env.RESEND_API_KEY!,
   MAIL_FROM: process.env.MAIL_FROM!,
-  ENQUIRY_NOTIFICATION_EMAIL:process.env.ENQUIRY_NOTIFICATION_EMAIL!
+  ENQUIRY_NOTIFICATION_EMAIL:process.env.ENQUIRY_NOTIFICATION_EMAIL!,
+  REDIS_URL:process.env.REDIS_URL!
 };
 
 export default environment;
