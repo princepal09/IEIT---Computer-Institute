@@ -26,13 +26,14 @@ const router = express.Router();
 // Get only published + non-expired notices
 router.get('/published', getPublishedNotices);
 
+// Get all notices
+router.get('/all', verifyUser(authService), getAllNotices);
+
 // Get notice by ID
 router.get('/:noticeId', getNoticeById);
 
 //ADMIN ROUTES
 
-// Get all notices
-router.get('/all', verifyUser(authService), getAllNotices);
 
 // Create notice
 router.post(
