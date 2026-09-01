@@ -23,7 +23,7 @@ export const loginRateLimiter = rateLimit({
   limit: 5,
   standardHeaders: 'draft-8',
 
-  legacyHeaders: false, 
+  legacyHeaders: false,
 
   store: new RedisStore({
     sendCommand: (...args: string[]) => redisClient.sendCommand(args),
