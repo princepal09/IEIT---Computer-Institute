@@ -12,6 +12,7 @@ import enquiryRoutes from './modules/enquiry/enquiry.route.js';
 import contactRoutes from './modules/contact/contact.route.js';
 import noticeRoutes from './modules/notice/notice.route.js';
 import galleryRoutes from './modules/gallery/gallery.route.js';
+import dashboardRoutes from './modules/dashboard/dashboard.route.js';
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use('/api/v1/enquiries', enquiryRoutes);
 app.use('/api/v1/contact', contactRoutes);
 app.use('/api/v1/notices', noticeRoutes);
 app.use('/api/v1/gallery', galleryRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
 
 app.get('/health', (_req: Request, res: Response) => {
   return res.status(200).json({
