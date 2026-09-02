@@ -89,7 +89,7 @@ function MobileNav() {
             className="w-full font-semibold"
             render={<Link to="/enquire" />}
           >
-            Enquire Now
+            Enroll Now
           </Button>
         </div>
       </SheetContent>

@@ -45,7 +45,7 @@ function Footer({ className }: { className?: string }) {
               aria-label="IEIT — Home"
             >
               <div className="flex flex-col leading-none">
-                <span className="text-[1.65rem] font-extrabold tracking-[-0.06em] text-white">
+                <span className="text-[1.65rem] font-extrabold tracking-[0.4rem] text-white">
                   IEIT
                 </span>
 

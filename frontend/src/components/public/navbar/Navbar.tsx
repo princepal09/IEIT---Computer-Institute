@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { PageContainer } from "@/components/shared/PageContainer";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
+import BrandLogo from "./BrandLogo";
 import logo from "@/assets/logo/logo.png";
 
 function Navbar({ className }: { className?: string }) {
@@ -10,7 +11,7 @@ function Navbar({ className }: { className?: string }) {
     <header
       className={cn(
         "sticky top-0 z-40 border-b border-border/60 bg-white/80 backdrop-blur-md",
-        className
+        className,
       )}
     >
       <PageContainer size="wide" padding="none">
@@ -27,6 +28,7 @@ function Navbar({ className }: { className?: string }) {
               className="h-9 w-auto object-contain"
               draggable={false}
             />
+            <BrandLogo />
           </Link>
 
           {/* Desktop navigation */}

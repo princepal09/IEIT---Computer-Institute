@@ -62,7 +62,7 @@ function DesktopNav({ className }: { className?: string }) {
           className="ml-1 h-9 px-4 text-sm font-semibold"
           render={<Link to="/enquire" />}
         >
-          Enquire Now
+          Enroll Now
         </Button>
       </div>
     </nav>
