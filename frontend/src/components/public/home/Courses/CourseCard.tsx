@@ -47,7 +47,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
 
       {/* Content */}
       <div>
-        <h3 className="text-[16px] font-bold leading-tight tracking-[-0.02em]">
+        <h3 className={`text-[16px] ${course.id === 'cloud' && "text-white"}  font-bold leading-tight tracking-[-0.02em]`}>
           {course.title}
         </h3>
 

@@ -4,6 +4,10 @@ import PublicLayout from "@/layouts/PublicLayout";
 
 import HomePage from "@/pages/public/HomePage";
 import ErrorState from "@/components/shared/ErrorState";
+import About from "./pages/public/About";
+import { Contact } from "lucide-react";
+import Gallery from "./pages/public/Gallery";
+import Courses from "./pages/public/Courses";
 
 const App = () => {
   return (
@@ -11,6 +15,10 @@ const App = () => {
       {/* Public routes */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/courses" element={<Courses />} />
       </Route>
 
       {/* 404 */}

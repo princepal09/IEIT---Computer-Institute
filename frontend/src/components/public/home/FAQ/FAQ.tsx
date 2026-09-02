@@ -43,19 +43,53 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <section className="relative overflow-hidden bg-[#f4f8ff] py-20 sm:py-24 lg:py-28">
+    <section
+      className="
+        relative
+        overflow-hidden
+        bg-[#f7f9fc]
+        pt-2
+        pb-8
+        sm:pt-4
+        sm:pb-10
+        lg:pt-29
+        lg:pb-12
+      "
+    >
       {/* =========================================================
-          BACKGROUND GLOW
+          BACKGROUND GLOWS
           ========================================================= */}
 
+      {/* Blue glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-blue-200/25 blur-3xl"
+        className="
+          pointer-events-none
+          absolute
+          -left-40
+          top-10
+          h-80
+          w-80
+          rounded-full
+          bg-blue-200/20
+          blur-3xl
+        "
       />
 
+      {/* Red glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-sky-200/25 blur-3xl"
+        className="
+          pointer-events-none
+          absolute
+          -right-40
+          bottom-0
+          h-80
+          w-80
+          rounded-full
+          bg-red-200/20
+          blur-3xl
+        "
       />
 
       {/* =========================================================
@@ -79,14 +113,14 @@ const FAQ = () => {
         >
           {/* Eyebrow */}
 
-          <div className="mb-4 flex items-center justify-center gap-3">
-            <span className="h-px w-8 bg-ieit-blue/40" />
+          <div className="mb-2 flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-red-500/50" />
 
-            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ieit-blue">
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-red-600">
               FAQ
             </span>
 
-            <span className="h-px w-8 bg-ieit-blue/40" />
+            <span className="h-px w-8 bg-red-500/50" />
           </div>
 
           {/* Heading */}
@@ -98,7 +132,7 @@ const FAQ = () => {
 
           {/* Description */}
 
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-slate-500 sm:text-[15px]">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:text-[15px]">
             Everything you need to know about learning at IEIT.
           </p>
         </motion.div>
@@ -116,7 +150,7 @@ const FAQ = () => {
             delay: 0.1,
             ease: "easeOut",
           }}
-          className="mt-10 sm:mt-12"
+          className="mt-5 sm:mt-6"
         >
           <Accordion defaultValue={["item-1"]} className="space-y-3">
             {faqs.map((faq, index) => (
@@ -124,17 +158,19 @@ const FAQ = () => {
                 key={faq.id}
                 value={faq.id}
                 className="
+                  group
                   overflow-hidden
                   rounded-xl
                   border
-                  border-blue-100
+                  border-slate-200
                   bg-white
                   px-5
-                  shadow-[0_8px_30px_-25px_rgba(0,80,180,0.3)]
+                  shadow-[0_8px_30px_-25px_rgba(15,23,42,0.25)]
                   transition-all
                   duration-300
-                  data-open:border-blue-200
-                  data-open:shadow-[0_15px_40px_-25px_rgba(0,102,255,0.3)]
+                  hover:border-slate-300
+                  data-open:border-red-200
+                  data-open:shadow-[0_15px_40px_-25px_rgba(220,38,38,0.25)]
                   sm:px-6
                 "
               >
@@ -148,30 +184,53 @@ const FAQ = () => {
                     text-slate-800
                     hover:no-underline
                     [&>svg]:size-4
-                    [&>svg]:text-ieit-blue
+                    [&>svg]:text-slate-400
+                    [&>svg]:transition-colors
+                    data-[state=open]:[&>svg]:text-red-500
                   "
                 >
                   <div className="flex items-center gap-4">
                     {/* Number */}
 
-                    <span className="shrink-0 font-mono text-[10px] font-semibold tracking-[0.12em] text-blue-400">
+                    <span
+                      className="
+                        flex
+                        size-7
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-md
+                        bg-slate-100
+                        font-mono
+                        text-[9px]
+                        font-bold
+                        tracking-[0.08em]
+                        text-slate-500
+                        transition-all
+                        duration-200
+                        group-data-[state=open]:bg-red-50
+                        group-data-[state=open]:text-red-600
+                      "
+                    >
                       {String(index + 1).padStart(2, "0")}
                     </span>
 
                     {/* Question */}
 
-                    <span>{faq.question}</span>
+                    <span className="transition-colors group-data-[state=open]:text-slate-950">
+                      {faq.question}
+                    </span>
                   </div>
                 </AccordionTrigger>
 
                 <AccordionContent
                   className="
                     pb-5
-                    pl-10
+                    pl-11
                     text-sm
                     leading-6
                     text-slate-500
-                    sm:pl-10
+                    sm:pl-11
                   "
                 >
                   {faq.answer}
@@ -193,7 +252,7 @@ const FAQ = () => {
             duration: 0.5,
             delay: 0.25,
           }}
-          className="mt-8 flex items-center justify-center"
+          className="mt-6 flex items-center justify-center"
         >
           <a
             href="/contact"
@@ -202,18 +261,39 @@ const FAQ = () => {
               inline-flex
               items-center
               gap-2
+              rounded-full
+              border
+              border-slate-200
+              bg-white
+              px-4
+              py-2
               font-mono
               text-[10px]
               font-semibold
               uppercase
               tracking-[0.12em]
-              text-ieit-blue
-              transition-colors
-              hover:text-ieit-blue-dark
+              text-slate-600
+              shadow-sm
+              transition-all
+              duration-200
+              hover:-translate-y-0.5
+              hover:border-red-200
+              hover:text-red-600
+              hover:shadow-md
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-red-500/30
             "
           >
             Still have questions?
-            <ArrowRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRightIcon
+              className="
+                size-3
+                transition-transform
+                duration-200
+                group-hover:translate-x-1
+              "
+            />
           </a>
         </motion.div>
       </div>
