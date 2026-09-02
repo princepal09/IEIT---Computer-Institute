@@ -1,16 +1,25 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
 @import "@fontsource-variable/manrope";
+@import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Typography */
-  --font-heading: var(--font-sans);
-  --font-sans: 'Manrope Variable', sans-serif;
+  /* =========================================================
+     TYPOGRAPHY
+     ========================================================= */
 
-  /* IEIT brand colors */
+  --font-sans: "Manrope Variable", sans-serif;
+  --font-heading: "Manrope Variable", sans-serif;
+  --font-mono: "JetBrains Mono Variable", monospace;
+
+  /* =========================================================
+     IEIT BRAND COLORS
+     ========================================================= */
+
   --color-ieit-blue: var(--ieit-blue);
   --color-ieit-blue-dark: var(--ieit-blue-dark);
   --color-ieit-navy: var(--ieit-navy);
@@ -18,11 +27,21 @@
   --color-ieit-red: var(--ieit-red);
   --color-ieit-yellow: var(--ieit-yellow);
 
-  /* Elevation — restrained, institutional shadows */
-  --shadow-card: 0 1px 2px 0 rgb(2 12 27 / 0.04), 0 1px 3px 0 rgb(2 12 27 / 0.06);
-  --shadow-elevated: 0 16px 40px -16px rgb(2 12 27 / 0.16);
+  /* =========================================================
+     ELEVATION
+     ========================================================= */
 
-  /* Sidebar */
+  --shadow-card:
+    0 1px 2px 0 rgb(2 12 27 / 0.04),
+    0 1px 3px 0 rgb(2 12 27 / 0.06);
+
+  --shadow-elevated:
+    0 16px 40px -16px rgb(2 12 27 / 0.16);
+
+  /* =========================================================
+     SIDEBAR
+     ========================================================= */
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -32,17 +51,24 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
 
-  /* Charts */
+  /* =========================================================
+     CHARTS
+     ========================================================= */
+
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
 
-  /* Core shadcn colors */
+  /* =========================================================
+     SHADCN CORE COLORS
+     ========================================================= */
+
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+
   --color-destructive: var(--destructive);
 
   --color-accent-foreground: var(--accent-foreground);
@@ -66,7 +92,10 @@
   --color-foreground: var(--foreground);
   --color-background: var(--background);
 
-  /* Radius */
+  /* =========================================================
+     RADIUS
+     ========================================================= */
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -81,9 +110,9 @@
    ========================================================= */
 
 :root {
-  /* -------------------------
-     IEIT Brand
-     ------------------------- */
+  /* ---------------------------------------------------------
+     IEIT BRAND
+     --------------------------------------------------------- */
 
   --ieit-blue: #0066ff;
   --ieit-blue-dark: #0044cc;
@@ -92,16 +121,16 @@
   --ieit-red: #e31b23;
   --ieit-yellow: #ffc107;
 
-  /* -------------------------
-     Base — clean off-white page surface
-     ------------------------- */
+  /* ---------------------------------------------------------
+     BASE
+     --------------------------------------------------------- */
 
   --background: #ffffff;
   --foreground: #071a3d;
 
-  /* -------------------------
-     Cards / Popovers
-     ------------------------- */
+  /* ---------------------------------------------------------
+     CARDS / POPOVERS
+     --------------------------------------------------------- */
 
   --card: #ffffff;
   --card-foreground: #071a3d;
@@ -109,51 +138,51 @@
   --popover: #ffffff;
   --popover-foreground: #071a3d;
 
-  /* -------------------------
-     Primary — IEIT blue as the accent / CTA only
-     ------------------------- */
+  /* ---------------------------------------------------------
+     PRIMARY
+     --------------------------------------------------------- */
 
   --primary: #0066ff;
   --primary-foreground: #ffffff;
 
-  /* -------------------------
-     Secondary — neutral surface (reduces blue tint)
-     ------------------------- */
+  /* ---------------------------------------------------------
+     SECONDARY
+     --------------------------------------------------------- */
 
   --secondary: #f1f5f9;
   --secondary-foreground: #071a3d;
 
-  /* -------------------------
-     Muted
-     ------------------------- */
+  /* ---------------------------------------------------------
+     MUTED
+     --------------------------------------------------------- */
 
   --muted: #f4f6f9;
   --muted-foreground: #64748b;
 
-  /* -------------------------
-     Accent — light blue used sparingly
-     ------------------------- */
+  /* ---------------------------------------------------------
+     ACCENT
+     --------------------------------------------------------- */
 
   --accent: #eff6ff;
   --accent-foreground: #0044cc;
 
-  /* -------------------------
-     Destructive — IEIT red, secondary accent
-     ------------------------- */
+  /* ---------------------------------------------------------
+     DESTRUCTIVE
+     --------------------------------------------------------- */
 
   --destructive: #e31b23;
 
-  /* -------------------------
-     Borders / Inputs
-     ------------------------- */
+  /* ---------------------------------------------------------
+     BORDERS / INPUTS
+     --------------------------------------------------------- */
 
   --border: #e5e9f0;
   --input: #e5e9f0;
   --ring: #0066ff;
 
-  /* -------------------------
-     Charts
-     ------------------------- */
+  /* ---------------------------------------------------------
+     CHARTS
+     --------------------------------------------------------- */
 
   --chart-1: #0066ff;
   --chart-2: #00b8f5;
@@ -161,15 +190,15 @@
   --chart-4: #ffc107;
   --chart-5: #e31b23;
 
-  /* -------------------------
-     Radius — controlled, institutional
-     ------------------------- */
+  /* ---------------------------------------------------------
+     RADIUS
+     --------------------------------------------------------- */
 
   --radius: 0.5rem;
 
-  /* -------------------------
-     Admin Sidebar
-     ------------------------- */
+  /* ---------------------------------------------------------
+     ADMIN SIDEBAR
+     --------------------------------------------------------- */
 
   --sidebar: #071a3d;
   --sidebar-foreground: #ffffff;
@@ -246,22 +275,26 @@
 
   html {
     @apply font-sans;
+
     scroll-behavior: smooth;
     overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
+
     min-width: 320px;
+    overflow-x: hidden;
+
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
     text-rendering: optimizeLegibility;
   }
 
-  ::selection {
-    background-color: rgb(0 102 255 / 0.12);
-    color: #0044cc;
-  }
+  /* ---------------------------------------------------------
+     HEADINGS
+     --------------------------------------------------------- */
 
   h1,
   h2,
@@ -270,10 +303,106 @@
   h5,
   h6 {
     @apply font-heading text-foreground;
+
     text-wrap: balance;
   }
 
+  /* ---------------------------------------------------------
+     PARAGRAPHS
+     --------------------------------------------------------- */
+
   p {
     text-wrap: pretty;
+  }
+
+  /* ---------------------------------------------------------
+     LINKS
+     --------------------------------------------------------- */
+
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ---------------------------------------------------------
+     BUTTONS
+     --------------------------------------------------------- */
+
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ---------------------------------------------------------
+     TEXT SELECTION
+     --------------------------------------------------------- */
+
+  ::selection {
+    background-color: rgb(0 102 255 / 0.12);
+    color: #0044cc;
+  }
+}
+
+/* =========================================================
+   FONT HELPERS
+   ========================================================= */
+
+/*
+  Main website font:
+
+  font-sans
+  font-heading
+
+  Both use Manrope.
+*/
+
+/*
+  Technical / data font:
+
+  font-mono
+
+  Uses JetBrains Mono.
+*/
+
+/* =========================================================
+   IEIT UTILITY CLASSES
+   ========================================================= */
+
+.ieit-gradient {
+  background:
+    linear-gradient(
+      135deg,
+      var(--ieit-blue) 0%,
+      var(--ieit-cyan) 100%
+    );
+}
+
+.ieit-gradient-text {
+  background:
+    linear-gradient(
+      135deg,
+      var(--ieit-blue),
+      var(--ieit-cyan)
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
