@@ -1,8 +1,18 @@
+import { Routes, Route } from "react-router-dom";
 
-const App = () => {
+import PublicLayout from "@/layouts/PublicLayout";
+import HomePage from "./pages/public/HomePage";
+
+function App() {
   return (
-    <div>App</div>
-  )
+    
+      <Routes>
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<HomePage />} />
+          
+        </Route>
+      </Routes>
+  );
 }
 
-export default App
+export default App;
