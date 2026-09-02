@@ -90,7 +90,7 @@ const Hero = () => {
               </Link>
 
               <Link
-                to="/login"
+                to="/contact"
                 className={cn(
                   "inline-flex h-10 items-center justify-center gap-2",
                   "rounded-md border border-slate-300 bg-white/60 px-5",
