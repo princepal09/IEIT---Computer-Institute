@@ -1,7 +1,7 @@
-import { Tabs as TabsPrimitive } from "@base-ui/react/tabs"
-import { cva, type VariantProps } from "class-variance-authority"
+import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Tabs = ({
   className,
@@ -18,8 +18,8 @@ const Tabs = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
 const tabsListVariants = cva(
   "group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-horizontal/tabs:h-8 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none",
@@ -34,7 +34,7 @@ const tabsListVariants = cva(
       variant: "default",
     },
   }
-)
+);
 
 const TabsList = ({
   className,
@@ -48,8 +48,8 @@ const TabsList = ({
       className={cn(tabsListVariants({ variant }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 const TabsTrigger = ({ className, ...props }: TabsPrimitive.Tab.Props) => {
   return (
@@ -64,8 +64,8 @@ const TabsTrigger = ({ className, ...props }: TabsPrimitive.Tab.Props) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
 const TabsContent = ({ className, ...props }: TabsPrimitive.Panel.Props) => {
   return (
@@ -74,7 +74,7 @@ const TabsContent = ({ className, ...props }: TabsPrimitive.Panel.Props) => {
       className={cn("flex-1 text-sm outline-none", className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }
+export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants };

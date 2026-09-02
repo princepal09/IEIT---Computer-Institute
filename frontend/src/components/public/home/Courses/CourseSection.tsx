@@ -6,15 +6,10 @@ import FeaturedCourseCard from "./FeaturedCourseCard";
 import CourseCard from "./CourseCard";
 import { homeCourses } from "@/types/homeCourses";
 
-
 const CoursesSection = () => {
-  const featuredCourse = homeCourses.find(
-    (course) => course.featured,
-  );
+  const featuredCourse = homeCourses.find((course) => course.featured);
 
-  const secondaryCourses = homeCourses.filter(
-    (course) => !course.featured,
-  );
+  const secondaryCourses = homeCourses.filter((course) => !course.featured);
 
   return (
     <section className="relative overflow-hidden bg-[#f7f9f8] py-20 sm:py-24 lg:py-28">
@@ -45,17 +40,12 @@ const CoursesSection = () => {
         {/* Course grid */}
         <div className="mt-12 grid gap-4 lg:grid-cols-[1.05fr_1fr]">
           {/* Featured */}
-          {featuredCourse && (
-            <FeaturedCourseCard course={featuredCourse} />
-          )}
+          {featuredCourse && <FeaturedCourseCard course={featuredCourse} />}
 
           {/* Right cards */}
           <div className="grid gap-4 sm:grid-cols-2">
             {secondaryCourses.map((course) => (
-              <CourseCard
-                key={course.id}
-                course={course}
-              />
+              <CourseCard key={course.id} course={course} />
             ))}
           </div>
         </div>
@@ -73,7 +63,6 @@ const CoursesSection = () => {
             className="group inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-5 py-2.5 font-mono text-[10px] font-medium text-slate-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-ieit-blue hover:text-ieit-blue hover:shadow-md"
           >
             Explore More Courses
-
             <ArrowRightIcon className="size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </motion.div>

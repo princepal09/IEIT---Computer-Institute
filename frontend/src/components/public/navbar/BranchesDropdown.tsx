@@ -92,7 +92,7 @@ const BranchesDropdown = () => {
         triggerRef.current?.focus();
       }
     },
-    [clearTimers],
+    [clearTimers]
   );
 
   useEffect(() => {
@@ -141,7 +141,7 @@ const BranchesDropdown = () => {
             "focus-visible:ring-offset-2",
             open
               ? "bg-slate-100 text-slate-900"
-              : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+              : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
           )}
         >
           <span>Branches</span>
@@ -150,7 +150,7 @@ const BranchesDropdown = () => {
             aria-hidden="true"
             className={cn(
               "size-3.5 transition-transform duration-200",
-              open && "rotate-180",
+              open && "rotate-180"
             )}
           />
         </button>
@@ -189,7 +189,7 @@ const BranchesDropdown = () => {
                 "bg-white/95",
                 "p-1.5",
                 "shadow-[0_20px_50px_-20px_rgba(15,23,42,0.25)]",
-                "backdrop-blur-xl",
+                "backdrop-blur-xl"
               )}
             >
               {/* Header */}
@@ -276,7 +276,7 @@ const BranchesDropdown = () => {
                               "hover:bg-slate-50",
                               "focus-visible:outline-none",
                               "focus-visible:ring-2",
-                              "focus-visible:ring-ieit-blue/30",
+                              "focus-visible:ring-ieit-blue/30"
                             )}
                           >
                             {/* Location icon */}
@@ -288,7 +288,7 @@ const BranchesDropdown = () => {
                                 "bg-blue-50",
                                 "text-ieit-blue",
                                 "transition-colors duration-150",
-                                "group-hover:bg-blue-100",
+                                "group-hover:bg-blue-100"
                               )}
                             >
                               <MapPinIcon
@@ -348,7 +348,7 @@ const BranchesDropdown = () => {
                       "tracking-[0.1em]",
                       "text-slate-500",
                       "transition-colors",
-                      "hover:bg-slate-50 hover:text-ieit-blue",
+                      "hover:bg-slate-50 hover:text-ieit-blue"
                     )}
                   >
                     <span>View all branches</span>

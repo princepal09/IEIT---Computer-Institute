@@ -16,7 +16,7 @@ const Navbar = ({ className }: { className?: string }) => {
         "sticky top-0 z-50 border-b border-slate-200/70",
         "bg-white/90 backdrop-blur-xl",
         "supports-backdrop-filter:bg-white/75",
-        className,
+        className
       )}
     >
       <PageContainer size="default" padding="none">
@@ -32,7 +32,7 @@ const Navbar = ({ className }: { className?: string }) => {
               "hover:opacity-90",
               "focus-visible:outline-none",
               "focus-visible:ring-2 focus-visible:ring-ieit-blue/40",
-              "focus-visible:ring-offset-2",
+              "focus-visible:ring-offset-2"
             )}
           >
             <img

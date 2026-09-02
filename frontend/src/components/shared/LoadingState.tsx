@@ -1,5 +1,4 @@
-    import { Spinner } from "@/components/ui/spinner"
-
+import { Spinner } from "@/components/ui/spinner";
 
 const LoadingState = () => {
   return (
@@ -13,4 +12,3 @@ const LoadingState = () => {
 };
 
 export default LoadingState;
-

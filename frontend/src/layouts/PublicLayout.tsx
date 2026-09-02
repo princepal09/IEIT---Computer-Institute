@@ -12,10 +12,7 @@ interface PublicLayoutProps extends ComponentPropsWithRef<"div"> {
 const PublicLayout = ({ children, className, ...props }: PublicLayoutProps) => {
   return (
     <div
-      className={cn(
-        "flex min-h-screen flex-col bg-background",
-        className
-      )}
+      className={cn("flex min-h-screen flex-col bg-background", className)}
       {...props}
     >
       <Navbar />

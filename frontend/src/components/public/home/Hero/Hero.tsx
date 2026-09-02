@@ -11,7 +11,7 @@ const Hero = () => {
       className={cn(
         "relative overflow-hidden",
         "bg-[#f7f9f8]",
-        "border-b border-slate-200/70",
+        "border-b border-slate-200/70"
       )}
     >
       {/* Minimal background gradients */}
@@ -82,7 +82,7 @@ const Hero = () => {
                   "hover:-translate-y-0.5 hover:bg-ieit-blue-dark",
                   "hover:shadow-[0_12px_24px_-8px_rgba(0,102,255,0.6)]",
                   "focus-visible:outline-none focus-visible:ring-2",
-                  "focus-visible:ring-ieit-blue focus-visible:ring-offset-2",
+                  "focus-visible:ring-ieit-blue focus-visible:ring-offset-2"
                 )}
               >
                 Explore Courses
@@ -98,7 +98,7 @@ const Hero = () => {
                   "transition-all duration-200",
                   "hover:border-slate-400 hover:bg-white",
                   "focus-visible:outline-none focus-visible:ring-2",
-                  "focus-visible:ring-ieit-blue focus-visible:ring-offset-2",
+                  "focus-visible:ring-ieit-blue focus-visible:ring-offset-2"
                 )}
               >
                 <PlayIcon className="size-3" />
@@ -134,7 +134,7 @@ const Hero = () => {
                 "relative overflow-hidden rounded-[22px]",
                 "border border-white/80",
                 "bg-slate-200",
-                "shadow-[0_28px_60px_-25px_rgba(15,23,42,0.35)]",
+                "shadow-[0_28px_60px_-25px_rgba(15,23,42,0.35)]"
               )}
             >
               <div className="relative aspect-[1.12/1] overflow-hidden bg-slate-300">
@@ -191,7 +191,7 @@ const Hero = () => {
                 "flex items-center gap-3",
                 "rounded-xl border border-slate-200",
                 "bg-white px-4 py-3",
-                "shadow-[0_15px_35px_-15px_rgba(15,23,42,0.35)]",
+                "shadow-[0_15px_35px_-15px_rgba(15,23,42,0.35)]"
               )}
             >
               <span className="flex size-7 items-center justify-center rounded-full bg-lime-200 text-slate-900">

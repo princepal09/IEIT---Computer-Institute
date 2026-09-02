@@ -131,7 +131,6 @@ const WhyIEIT = () => {
             "
           >
             More Than Just
-
             <span className="mt-1 block">
               <span className="text-blue-600">Computer </span>
               <span className="text-red-500">Education.</span>

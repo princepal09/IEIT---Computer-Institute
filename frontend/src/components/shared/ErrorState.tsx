@@ -1,8 +1,4 @@
-import {
-  AlertCircleIcon,
-  HomeIcon,
-  RefreshCwIcon,
-} from "lucide-react";
+import { AlertCircleIcon, HomeIcon, RefreshCwIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
@@ -26,7 +22,7 @@ const ErrorState = ({
     <div
       className={cn(
         "flex min-h-[280px] w-full flex-col items-center justify-center px-5 py-12 text-center",
-        className,
+        className
       )}
     >
       {/* Icon */}
@@ -40,9 +36,7 @@ const ErrorState = ({
           {title}
         </h2>
 
-        <p className="mt-1.5 text-sm leading-6 text-slate-500">
-          {description}
-        </p>
+        <p className="mt-1.5 text-sm leading-6 text-slate-500">{description}</p>
       </div>
 
       {/* Actions */}
@@ -62,7 +56,7 @@ const ErrorState = ({
                 "focus-visible:outline-none",
                 "focus-visible:ring-2",
                 "focus-visible:ring-ieit-blue",
-                "focus-visible:ring-offset-2",
+                "focus-visible:ring-offset-2"
               )}
             >
               <RefreshCwIcon className="size-3.5" />
@@ -82,7 +76,7 @@ const ErrorState = ({
                 "focus-visible:outline-none",
                 "focus-visible:ring-2",
                 "focus-visible:ring-ieit-blue",
-                "focus-visible:ring-offset-2",
+                "focus-visible:ring-offset-2"
               )}
             >
               <HomeIcon className="size-3.5" />

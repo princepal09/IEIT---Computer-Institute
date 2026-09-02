@@ -1,8 +1,12 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from "lucide-react"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MoreHorizontalIcon,
+} from "lucide-react";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => {
   return (
@@ -13,8 +17,8 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => {
       className={cn("mx-auto flex w-full justify-center", className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 const PaginationContent = ({
   className,
@@ -26,17 +30,17 @@ const PaginationContent = ({
       className={cn("flex items-center gap-0.5", className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 const PaginationItem = ({ ...props }: React.ComponentProps<"li">) => {
-  return <li data-slot="pagination-item" {...props} />
-}
+  return <li data-slot="pagination-item" {...props} />;
+};
 
 type PaginationLinkProps = {
-  isActive?: boolean
+  isActive?: boolean;
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
-  React.ComponentProps<"a">
+  React.ComponentProps<"a">;
 
 const PaginationLink = ({
   className,
@@ -59,8 +63,8 @@ const PaginationLink = ({
         />
       }
     />
-  )
-}
+  );
+};
 
 const PaginationPrevious = ({
   className,
@@ -77,8 +81,8 @@ const PaginationPrevious = ({
       <ChevronLeftIcon data-icon="inline-start" />
       <span className="hidden sm:block">{text}</span>
     </PaginationLink>
-  )
-}
+  );
+};
 
 const PaginationNext = ({
   className,
@@ -95,8 +99,8 @@ const PaginationNext = ({
       <span className="hidden sm:block">{text}</span>
       <ChevronRightIcon data-icon="inline-end" />
     </PaginationLink>
-  )
-}
+  );
+};
 
 const PaginationEllipsis = ({
   className,
@@ -112,12 +116,11 @@ const PaginationEllipsis = ({
       )}
       {...props}
     >
-      <MoreHorizontalIcon
-      />
+      <MoreHorizontalIcon />
       <span className="sr-only">More pages</span>
     </span>
-  )
-}
+  );
+};
 
 export {
   Pagination,
@@ -127,4 +130,4 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-}
+};

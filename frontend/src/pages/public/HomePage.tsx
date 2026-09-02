@@ -10,7 +10,7 @@ const HomePage = () => {
       <Hero />
       <CoursesSection />
       <WhyIEIT />
-      <Testimonials/>
+      <Testimonials />
       <FAQ />
     </>
   );

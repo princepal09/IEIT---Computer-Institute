@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const baseURL =
-  import.meta.env.VITE_BASE_URL as string;
+const baseURL = import.meta.env.VITE_BASE_URL as string;
 
 console.log("Backend URL:", baseURL);
 
@@ -17,7 +16,7 @@ api.interceptors.response.use(
 
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );
 
 export default api;

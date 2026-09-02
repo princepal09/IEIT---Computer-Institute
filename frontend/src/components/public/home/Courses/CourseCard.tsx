@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import { ArrowUpRightIcon } from "lucide-react";
 import { Course } from "@/types/homeCourses";
 
-
 type CourseCardProps = {
   course: Course;
 };
@@ -40,14 +39,14 @@ const CourseCard = ({ course }: CourseCardProps) => {
       <div
         className={`flex size-10 items-center justify-center rounded-xl ${styles.icon}`}
       >
-        <span className="font-mono text-xs font-semibold">
-          {course.icon}
-        </span>
+        <span className="font-mono text-xs font-semibold">{course.icon}</span>
       </div>
 
       {/* Content */}
       <div>
-        <h3 className={`text-[16px] ${course.id === 'cloud' && "text-white"}  font-bold leading-tight tracking-[-0.02em]`}>
+        <h3
+          className={`text-[16px] ${course.id === "cloud" && "text-white"}  font-bold leading-tight tracking-[-0.02em]`}
+        >
           {course.title}
         </h3>
 
@@ -62,9 +61,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
         {course.subtitle && (
           <p
             className={`mt-1 font-mono text-[9px] ${
-              course.variant === "blue"
-                ? "text-white/60"
-                : "text-slate-500"
+              course.variant === "blue" ? "text-white/60" : "text-slate-500"
             }`}
           >
             {course.subtitle}

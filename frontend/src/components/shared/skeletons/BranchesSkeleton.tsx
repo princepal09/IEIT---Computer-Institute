@@ -22,5 +22,4 @@ const BranchesSkeleton = () => {
   );
 };
 
-
 export default BranchesSkeleton;

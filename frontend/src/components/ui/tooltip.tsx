@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
+import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const TooltipProvider = ({
   delay = 0,
@@ -14,16 +14,16 @@ const TooltipProvider = ({
       delay={delay}
       {...props}
     />
-  )
-}
+  );
+};
 
 const Tooltip = ({ ...props }: TooltipPrimitive.Root.Props) => {
-  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
-}
+  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />;
+};
 
 const TooltipTrigger = ({ ...props }: TooltipPrimitive.Trigger.Props) => {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
-}
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+};
 
 const TooltipContent = ({
   className,
@@ -60,7 +60,7 @@ const TooltipContent = ({
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>
-  )
-}
+  );
+};
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

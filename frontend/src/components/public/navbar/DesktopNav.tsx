@@ -19,10 +19,7 @@ const DesktopNav = ({ className }: { className?: string }) => {
   return (
     <nav
       aria-label="Main navigation"
-      className={cn(
-        "hidden items-center lg:flex",
-        className,
-      )}
+      className={cn("hidden items-center lg:flex", className)}
     >
       {/* Navigation links */}
       <div className="flex items-center gap-0.5">
@@ -41,7 +38,7 @@ const DesktopNav = ({ className }: { className?: string }) => {
 
                 isActive
                   ? "text-ieit-blue"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-950",
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
               )
             }
           >
@@ -55,7 +52,7 @@ const DesktopNav = ({ className }: { className?: string }) => {
                     className={cn(
                       "absolute bottom-0.5 left-1/2 h-0.5",
                       "w-5 -translate-x-1/2",
-                      "rounded-full bg-ieit-blue",
+                      "rounded-full bg-ieit-blue"
                     )}
                   />
                 )}
@@ -77,7 +74,7 @@ const DesktopNav = ({ className }: { className?: string }) => {
             "h-9 rounded-lg px-3",
             "text-[13px] font-semibold",
             "text-slate-600",
-            "hover:bg-slate-50 hover:text-slate-950",
+            "hover:bg-slate-50 hover:text-slate-950"
           )}
           render={<Link to="/login" />}
         >
@@ -94,7 +91,7 @@ const DesktopNav = ({ className }: { className?: string }) => {
             "shadow-sm shadow-ieit-blue/20",
             "transition-all duration-200",
             "hover:-translate-y-0.5",
-            "hover:shadow-md hover:shadow-ieit-blue/25",
+            "hover:shadow-md hover:shadow-ieit-blue/25"
           )}
           render={<Link to="/enquire" />}
         >

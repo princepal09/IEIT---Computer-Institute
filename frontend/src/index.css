@@ -32,11 +32,9 @@
      ========================================================= */
 
   --shadow-card:
-    0 1px 2px 0 rgb(2 12 27 / 0.04),
-    0 1px 3px 0 rgb(2 12 27 / 0.06);
+    0 1px 2px 0 rgb(2 12 27 / 0.04), 0 1px 3px 0 rgb(2 12 27 / 0.06);
 
-  --shadow-elevated:
-    0 16px 40px -16px rgb(2 12 27 / 0.16);
+  --shadow-elevated: 0 16px 40px -16px rgb(2 12 27 / 0.16);
 
   /* =========================================================
      SIDEBAR
@@ -367,21 +365,15 @@
    ========================================================= */
 
 .ieit-gradient {
-  background:
-    linear-gradient(
-      135deg,
-      var(--ieit-blue) 0%,
-      var(--ieit-cyan) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    var(--ieit-blue) 0%,
+    var(--ieit-cyan) 100%
+  );
 }
 
 .ieit-gradient-text {
-  background:
-    linear-gradient(
-      135deg,
-      var(--ieit-blue),
-      var(--ieit-cyan)
-    );
+  background: linear-gradient(135deg, var(--ieit-blue), var(--ieit-cyan));
 
   -webkit-background-clip: text;
   background-clip: text;
@@ -394,7 +386,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
   }
 
   *,
@@ -403,6 +395,6 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    scroll-behavior: smooth !important;
   }
 }

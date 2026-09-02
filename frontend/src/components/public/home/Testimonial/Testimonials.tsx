@@ -1,19 +1,10 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Quote,
-  Star,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 const testimonials = [
   {
@@ -89,10 +80,7 @@ const Testimonials = () => {
 
   const cardsPerView = isMobile ? 1 : 3;
 
-  const maxSlide = Math.max(
-    testimonials.length - cardsPerView,
-    0
-  );
+  const maxSlide = Math.max(testimonials.length - cardsPerView, 0);
 
   /* --------------------------------
      Next slide
@@ -152,7 +140,6 @@ const Testimonials = () => {
 
   return (
     <section className="relative overflow-hidden bg-[#f7f9fc] py-10 sm:py-12 lg:py-14">
-      
       {/* Background glow */}
 
       <div
@@ -186,7 +173,6 @@ const Testimonials = () => {
       />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-
         {/* =====================================
             HEADER
         ====================================== */}
@@ -217,16 +203,14 @@ const Testimonials = () => {
 
           <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-slate-900 sm:text-4xl">
             What our students
-            <span className="block text-ieit-blue">
-              say about IEIT.
-            </span>
+            <span className="block text-ieit-blue">say about IEIT.</span>
           </h2>
 
           {/* Description */}
 
           <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
-            Real experiences from students building practical
-            skills and preparing for their careers.
+            Real experiences from students building practical skills and
+            preparing for their careers.
           </p>
         </motion.div>
 
@@ -248,7 +232,6 @@ const Testimonials = () => {
           {/* Slider viewport */}
 
           <div className="overflow-hidden px-1 py-2">
-
             <motion.div
               className="flex"
               animate={{
@@ -269,9 +252,7 @@ const Testimonials = () => {
                     md:w-1/3
                   "
                 >
-                  <TestimonialCard
-                    testimonial={testimonial}
-                  />
+                  <TestimonialCard testimonial={testimonial} />
                 </div>
               ))}
             </motion.div>
@@ -418,9 +399,7 @@ type TestimonialCardProps = {
   testimonial: (typeof testimonials)[number];
 };
 
-const TestimonialCard = ({
-  testimonial,
-}: TestimonialCardProps) => {
+const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
   return (
     <Card
       className="
@@ -458,16 +437,12 @@ const TestimonialCard = ({
       />
 
       <CardContent className="p-5">
-
         {/* Rating + quote */}
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-0.5">
             {[1, 2, 3, 4, 5].map((star) => (
-              <Star
-                key={star}
-                className="size-3 fill-red-500 text-red-500"
-              />
+              <Star key={star} className="size-3 fill-red-500 text-red-500" />
             ))}
           </div>
 
@@ -487,7 +462,6 @@ const TestimonialCard = ({
 
       <CardFooter className="border-t border-slate-100 px-5 py-4">
         <div className="flex w-full items-center gap-3">
-
           {/* Avatar */}
 
           <Avatar className="size-9 shrink-0">

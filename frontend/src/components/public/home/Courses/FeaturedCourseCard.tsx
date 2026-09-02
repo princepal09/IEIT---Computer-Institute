@@ -2,14 +2,11 @@ import { motion } from "motion/react";
 import { ArrowUpRightIcon, Code2Icon } from "lucide-react";
 import { Course } from "@/types/homeCourses";
 
-
 type FeaturedCourseCardProps = {
   course: Course;
 };
 
-const FeaturedCourseCard = ({
-  course,
-}: FeaturedCourseCardProps) => {
+const FeaturedCourseCard = ({ course }: FeaturedCourseCardProps) => {
   return (
     <motion.article
       whileHover={{ y: -3 }}

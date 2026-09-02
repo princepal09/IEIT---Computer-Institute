@@ -54,7 +54,7 @@ const Footer = ({ className }: { className?: string }) => {
     <footer
       className={cn(
         "relative overflow-hidden bg-ieit-navy text-white",
-        className,
+        className
       )}
       role="contentinfo"
     >
@@ -200,7 +200,7 @@ const Footer = ({ className }: { className?: string }) => {
                     "focus-visible:ring-2",
                     "focus-visible:ring-red-500/40",
                     "focus-visible:ring-offset-2",
-                    "focus-visible:ring-offset-ieit-navy",
+                    "focus-visible:ring-offset-ieit-navy"
                   )}
                 >
                   <Icon className="size-4" />
@@ -236,7 +236,7 @@ const Footer = ({ className }: { className?: string }) => {
                       "focus-visible:ring-2",
                       "focus-visible:ring-red-500/40",
                       "focus-visible:ring-offset-2",
-                      "focus-visible:ring-offset-ieit-navy",
+                      "focus-visible:ring-offset-ieit-navy"
                     )}
                   >
                     {label}
@@ -306,7 +306,7 @@ const Footer = ({ className }: { className?: string }) => {
                 "focus-visible:ring-2",
                 "focus-visible:ring-red-500/40",
                 "focus-visible:ring-offset-2",
-                "focus-visible:ring-offset-ieit-navy",
+                "focus-visible:ring-offset-ieit-navy"
               )}
             >
               Contact Us

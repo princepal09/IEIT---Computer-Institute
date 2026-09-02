@@ -50,7 +50,7 @@ const MobileNav = () => {
               "lg:hidden",
               "rounded-lg",
               "text-slate-700",
-              "hover:bg-slate-100 hover:text-slate-950",
+              "hover:bg-slate-100 hover:text-slate-950"
             )}
           />
         }
@@ -130,7 +130,7 @@ const MobileNav = () => {
 
                         isActive
                           ? "bg-ieit-blue/8 text-ieit-blue"
-                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-950",
+                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
                       )
                     }
                   >
@@ -176,7 +176,7 @@ const MobileNav = () => {
 
                 branchesExpanded
                   ? "bg-ieit-blue/8 text-ieit-blue"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-950",
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
               )}
             >
               <span>Branches</span>
@@ -184,7 +184,7 @@ const MobileNav = () => {
               <ChevronDownIcon
                 className={cn(
                   "size-4 transition-transform duration-200",
-                  branchesExpanded && "rotate-180",
+                  branchesExpanded && "rotate-180"
                 )}
               />
             </button>
@@ -281,7 +281,7 @@ const MobileNav = () => {
 
                               isActive
                                 ? "bg-ieit-blue/8 text-ieit-blue"
-                                : "text-slate-600 hover:bg-slate-50 hover:text-slate-950",
+                                : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
                             )
                           }
                         >
@@ -317,7 +317,7 @@ const MobileNav = () => {
               "w-full rounded-lg",
               "font-semibold",
               "text-slate-600",
-              "hover:bg-slate-50 hover:text-slate-950",
+              "hover:bg-slate-50 hover:text-slate-950"
             )}
             render={<Link to="/login" />}
           >
@@ -334,7 +334,7 @@ const MobileNav = () => {
               "shadow-sm shadow-ieit-blue/20",
               "transition-all duration-200",
               "hover:-translate-y-0.5",
-              "hover:shadow-md hover:shadow-ieit-blue/25",
+              "hover:shadow-md hover:shadow-ieit-blue/25"
             )}
             render={<Link to="/enquire" />}
           >
