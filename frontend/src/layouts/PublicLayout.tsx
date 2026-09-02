@@ -9,7 +9,7 @@ interface PublicLayoutProps extends ComponentPropsWithRef<"div"> {
   children?: ReactNode;
 }
 
-function PublicLayout({ children, className, ...props }: PublicLayoutProps) {
+const PublicLayout = ({ children, className, ...props }: PublicLayoutProps) => {
   return (
     <div
       className={cn(
@@ -27,6 +27,6 @@ function PublicLayout({ children, className, ...props }: PublicLayoutProps) {
       <Footer />
     </div>
   );
-}
+};
 
 export default PublicLayout;

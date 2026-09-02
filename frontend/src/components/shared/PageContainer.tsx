@@ -22,13 +22,13 @@ const paddingClasses = {
   lg: "px-6 sm:px-8 lg:px-12",
 } as const;
 
-function PageContainer({
+const PageContainer = ({
   className,
   size = "default",
   padding = "md",
   children,
   ...props
-}: PageContainerProps) {
+}: PageContainerProps) => {
   return (
     <div
       className={cn(
@@ -42,6 +42,6 @@ function PageContainer({
       {children}
     </div>
   );
-}
+};
 
 export { PageContainer, type PageContainerProps };

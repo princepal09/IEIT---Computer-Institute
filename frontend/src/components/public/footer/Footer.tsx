@@ -2,6 +2,11 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { PageContainer } from "@/components/shared/PageContainer";
 import {
+  MapPinIcon,
+  PhoneIcon,
+  MailIcon,
+} from "lucide-react";
+import {
   FaFacebookF,
   FaInstagram,
   FaYoutube,
@@ -13,20 +18,22 @@ const quickLinks = [
   { label: "Courses", to: "/courses" },
   { label: "Branches", to: "/branches" },
   { label: "Gallery", to: "/gallery" },
-  // { label: "Notices", to: "/notices" },
 ] as const;
 
-// Social icons are placeholders — official IEIT profile URLs are not yet
-// available in the project, so they render as non-navigating brand marks
-// to be wired to the real destinations later.
 const socialLinks = [
-  { label: "Facebook", icon: FaFacebookF },
-  { label: "Instagram", icon: FaInstagram },
-  { label: "YouTube", icon: FaYoutube },
-  { label: "LinkedIn", icon: FaLinkedinIn },
+  { label: "Facebook", icon: FaFacebookF, href: "#" },
+  { label: "Instagram", icon: FaInstagram, href: "#" },
+  { label: "YouTube", icon: FaYoutube, href: "#" },
+  { label: "LinkedIn", icon: FaLinkedinIn, href: "#" },
 ] as const;
 
-function Footer({ className }: { className?: string }) {
+const contactInfo = [
+  { icon: MapPinIcon, text: "123 ICT Tower, Gulshan-1, Dhaka 1212" },
+  { icon: PhoneIcon, text: "+880 1XXX-XXXXXX" },
+  { icon: MailIcon, text: "info@ieit.edu.bd" },
+] as const;
+
+const Footer = ({ className }: { className?: string }) => {
   const year = new Date().getFullYear();
 
   return (
@@ -36,59 +43,65 @@ function Footer({ className }: { className?: string }) {
     >
       {/* Main footer content */}
       <PageContainer size="wide" padding="none">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-12 px-4 pt-14 pb-12 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-x-10 lg:px-8">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-10 px-4 pt-12 pb-10 sm:px-6 md:grid-cols-2 lg:grid-cols-12 lg:gap-x-8 lg:px-8">
           {/* Brand column */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 lg:col-span-4">
             <Link
               to="/"
-              className="group inline-flex items-center gap-2 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ieit-blue focus-visible:ring-offset-2"
+              className="group inline-flex items-center gap-2 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ieit-blue focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy"
               aria-label="IEIT — Home"
             >
               <div className="flex flex-col leading-none">
-                <span className="text-[1.65rem] font-extrabold tracking-[0.4rem] text-white">
+                <span className="text-xl font-extrabold tracking-[0.08em] text-white">
                   IEIT
                 </span>
 
-                <span className="mt-0.5 text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                <span className="mt-0.5 text-[0.55rem] font-semibold uppercase tracking-[0.16em] text-white/40">
                   Computer Institute
                 </span>
               </div>
             </Link>
 
-            <p className="max-w-xs text-sm leading-relaxed text-white/60">
+            <p className="max-w-xs text-[0.8125rem] leading-relaxed text-white/55">
               Empowering students with quality education and industry-ready
               skills across information technology and professional development.
             </p>
 
-            <div className="flex items-center gap-2">
-              {socialLinks.map(({ label, icon: Icon }) => (
-                <span
+            <div className="flex items-center gap-1.5">
+              {socialLinks.map(({ label, icon: Icon, href }) => (
+                <a
                   key={label}
-                  role="img"
+                  href={href}
                   aria-label={label}
-                  className="flex cursor-pointer size-9 items-center justify-center rounded-lg bg-white/5 text-white/55 transition-colors hover:bg-white/10 hover:text-white"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    "flex size-8 items-center justify-center rounded-lg text-white/45 transition-all duration-200",
+                    "hover:bg-white/8 hover:text-white hover:scale-105",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy",
+                  )}
                 >
                   <Icon className="size-4" />
-                </span>
+                </a>
               ))}
             </div>
           </div>
 
           {/* Quick links column */}
-          <div className="flex flex-col gap-5">
-            <h3 className="text-xs font-semibold tracking-widest text-white/40 uppercase">
+          <div className="flex flex-col gap-4 lg:col-span-2">
+            <h3 className="text-xs font-semibold tracking-widest text-white/35 uppercase">
               Quick Links
             </h3>
 
-            <ul className="flex flex-col gap-3" role="list">
+            <ul className="flex flex-col gap-2.5" role="list">
               {quickLinks.map(({ label, to }) => (
                 <li key={to}>
                   <Link
                     to={to}
                     className={cn(
-                      "text-sm text-white/70 transition-colors",
+                      "text-[0.8125rem] text-white/60 transition-colors duration-150",
                       "hover:text-white",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy rounded-sm",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy rounded-sm",
                     )}
                   >
                     {label}
@@ -99,36 +112,43 @@ function Footer({ className }: { className?: string }) {
           </div>
 
           {/* Contact column */}
-          <div className="flex flex-col gap-5">
-            <h3 className="text-xs font-semibold tracking-widest text-white/40 uppercase">
+          <div className="flex flex-col gap-4 lg:col-span-3">
+            <h3 className="text-xs font-semibold tracking-widest text-white/35 uppercase">
               Contact
             </h3>
 
-            <p className="text-sm leading-relaxed text-white/70">
-              Have a question about our courses, branches, or admissions? Our
-              team is happy to help.
-            </p>
+            <div className="flex flex-col gap-3">
+              {contactInfo.map(({ icon: Icon, text }) => (
+                <div
+                  key={text}
+                  className="flex items-start gap-2.5 text-[0.8125rem] text-white/55"
+                >
+                  <Icon className="mt-0.5 size-3.5 shrink-0 text-white/35" />
+                  <span className="leading-relaxed">{text}</span>
+                </div>
+              ))}
+            </div>
 
             <Link
               to="/contact"
               className={cn(
-                "inline-flex h-10 items-center justify-center rounded-lg border border-white/15 px-5 text-sm font-medium text-white/80 transition-colors",
-                "hover:bg-white/5 hover:text-white",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy",
-                "self-start",
+                "inline-flex h-9 items-center justify-center rounded-lg border border-white/12 px-4 text-[0.8125rem] font-medium text-white/65 transition-all duration-200",
+                "hover:bg-white/5 hover:text-white hover:border-white/20",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy",
+                "self-start mt-1",
               )}
             >
               Contact Us
             </Link>
           </div>
 
-          {/* Enquire column */}
-          <div className="flex flex-col gap-5">
-            <h3 className="text-xs font-semibold tracking-widest text-white/40 uppercase">
+          {/* Get Started column */}
+          <div className="flex flex-col gap-4 lg:col-span-3">
+            <h3 className="text-xs font-semibold tracking-widest text-white/35 uppercase">
               Get Started
             </h3>
 
-            <p className="text-sm leading-relaxed text-white/70">
+            <p className="text-[0.8125rem] leading-relaxed text-white/55">
               Ready to begin your learning journey? Get in touch for course
               details and admission guidance.
             </p>
@@ -136,39 +156,47 @@ function Footer({ className }: { className?: string }) {
             <Link
               to="/enquire"
               className={cn(
-                "inline-flex h-10 items-center justify-center rounded-lg bg-ieit-blue px-5 text-sm font-semibold text-white transition-colors",
-                "hover:bg-ieit-blue/90",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy",
-                "self-start",
+                "inline-flex h-9 items-center justify-center rounded-lg bg-ieit-blue px-5 text-[0.8125rem] font-semibold text-white transition-all duration-200",
+                "hover:bg-ieit-blue/90 hover:shadow-lg hover:shadow-ieit-blue/20",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy",
+                "self-start mt-1",
               )}
             >
-              Enquire Now
+              Enroll Now
             </Link>
           </div>
         </div>
       </PageContainer>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-white/8">
         <PageContainer size="wide" padding="none">
-          <div className="flex flex-col items-center gap-4 px-4 py-6 text-center sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:text-left lg:px-8">
-            <p className="text-xs text-white/40">
+          <div className="flex flex-col items-center gap-3 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4 lg:px-8">
+            <p className="text-[0.6875rem] text-white/30">
               &copy; {year} IEIT. All rights reserved.
             </p>
 
             <nav
               aria-label="Legal"
-              className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:justify-end"
+              className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 sm:justify-end"
             >
               <Link
                 to="/privacy"
-                className="rounded-sm text-xs text-white/40 transition-colors hover:text-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy"
+                className={cn(
+                  "rounded-sm text-[0.6875rem] text-white/30 transition-colors duration-150",
+                  "hover:text-white/60",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy",
+                )}
               >
                 Privacy Policy
               </Link>
               <Link
                 to="/terms"
-                className="rounded-sm text-xs text-white/40 transition-colors hover:text-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy"
+                className={cn(
+                  "rounded-sm text-[0.6875rem] text-white/30 transition-colors duration-150",
+                  "hover:text-white/60",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-ieit-navy",
+                )}
               >
                 Terms of Service
               </Link>
@@ -178,6 +206,6 @@ function Footer({ className }: { className?: string }) {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

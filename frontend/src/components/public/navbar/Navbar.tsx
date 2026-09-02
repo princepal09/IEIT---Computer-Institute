@@ -6,16 +6,16 @@ import { MobileNav } from "./MobileNav";
 import BrandLogo from "./BrandLogo";
 import logo from "@/assets/logo/logo.png";
 
-function Navbar({ className }: { className?: string }) {
+const Navbar = ({ className }: { className?: string }) => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b border-border/60 bg-white/80 backdrop-blur-md",
+        "sticky top-0 z-40 border-b border-border/50 bg-white/85 backdrop-blur-md supports-backdrop-filter:bg-white/75",
         className,
       )}
     >
       <PageContainer size="wide" padding="none">
-        <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="flex h-14 items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link
             to="/"
@@ -25,7 +25,7 @@ function Navbar({ className }: { className?: string }) {
             <img
               src={logo}
               alt="IEIT logo"
-              className="h-9 w-auto object-contain"
+              className="h-8 w-auto object-contain"
               draggable={false}
             />
             <BrandLogo />
@@ -40,6 +40,6 @@ function Navbar({ className }: { className?: string }) {
       </PageContainer>
     </header>
   );
-}
+};
 
 export default Navbar;

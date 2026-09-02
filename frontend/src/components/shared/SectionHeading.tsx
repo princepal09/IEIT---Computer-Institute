@@ -23,7 +23,7 @@ const headingClasses: Record<HeadingTag, string> = {
   h4: "text-lg sm:text-xl lg:text-2xl",
 };
 
-function SectionHeading({
+const SectionHeading = ({
   heading,
   as: Tag = "h2",
   subtitle,
@@ -31,7 +31,7 @@ function SectionHeading({
   accent = true,
   className,
   ...props
-}: SectionHeadingProps) {
+}: SectionHeadingProps) => {
   return (
     <div
       className={cn(
@@ -64,6 +64,6 @@ function SectionHeading({
       )}
     </div>
   );
-}
+};
 
 export { SectionHeading, type SectionHeadingProps };
