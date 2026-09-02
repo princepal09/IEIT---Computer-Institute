@@ -1,0 +1,245 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Typography */
+  --font-heading: var(--font-sans);
+  --font-sans: "Geist Variable", sans-serif;
+
+  /* Sidebar */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  /* Charts */
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+
+  /* Core shadcn colors */
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* =========================================================
+   IEIT LIGHT THEME
+   ========================================================= */
+
+:root {
+  /* -------------------------
+     IEIT Brand
+     ------------------------- */
+
+  --ieit-blue: #0066ff;
+  --ieit-blue-dark: #003b8f;
+  --ieit-navy: #071a3d;
+  --ieit-cyan: #00b8f5;
+  --ieit-red: #e31b23;
+  --ieit-yellow: #ffc107;
+
+  /* -------------------------
+     Base
+     ------------------------- */
+
+  --background: #f8fafc;
+  --foreground: #071a3d;
+
+  /* -------------------------
+     Cards / Popovers
+     ------------------------- */
+
+  --card: #ffffff;
+  --card-foreground: #071a3d;
+
+  --popover: #ffffff;
+  --popover-foreground: #071a3d;
+
+  /* -------------------------
+     Primary
+     ------------------------- */
+
+  --primary: #0066ff;
+  --primary-foreground: #ffffff;
+
+  /* -------------------------
+     Secondary
+     ------------------------- */
+
+  --secondary: #eaf3ff;
+  --secondary-foreground: #003b8f;
+
+  /* -------------------------
+     Muted
+     ------------------------- */
+
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+
+  /* -------------------------
+     Accent
+     ------------------------- */
+
+  --accent: #eaf3ff;
+  --accent-foreground: #003b8f;
+
+  /* -------------------------
+     Destructive
+     ------------------------- */
+
+  --destructive: #e31b23;
+
+  /* -------------------------
+     Borders / Inputs
+     ------------------------- */
+
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0066ff;
+
+  /* -------------------------
+     Charts
+     ------------------------- */
+
+  --chart-1: #0066ff;
+  --chart-2: #00b8f5;
+  --chart-3: #003b8f;
+  --chart-4: #ffc107;
+  --chart-5: #e31b23;
+
+  /* -------------------------
+     Radius
+     ------------------------- */
+
+  --radius: 0.75rem;
+
+  /* -------------------------
+     Admin Sidebar
+     ------------------------- */
+
+  --sidebar: #071a3d;
+  --sidebar-foreground: #ffffff;
+
+  --sidebar-primary: #0066ff;
+  --sidebar-primary-foreground: #ffffff;
+
+  --sidebar-accent: #003b8f;
+  --sidebar-accent-foreground: #ffffff;
+
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #00b8f5;
+}
+
+/* =========================================================
+   IEIT DARK THEME
+   ========================================================= */
+
+.dark {
+  --background: #071a3d;
+  --foreground: #f8fafc;
+
+  --card: #0d234d;
+  --card-foreground: #f8fafc;
+
+  --popover: #0d234d;
+  --popover-foreground: #f8fafc;
+
+  --primary: #3390ff;
+  --primary-foreground: #ffffff;
+
+  --secondary: #123265;
+  --secondary-foreground: #f8fafc;
+
+  --muted: #123265;
+  --muted-foreground: #a8b7d1;
+
+  --accent: #123265;
+  --accent-foreground: #ffffff;
+
+  --destructive: #ff4d55;
+
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #00b8f5;
+
+  --chart-1: #3390ff;
+  --chart-2: #00b8f5;
+  --chart-3: #0066ff;
+  --chart-4: #ffc107;
+  --chart-5: #e31b23;
+
+  --sidebar: #041127;
+  --sidebar-foreground: #f8fafc;
+
+  --sidebar-primary: #0066ff;
+  --sidebar-primary-foreground: #ffffff;
+
+  --sidebar-accent: #003b8f;
+  --sidebar-accent-foreground: #ffffff;
+
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #00b8f5;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+    min-width: 320px;
+  }
+}
