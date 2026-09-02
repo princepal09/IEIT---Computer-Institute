@@ -10,11 +10,11 @@ const Navbar = ({ className }: { className?: string }) => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b border-border/50 bg-white/85 backdrop-blur-md supports-backdrop-filter:bg-white/75",
+        "sticky top-0 py-1 z-40 border-b border-border/50 bg-white/85 backdrop-blur-md supports-backdrop-filter:bg-white/75",
         className,
       )}
     >
-      <PageContainer size="wide" padding="none">
+      <PageContainer size="default" padding="none">
         <div className="flex h-14 items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link

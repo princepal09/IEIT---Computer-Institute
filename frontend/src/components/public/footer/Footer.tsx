@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { PageContainer } from "@/components/shared/PageContainer";
-import {
-  MapPinIcon,
-  PhoneIcon,
-  MailIcon,
-} from "lucide-react";
+import { MapPinIcon, PhoneIcon, MailIcon } from "lucide-react";
 import {
   FaFacebookF,
   FaInstagram,
@@ -42,8 +38,8 @@ const Footer = ({ className }: { className?: string }) => {
       role="contentinfo"
     >
       {/* Main footer content */}
-      <PageContainer size="wide" padding="none">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 px-4 pt-12 pb-10 sm:px-6 md:grid-cols-2 lg:grid-cols-12 lg:gap-x-8 lg:px-8">
+      <PageContainer size="default" padding="none">
+        <div className="grid grid-cols-1  gap-x-8 gap-y-10 px-4 pt-12 pb-10 sm:px-6 md:grid-cols-2 lg:grid-cols-12 lg:gap-x-8 lg:px-8">
           {/* Brand column */}
           <div className="flex flex-col gap-4 lg:col-span-4">
             <Link
@@ -170,7 +166,7 @@ const Footer = ({ className }: { className?: string }) => {
 
       {/* Bottom bar */}
       <div className="border-t border-white/8">
-        <PageContainer size="wide" padding="none">
+        <PageContainer size="default" padding="none">
           <div className="flex flex-col items-center gap-3 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4 lg:px-8">
             <p className="text-[0.6875rem] text-white/30">
               &copy; {year} IEIT. All rights reserved.
