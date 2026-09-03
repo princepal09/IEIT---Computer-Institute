@@ -8,8 +8,12 @@ export interface Branch {
   address: string;
 }
 
+ export interface BranchResponse {
+  data: Branch[];
+}
+
 export const getBranches = async (): Promise<Branch[]> => {
-  const response = await api.get<Branch[]>("/branch/all-branches");
+  const response = await api.get<BranchResponse>("/branch/all-branches");
   console.log(response?.data);
-  return response.data;
+  return response?.data?.data
 };

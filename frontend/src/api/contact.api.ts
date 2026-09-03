@@ -8,6 +8,6 @@ export interface ContactPayload {
 }
 
 export const sendContactMessage = async (data: ContactPayload) => {
-  const response = await api.post("/contact", data);
+  const response = await api.post("/contact/create", data);
   return response?.data;
 };
