@@ -9,6 +9,7 @@ import Gallery from "./pages/public/Gallery";
 import Courses from "./pages/public/Courses";
 import { Toaster } from "sonner";
 import Contact from "./pages/public/Contact";
+import Branch from "./pages/public/Branch";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/branches/:branchSlug" element={<Branch />} />
         </Route>
 
         {/* 404 */}

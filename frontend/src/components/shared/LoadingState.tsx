@@ -2,11 +2,11 @@ import { Spinner } from "@/components/ui/spinner";
 
 const LoadingState = () => {
   return (
-    <div className="flex items-center gap-6">
-      <Spinner className="size-3" />
-      <Spinner className="size-4" />
+    <div className="flex min-h-[60vh] justify-center items-center gap-6">
+      {/* <Spinner className="size-3" />
+      <Spinner className="size-4" /> */}
       <Spinner className="size-6" />
-      <Spinner className="size-8" />
+      {/* <Spinner className="size-8" /> */}
     </div>
   );
 };

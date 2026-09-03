@@ -16,8 +16,8 @@ import {
 } from "@/components/ui/sheet";
 
 import { navItems } from "./DesktopNav";
-import { useBranches } from "@/hooks/use-branch";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useBranches } from "@/hooks/useBranches";
 
 const MobileNav = () => {
   const [open, setOpen] = useState(false);
