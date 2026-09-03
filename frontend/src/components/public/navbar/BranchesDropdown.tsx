@@ -329,8 +329,6 @@ const BranchesDropdown = () => {
                     </Tooltip>
                   ))}
               </div>
-
-           
             </motion.div>
           )}
         </AnimatePresence>

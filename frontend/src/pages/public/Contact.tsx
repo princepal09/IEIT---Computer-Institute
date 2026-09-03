@@ -7,7 +7,7 @@ const Contact = () => {
   return (
     <main className="bg-[#f7f9f8]">
       <PageContainer padding="md">
-        <section className="py-16 sm:py-20 lg:py-24">
+        <section className="py-16 sm:py-20 lg:py-12">
           {/* Header */}
           <div className="mx-auto max-w-2xl text-center">
             <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-ieit-blue">

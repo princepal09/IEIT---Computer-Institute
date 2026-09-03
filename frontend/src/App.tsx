@@ -10,6 +10,7 @@ import Courses from "./pages/public/Courses";
 import { Toaster } from "sonner";
 import Contact from "./pages/public/Contact";
 import Branch from "./pages/public/Branch";
+import Enquiry from "./pages/public/Enquiry";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/branches/:branchSlug" element={<Branch />} />
+          <Route path="/enquiry" element={<Enquiry />} />
         </Route>
 
         {/* 404 */}
