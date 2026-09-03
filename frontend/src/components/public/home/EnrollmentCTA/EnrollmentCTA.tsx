@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { ArrowRightIcon, PhoneIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import image from "@/assets/gallery/five.jpeg";
+import image from "@/assets/gallery/four.jpeg";
 
 const EnrollmentCTA = () => {
   return (

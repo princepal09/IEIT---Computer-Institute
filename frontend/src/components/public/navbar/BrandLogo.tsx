@@ -1,7 +1,7 @@
 const BrandLogo = () => {
   return (
     <div className="flex flex-col leading-none">
-      <span className="text-[19px] font-extrabold tracking-[0.08em] text-ieit-navy">
+      <span className="text-[22px] font-black tracking-[0.09em] text-ieit-navy">
         IEIT
       </span>
 

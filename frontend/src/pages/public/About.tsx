@@ -1,7 +1,14 @@
-import React from "react";
+import AboutIEIT from "@/components/public/about/AboutIEIT";
+import WhoWeAre from "@/components/public/about/WhoWeAre";
+
 
 const About = () => {
-  return <div>About</div>;
+  return (
+    <>
+      <AboutIEIT />
+      <WhoWeAre />
+    </>
+  );
 };
 
 export default About;
