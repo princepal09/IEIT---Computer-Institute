@@ -1,4 +1,5 @@
 import CoursesSection from "@/components/public/home/Courses/CourseSection";
+import EnrollmentCTA from "@/components/public/home/EnrollmentCTA/EnrollmentCTA";
 import FAQ from "@/components/public/home/FAQ/FAQ";
 import Hero from "@/components/public/home/Hero/Hero";
 import Testimonials from "@/components/public/home/Testimonial/Testimonials";
@@ -9,6 +10,7 @@ const HomePage = () => {
     <>
       <Hero />
       <CoursesSection />
+      <EnrollmentCTA/>
       <WhyIEIT />
       <Testimonials />
       <FAQ />

@@ -9,7 +9,7 @@ export interface Branch {
 }
 
 export const getBranches = async (): Promise<Branch[]> => {
-  const response = await api.get<Branch[]>("/branches");
+  const response = await api.get<Branch[]>("/branch/all-branches");
   console.log(response?.data);
   return response.data;
 };

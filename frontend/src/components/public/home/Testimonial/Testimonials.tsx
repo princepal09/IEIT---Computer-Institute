@@ -9,7 +9,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 const testimonials = [
   {
     id: 1,
-    name: "Rahim Ahmed",
+    name: "Prince Pal",
     role: "Full-Stack Development Student",
     initials: "RA",
     review:
@@ -17,7 +17,7 @@ const testimonials = [
   },
   {
     id: 2,
-    name: "Nusrat Jahan",
+    name: "Monika Palariya",
     role: "Python & Data Science Student",
     initials: "NJ",
     review:
@@ -25,7 +25,7 @@ const testimonials = [
   },
   {
     id: 3,
-    name: "Tanvir Hasan",
+    name: "Santosh Pant",
     role: "Cloud Computing Student",
     initials: "TH",
     review:
@@ -33,7 +33,7 @@ const testimonials = [
   },
   {
     id: 4,
-    name: "sdfsdfsdf",
+    name: "Rahul Chandra Saraswati",
     role: "Cloud Computing Student",
     initials: "TH",
     review:
@@ -438,7 +438,7 @@ const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
 
       <CardContent className="p-5">
         {/* Rating + quote */}
-
+        {/* 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-0.5">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -449,7 +449,7 @@ const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
           <div className="flex size-8 items-center justify-center rounded-full bg-red-50 text-red-500">
             <Quote className="size-3.5" />
           </div>
-        </div>
+        </div> */}
 
         {/* Review */}
 

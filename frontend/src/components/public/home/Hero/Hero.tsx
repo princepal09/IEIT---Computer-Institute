@@ -2,7 +2,7 @@ import { motion, useInView } from "motion/react";
 import { ArrowRightIcon, PlayIcon, TrendingUpIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-
+import heroPhoto from "@/assets/gallery/two.jpeg"
 import { cn } from "@/lib/utils";
 
 const Hero = () => {
@@ -139,7 +139,7 @@ const Hero = () => {
             >
               <div className="relative aspect-[1.12/1] overflow-hidden bg-slate-300">
                 <img
-                  src="/hero-image.jpeg"
+                  src={heroPhoto}
                   alt="IEIT students learning technology"
                   className="h-full w-full object-cover grayscale-[15%]"
                 />
@@ -179,7 +179,7 @@ const Hero = () => {
             </div>
 
             {/* Floating next batch card */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -207,7 +207,7 @@ const Hero = () => {
                   Starts Oct 24
                 </p>
               </div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Decorative glow */}
             <div
