@@ -25,25 +25,25 @@ import { forgotPasswordRateLimiter, loginRateLimiter } from '../../middlewares/r
 
 const router = express.Router();
 
-router.post('/login', loginRateLimiter, validate(loginUserSchema), loginController);
-router.get('/me', verifyUser(authService), getMe);
-router.post('/refresh', refreshTokenController);
-router.post('/logout', verifyUser(authService), logoutController);
-router.post('/logout-all', verifyUser(authService), logoutAllController);
+router.post('/admin/login', loginRateLimiter, validate(loginUserSchema), loginController);
+router.get('/admin/me', verifyUser(authService), getMe);
+router.post('/admin/refresh', refreshTokenController);
+router.post('/admin/logout', verifyUser(authService), logoutController);
+router.post('/admin/logout-all', verifyUser(authService), logoutAllController);
 router.patch(
-  '/update-profile',
+  '/admin/update-profile',
   verifyUser(authService),
   upload.single('profileImage'),
   validate(updateProfileSchema),
   updateProfile,
 );
 router.patch(
-  '/change-password',
+  '/admin/change-password',
   verifyUser(authService),
   validate(updatePasswordSchema),
   updatePasswordController,
 );
 
-router.post('/forgot-password', forgotPasswordRateLimiter, validate(forgotPasswordSchema), forgotPasswordController);
-router.post('/reset-password', validate(resetPasswordSchema), resetPasswordController);
+router.post('/admin/forgot-password', forgotPasswordRateLimiter, validate(forgotPasswordSchema), forgotPasswordController);
+router.post('/admin/reset-password', validate(resetPasswordSchema), resetPasswordController);
 export default router;

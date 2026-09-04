@@ -12,6 +12,11 @@ import Contact from "./pages/public/Contact";
 import Branch from "./pages/public/Branch";
 import Enquiry from "./pages/public/Enquiry";
 import CourseDetails from "./pages/public/CourseDetails";
+import ProtectedAdminRoute from "./pages/admin/ProtectedAdminRoute";
+import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import AdminForgotPasswordPage from "./pages/admin/AdminForgotPassword";
+import AdminResetPasswordPage from "./pages/admin/AdminResetPasswordPage";
 
 const App = () => {
   return (
@@ -25,8 +30,38 @@ const App = () => {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/branches/:branchSlug" element={<Branch />} />
-          <Route path="/enquire" element={<Enquiry/>} />
+          <Route path="/enquire" element={<Enquiry />} />
           <Route path="/courses/:courseSlug" element={<CourseDetails />} />
+        </Route>
+
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/reset-password" element={<AdminResetPasswordPage />} />
+        <Route
+          path="/forgot-password"
+          element={<AdminForgotPasswordPage />}
+        />
+        {/* Protected Admin */}
+        <Route element={<ProtectedAdminRoute />}>
+          <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+
+          {/* Later */}
+
+          {/* 
+          <Route
+            path="/admin/courses"
+            element={<AdminCoursesPage />}
+          />
+
+          <Route
+            path="/admin/branches"
+            element={<AdminBranchesPage />}
+          />
+
+          <Route
+            path="/admin/enquiries"
+            element={<AdminEnquiriesPage />}
+          />
+          */}
         </Route>
 
         {/* 404 */}
