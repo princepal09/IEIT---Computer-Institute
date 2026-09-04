@@ -167,7 +167,7 @@ const AdminLoginPage = () => {
                   </Label>
 
                   <Link
-                    to="/admin/forgot-password"
+                    to="/forgot-password"
                     className="text-xs font-semibold text-ieit-blue transition-colors hover:text-ieit-blue/80"
                   >
                     Forgot password?
