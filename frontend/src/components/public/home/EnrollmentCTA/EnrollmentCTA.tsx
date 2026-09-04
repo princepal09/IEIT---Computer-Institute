@@ -21,7 +21,7 @@ const EnrollmentCTA = () => {
         <img
           src={image}
           alt="IEIT students learning technology"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-[center_25%]"
         />
 
         {/* Optional dark gradient ONLY behind the text */}
