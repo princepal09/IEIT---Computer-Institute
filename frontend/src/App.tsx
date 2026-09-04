@@ -11,6 +11,7 @@ import { Toaster } from "sonner";
 import Contact from "./pages/public/Contact";
 import Branch from "./pages/public/Branch";
 import Enquiry from "./pages/public/Enquiry";
+import CourseDetails from "./pages/public/CourseDetails";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/courses" element={<Courses />} />
           <Route path="/branches/:branchSlug" element={<Branch />} />
           <Route path="/enquiry" element={<Enquiry />} />
+          <Route path="/courses/:courseSlug" element={<CourseDetails />} />
         </Route>
 
         {/* 404 */}

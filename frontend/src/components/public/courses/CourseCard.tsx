@@ -1,74 +1,188 @@
-// import { Link } from "react-router-dom";
-// import { ArrowRight, GraduationCap } from "lucide-react";
-// import type { Course } from "@/data/courses";
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
-// import { Badge } from "@/components/ui/badge";
-// import { Button } from "@/components/ui/button";
+import { ArrowRightIcon, Clock3Icon, GraduationCapIcon } from "lucide-react";
 
-// const imageStyles: Record<string, string> = {
-//   "Web Development":
-//     "bg-gradient-to-br from-[color:var(--ieit-blue)]/[0.08] to-[color:var(--ieit-cyan)]/[0.08] text-[color:var(--ieit-blue)]",
-//   Design:
-//     "bg-gradient-to-br from-purple-500/[0.08] to-pink-500/[0.08] text-purple-600",
-//   "Computer Fundamentals":
-//     "bg-gradient-to-br from-[color:var(--ieit-navy)]/[0.08] to-[color:var(--ieit-blue)]/[0.08] text-[color:var(--ieit-navy)]",
-// };
+import { Link } from "react-router-dom";
 
-// interface CourseCardProps {
-//   course: Course;
-// }
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
-// const CourseCard = ({ course }: CourseCardProps) => {
-//   const style = imageStyles[course.category] ?? imageStyles["Web Development"];
+import type { Course } from "@/types/course";
 
-//   return (
-//     <Card className="group overflow-hidden ring-border/60 transition-shadow hover:shadow-[var(--shadow-elevated)]">
-//       {/* Image placeholder */}
-//       <div
-//         className={`relative flex aspect-[16/10] items-center justify-center overflow-hidden ${style}`}
-//       >
-//         <GraduationCap className="size-12 opacity-60 transition-transform duration-300 group-hover:scale-110" />
-//       </div>
+interface CourseCardProps {
+  course: Course;
+}
 
-//       <CardHeader className="gap-2 pt-5">
-//         <div className="flex items-center gap-2">
-//           <Badge variant="secondary" className="text-[0.7rem] font-medium">
-//             {course.category}
-//           </Badge>
-//           <span className="text-xs text-muted-foreground">
-//             {course.duration}
-//           </span>
-//         </div>
-//         <CardTitle className="mt-1 text-[1.05rem] font-semibold leading-snug">
-//           {course.title}
-//         </CardTitle>
-//       </CardHeader>
+const CourseCard = ({ course }: CourseCardProps) => {
+  console.log(course)
+  const fee = Number(course.fee);
+  const discountPercent = Number(course.discountPercent);
+  const originalFee = Number(course.originalFee);
 
-//       <CardContent>
-//         <CardDescription className="text-sm leading-relaxed">
-//           {course.description}
-//         </CardDescription>
-//       </CardContent>
+  const hasDiscount =
+    Number.isFinite(originalFee) &&
+    Number.isFinite(fee) &&
+    originalFee > fee &&
+    discountPercent > 0;
 
-//       <div className="mt-auto px-[var(--card-spacing)] pb-[var(--card-spacing)]">
-//         <Button
-//           variant="ghost"
-//           size="sm"
-//           render={<Link to="/courses" />}
-//           className="gap-1.5 text-sm font-medium text-[color:var(--ieit-blue)] hover:text-[color:var(--ieit-blue-dark)]"
-//         >
-//           Learn More
-//           <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-//         </Button>
-//       </div>
-//     </Card>
-//   );
-// };
+  return (
+    <Card
+      className="
+        group
+        overflow-hidden
+        rounded-2xl
+        border-slate-200
+        bg-white
+        shadow-sm
+        transition-shadow
+        duration-200
+        hover:shadow-md
+      "
+    >
+      <CardContent className="p-0">
+        {/* Top section */}
+        <div className="border-b border-slate-100 p-6">
+          <div className="flex items-start justify-between gap-4">
+            <Badge
+              variant="secondary"
+              className="
+                rounded-md
+                border-0
+                bg-blue-50
+                px-2.5
+                py-1
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.08em]
+                text-ieit-blue
+              "
+            >
+              {course.category}
+            </Badge>
 
-// export default CourseCard;
+            <span className="text-xs font-medium text-slate-400">
+              {course.duration}
+            </span>
+          </div>
+
+          <h3
+            className="
+              mt-5
+              text-xl
+              font-extrabold
+              tracking-[-0.03em]
+              text-slate-900
+            "
+          >
+            {course.name}
+          </h3>
+
+          <p className="mt-2 text-sm leading-6 text-slate-500">
+            {course.shortDescription}
+          </p>
+        </div>
+
+        {/* Details */}
+        <div className="grid grid-cols-2 divide-x divide-slate-100 border-b border-slate-100">
+          {/* Duration */}
+          <div className="p-5">
+            <div className="flex items-center gap-2 text-slate-400">
+              <Clock3Icon className="size-4" />
+
+              <span className="text-[11px] font-semibold uppercase tracking-wide">
+                Duration
+              </span>
+            </div>
+
+            <p className="mt-2 text-sm font-bold text-slate-800">
+              {course.duration}
+            </p>
+          </div>
+
+          {/* Eligibility */}
+          <div className="p-5">
+            <div className="flex items-center gap-2 text-slate-400">
+              <GraduationCapIcon className="size-4" />
+
+              <span className="text-[11px] font-semibold uppercase tracking-wide">
+                Eligibility
+              </span>
+            </div>
+
+            <p className="mt-2 text-sm font-bold text-slate-800">
+              {course.eligibility}
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="flex items-center justify-between gap-4 p-5">
+          {/* Price */}
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+              Course Fee
+            </p>
+
+            <div className="mt-1 flex flex-wrap items-center gap-2">
+              {/* Original / Cut Price */}
+              {hasDiscount && (
+                <span className="text-sm font-medium text-slate-400 line-through">
+                  ₹{originalFee.toLocaleString("en-IN")}
+                </span>
+              )}
+
+              {/* Actual Price */}
+              <span className="text-lg font-extrabold text-slate-900">
+                ₹{fee.toLocaleString("en-IN")}
+              </span>
+
+              {/* Discount */}
+              {discountPercent > 0 && (
+                <span
+                  className="
+                    rounded-md
+                    bg-emerald-50
+                    px-2
+                    py-1
+                    text-[10px]
+                    font-bold
+                    text-emerald-600
+                  "
+                >
+                  {discountPercent}% OFF
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Enquire */}
+          <Link
+            to={`/courses/${course.slug}`}
+            className="
+              inline-flex
+              h-9
+              shrink-0
+              items-center
+              rounded-lg
+              bg-ieit-blue
+              px-4
+              text-xs
+              font-semibold
+              text-white
+              shadow-sm
+              transition-all
+              duration-200
+              hover:-translate-y-0.5
+              hover:bg-ieit-blue/90
+              hover:shadow-md
+            "
+          >
+            Enquire
+            <ArrowRightIcon className="ml-1.5 size-3.5" />
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default CourseCard;

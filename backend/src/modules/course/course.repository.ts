@@ -55,17 +55,32 @@ export class CourseRepository implements ICourseRepository {
   }
 
   async findAllCourses(): Promise<any[]> {
-    return prisma.course.findMany({
+    const courses = await prisma.course.findMany({
       orderBy: {
         createdAt: 'desc',
       },
-      include:{
-        branches :{
-          include : {
-            branch : true
-          }
-        }
-      }
+      include: {
+        branches: {
+          include: {
+            branch: true,
+          },
+        },
+      },
+    });
+
+    const discountPercent = 20;
+
+    return courses.map((course) => {
+      const fee = course.fee ? Number(course.fee) : null;
+
+      const originalFee = fee ? Math.round(fee + (fee * discountPercent) / 100) : null;
+
+      return {
+        ...course,
+        fee: fee,
+        originalFee,
+        discountPercent: fee ? discountPercent : 0,
+      };
     });
   }
 
@@ -74,28 +89,44 @@ export class CourseRepository implements ICourseRepository {
       where: {
         id,
       },
-      include:{
+      include: {
         branches: {
-            include : {
-              branch : true
-            }
-        }
-      }
+          include: {
+            branch: true,
+          },
+        },
+      },
     });
   }
 
   async findCourseBySlug(slug: string): Promise<any | null> {
-    return prisma.course.findUnique({
+    const course = await prisma.course.findUnique({
       where: {
         slug,
-      },include :{
-        branches : {
-          include : {
-            branch : true
-          }
-        }
-      }
+      },
+      include: {
+        branches: {
+          include: {
+            branch: true,
+          },
+        },
+      },
     });
+
+    if (!course) {
+      return null;
+    }
+
+    const discountPercent = 20;
+    const originalFee = course.fee
+      ? Math.round(Number(course.fee) + (Number(course.fee) * discountPercent) / 100)
+      : null;
+
+    return {
+      ...course,
+      originalFee,
+      discountPercent,
+    };
   }
 
   async findCourseByName(name: string): Promise<any | null> {

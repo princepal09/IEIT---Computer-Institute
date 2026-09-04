@@ -1,7 +1,11 @@
-import React from "react";
+import CoursesSection from "@/components/public/courses/CourseSection";
 
 const Courses = () => {
-  return <div>Courses</div>;
+  return (
+    <main>
+      <CoursesSection/>
+    </main>
+  );
 };
 
 export default Courses;

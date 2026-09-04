@@ -31,9 +31,8 @@ export const getCourseById = async (req: Request, res: Response) => {
 export const getCourseBySlug = async (req: Request, res: Response) => {
   const courseSlug = req.params.courseSlug as string;
 
-
   if (!courseSlug) {
-    throw new ApiError(404, 'CourseId not found');
+    throw new ApiError(404, 'CourseSlug not found');
   }
   const course = await courseService.getCourseBySlug(courseSlug);
 

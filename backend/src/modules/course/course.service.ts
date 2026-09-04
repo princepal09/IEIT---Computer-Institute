@@ -236,6 +236,8 @@ export class CourseService {
     }
     const courses = await this.repo.findAllCourses();
 
+    console.log("courses", courses);
+
     const formattedCourse = courses.map((course) => this.formatCourse(course));
 
     await setCache(CACHE_KEYS.COURSES, formattedCourse, 10 * 60);
@@ -257,7 +259,10 @@ export class CourseService {
       // Decimal → string
       fee: course.fee !== null ? course.fee.toString() : null,
 
+
       category: course.category,
+      originalFee: course.originalFee,
+      discountPercent : course.discountPercent,
 
       imageUrl: course.imageUrl,
 
