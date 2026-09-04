@@ -12,7 +12,6 @@ interface CourseCardProps {
 }
 
 const CourseCard = ({ course }: CourseCardProps) => {
-  console.log(course)
   const fee = Number(course.fee);
   const discountPercent = Number(course.discountPercent);
   const originalFee = Number(course.originalFee);

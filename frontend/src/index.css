@@ -1,9 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-
-@import "@fontsource-variable/manrope";
 @import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/sora";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -12,8 +11,8 @@
      TYPOGRAPHY
      ========================================================= */
 
-  --font-sans: "Manrope Variable", sans-serif;
-  --font-heading: "Manrope Variable", sans-serif;
+  --font-sans: "Sora Variable", system-ui, -apple-system, sans-serif;
+  --font-heading: "Sora Variable", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono Variable", monospace;
 
   /* =========================================================

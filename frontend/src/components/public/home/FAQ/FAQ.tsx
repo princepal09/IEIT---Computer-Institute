@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Link } from "react-router-dom";
 
 const faqs = [
   {
@@ -254,8 +255,8 @@ const FAQ = () => {
           }}
           className="mt-6 flex items-center justify-center"
         >
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="
               group
               inline-flex
@@ -294,7 +295,7 @@ const FAQ = () => {
                 group-hover:translate-x-1
               "
             />
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>
