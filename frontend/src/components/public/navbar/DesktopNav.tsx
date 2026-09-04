@@ -1,7 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
 
-import { LogInIcon } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
@@ -67,21 +65,7 @@ const DesktopNav = ({ className }: { className?: string }) => {
 
       {/* Actions */}
       <div className="ml-4 flex items-center gap-2 border-l border-slate-200 pl-4">
-        <Button
-          variant="ghost"
-          size="sm"
-          className={cn(
-            "h-9 rounded-lg px-3",
-            "text-[13px] font-semibold",
-            "text-slate-600",
-            "hover:bg-slate-50 hover:text-slate-950"
-          )}
-          render={<Link to="/login" />}
-        >
-          <LogInIcon className="size-3.5" />
-          Login
-        </Button>
-
+       
         <Button
           variant="default"
           size="sm"

@@ -10,7 +10,7 @@ const HomePage = () => {
     <>
       <Hero />
       <CoursesSection />
-      <EnrollmentCTA/>
+      <EnrollmentCTA />
       <WhyIEIT />
       <Testimonials />
       <FAQ />

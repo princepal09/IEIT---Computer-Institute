@@ -310,20 +310,6 @@ const MobileNav = () => {
         ========================================================= */}
 
         <div className="mt-auto flex flex-col gap-2 border-t border-slate-200/70 px-5 py-4">
-          <Button
-            variant="ghost"
-            size="default"
-            className={cn(
-              "w-full rounded-lg",
-              "font-semibold",
-              "text-slate-600",
-              "hover:bg-slate-50 hover:text-slate-950"
-            )}
-            render={<Link to="/login" />}
-          >
-            <LogInIcon className="size-4" />
-            Login
-          </Button>
 
           <Button
             variant="default"
