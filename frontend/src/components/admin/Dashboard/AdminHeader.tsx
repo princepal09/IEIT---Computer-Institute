@@ -1,7 +1,7 @@
 import { MenuIcon } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/store/hook";
+import { Link } from "react-router-dom";
 
 interface AdminHeaderProps {
   onMenuClick: () => void;
@@ -32,29 +32,35 @@ const AdminHeader = ({ onMenuClick }: AdminHeaderProps) => {
       </Button>
 
       {/* Right section */}
-      <div className="ml-auto flex items-center gap-3">
-        <div className="hidden text-right sm:block">
-          <p className="text-sm font-semibold text-slate-900">
-            {admin?.name}
-          </p>
+      <div className="ml-auto">
+        <Link
+          to="/admin/profile"
+          className="group flex items-center gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-slate-50"
+        >
+          {/* Name & Email */}
+          <div className="hidden text-right sm:block">
+            <p className="text-sm font-semibold text-slate-900 transition-colors group-hover:text-ieit-blue">
+              {admin?.name}
+            </p>
 
-          <p className="text-xs text-slate-500">
-            {admin?.email}
-          </p>
-        </div>
+            <p className="text-xs text-slate-500">
+              {admin?.email}
+            </p>
+          </div>
 
-        {/* Avatar */}
-        <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-ieit-blue text-xs font-bold text-white ring-2 ring-ieit-blue/10">
-          {admin?.profileImageUrl ? (
-            <img
-              src={admin.profileImageUrl}
-              alt={admin.name}
-              className="size-full object-cover"
-            />
-          ) : (
-            initials
-          )}
-        </div>
+          {/* Avatar */}
+          <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-ieit-blue text-xs font-bold text-white ring-2 ring-ieit-blue/10 transition-transform group-hover:scale-105">
+            {admin?.profileImageUrl ? (
+              <img
+                src={admin.profileImageUrl}
+                alt={admin.name}
+                className="size-full object-cover"
+              />
+            ) : (
+              initials
+            )}
+          </div>
+        </Link>
       </div>
     </header>
   );

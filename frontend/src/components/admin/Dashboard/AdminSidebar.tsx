@@ -17,6 +17,7 @@ import {
 
 import { useAdminLogout } from "@/hooks/useAdminAuth";
 import ConfirmationModal from "@/components/shared/ConfirmationModal";
+import { UserCircleIcon } from "lucide-react";
 
 const navigation = [
   {
@@ -58,6 +59,11 @@ const navigation = [
     label: "Site Settings",
     href: "/admin/settings",
     icon: SettingsIcon,
+  },
+  {
+    label: "Profile",
+    href: "/admin/profile",
+    icon: UserCircleIcon,
   },
 ];
 

@@ -17,6 +17,8 @@ import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminForgotPasswordPage from "./pages/admin/AdminForgotPassword";
 import AdminResetPasswordPage from "./pages/admin/AdminResetPasswordPage";
+import AdminCoursesPage from "./components/admin/course/AdminCoursesPage";
+import AdminLayout from "./layouts/AdminLayout";
 
 const App = () => {
   return (
@@ -36,17 +38,17 @@ const App = () => {
 
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route path="/reset-password" element={<AdminResetPasswordPage />} />
-        <Route
-          path="/forgot-password"
-          element={<AdminForgotPasswordPage />}
-        />
-        {/* Protected Admin */}
+        <Route path="/forgot-password" element={<AdminForgotPasswordPage />} />
+
         <Route element={<ProtectedAdminRoute />}>
-          <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+          <Route element={<AdminLayout/>}>
+            {/* Protected Admin */}
+            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+            <Route path="/admin/courses" element={<AdminCoursesPage />} />
 
-          {/* Later */}
+            {/* Later */}
 
-          {/* 
+            {/* 
           <Route
             path="/admin/courses"
             element={<AdminCoursesPage />}
@@ -62,6 +64,7 @@ const App = () => {
             element={<AdminEnquiriesPage />}
           />
           */}
+          </Route>
         </Route>
 
         {/* 404 */}
