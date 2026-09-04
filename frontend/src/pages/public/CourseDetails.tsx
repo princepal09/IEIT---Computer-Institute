@@ -102,8 +102,8 @@ const CourseDetails = () => {
                 asChild
                 className="h-11 rounded-lg bg-ieit-blue px-5 text-xs font-bold text-white shadow-lg shadow-blue-950/30 hover:bg-ieit-blue/90"
               >
-                <Link to={`/enquire?course=${course.slug}`}>
-                  Enquire Now
+                <Link to={`/enquire?course=${encodeURIComponent(course.slug)}`}>
+                  Enroll Now
                   <ArrowRightIcon className="ml-2 size-4" />
                 </Link>
               </Button>
@@ -258,8 +258,8 @@ const CourseDetails = () => {
                   asChild
                   className="mt-6 h-11 w-full rounded-lg bg-ieit-blue text-xs font-bold text-white hover:bg-ieit-blue/90"
                 >
-                  <Link to={`/enquire?course=${course.slug}`}>
-                    Enquire About This Course
+                  <Link to={`/enquire?course=${encodeURIComponent(course.slug)}`}>
+                    Enroll Now
                   </Link>
                 </Button>
 

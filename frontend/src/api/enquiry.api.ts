@@ -1,9 +1,10 @@
 import api from "@/lib/axios";
-import { EnquiryFormValues } from "@/types/enquiry.schema";
+import { EnquiryResponse } from "@/types/enquiry";
+import { EnquiryFormValues } from "@/validations/enquiry.schema";
+
+export const createEnquiry = async (data: EnquiryFormValues) :  Promise<EnquiryResponse>=> {
+  const response = await api.post<EnquiryResponse>("/enquiries/create", data);
+  return response.data;
+};
 
 
-export const createEnquiry = async(data:EnquiryFormValues) => {
-    const response = await api.post("/enquiries/create", data);
-    return response.data;
-
-}

@@ -25,7 +25,7 @@ const App = () => {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/branches/:branchSlug" element={<Branch />} />
-          <Route path="/enquiry" element={<Enquiry />} />
+          <Route path="/enquire" element={<Enquiry/>} />
           <Route path="/courses/:courseSlug" element={<CourseDetails />} />
         </Route>
 

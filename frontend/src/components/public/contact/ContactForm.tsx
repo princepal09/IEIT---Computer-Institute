@@ -19,7 +19,8 @@ import { useContact } from "@/hooks/useContact";
 import {
   type ContactFormValues,
   contactSchema,
-} from "@/types/contact.schema";
+} from "@/validations/contact.schema";
+import { getErrorMessage } from "@/utils/error";
 
 const ContactForm = () => {
   const contactMutation = useContact();
@@ -45,16 +46,12 @@ const ContactForm = () => {
         reset();
 
         toast.success(
-          response?.message || "Your message has been sent successfully.",
+          response?.message || "Your message has been sent successfully."
         );
       },
 
       onError: (error) => {
-        toast.error(
-          error instanceof Error
-            ? error.message
-            : "Something went wrong. Please try again.",
-        );
+        toast.error(getErrorMessage(error));
       },
     });
   };
@@ -99,9 +96,7 @@ const ContactForm = () => {
               aria-invalid={Boolean(errors.name)}
               {...register("name")}
               className={
-                errors.name
-                  ? "border-red-400 focus-visible:ring-red-400"
-                  : ""
+                errors.name ? "border-red-400 focus-visible:ring-red-400" : ""
               }
             />
 
@@ -127,9 +122,7 @@ const ContactForm = () => {
               aria-invalid={Boolean(errors.email)}
               {...register("email")}
               className={
-                errors.email
-                  ? "border-red-400 focus-visible:ring-red-400"
-                  : ""
+                errors.email ? "border-red-400 focus-visible:ring-red-400" : ""
               }
             />
 
@@ -155,9 +148,7 @@ const ContactForm = () => {
               aria-invalid={Boolean(errors.phone)}
               {...register("phone")}
               className={
-                errors.phone
-                  ? "border-red-400 focus-visible:ring-red-400"
-                  : ""
+                errors.phone ? "border-red-400 focus-visible:ring-red-400" : ""
               }
             />
 
@@ -189,9 +180,7 @@ const ContactForm = () => {
             />
 
             {errors.message && (
-              <p className="text-xs text-red-500">
-                {errors.message.message}
-              </p>
+              <p className="text-xs text-red-500">{errors.message.message}</p>
             )}
           </div>
 
