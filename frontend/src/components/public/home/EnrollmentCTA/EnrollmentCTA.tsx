@@ -28,7 +28,7 @@ const EnrollmentCTA = () => {
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"
-        />
+        />+
 
         {/* Content */}
         <div className="relative mx-auto flex h-full w-full max-w-7xl items-center px-5 sm:px-8 lg:px-10">
