@@ -23,6 +23,7 @@ import AdminBranchesPage from "./components/admin/branch/AdminBranchesPage";
 import GalleryPage from "./components/admin/gallery/GalleryPage";
 import ContactPage from "./components/admin/contact/ContactPage";
 import EnquiryPage from "./components/admin/enquiries/EnquiryPage";
+import NoticePage from "./components/admin/notices/NoticePage";
 
 const App = () => {
   return (
@@ -53,6 +54,7 @@ const App = () => {
             <Route path="/admin/gallery" element={<GalleryPage/>} />
             <Route path="/admin/contact" element={<ContactPage/>} />
             <Route path="/admin/enquiries" element={<EnquiryPage/>} />
+            <Route path="/admin/notices" element={<NoticePage/>} />
 
             {/* Later */}
 
