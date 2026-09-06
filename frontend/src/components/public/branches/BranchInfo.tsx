@@ -28,7 +28,7 @@ const BranchInfo = ({ branch }: BranchInfoProps) => {
     {
       icon: Clock3Icon,
       label: "Opening Hours",
-      value: `${branch.openingTime} - ${branch.closingTime}`,
+      value: `${branch.openingTime} AM - ${branch.closingTime} PM`,
     },
   ];
 

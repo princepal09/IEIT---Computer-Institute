@@ -27,23 +27,23 @@ const quickLinks = [
 
 const socialLinks = [
   { label: "Facebook", icon: FaFacebookF, href: "#" },
-  { label: "Instagram", icon: FaInstagram, href: "#" },
+  { label: "Instagram", icon: FaInstagram, href: "https://www.instagram.com/ieit_computer_institute_almora/" },
   { label: "YouTube", icon: FaYoutube, href: "#" },
-  { label: "LinkedIn", icon: FaLinkedinIn, href: "#" },
+  { label: "LinkedIn", icon: FaLinkedinIn, href: "https://www.linkedin.com/in/bhaskar-giri-goswami-b5b3071a8/" },
 ] as const;
 
 const contactInfo = [
   {
     icon: MapPinIcon,
-    text: "123 ICT Tower, Gulshan-1, Dhaka 1212",
+    text: "Dr. Punetha mansion, Upper, Mall Rd, near Badreshwar Mandir, near Himsagar Hotel Bus Station, Paltan Bazar, Dharanaula, Almora, Uttarakhand 263601, India",
   },
   {
     icon: PhoneIcon,
-    text: "+880 1XXX-XXXXXX",
+    text: "+91 9536815699",
   },
   {
     icon: MailIcon,
-    text: "info@ieit.edu.bd",
+    text: "ieitalmora@gmail.com",
   },
 ] as const;
 
