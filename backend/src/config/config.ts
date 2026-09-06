@@ -24,7 +24,11 @@ const environment = {
   RESEND_API_KEY: process.env.RESEND_API_KEY!,
   MAIL_FROM: process.env.MAIL_FROM!,
   ENQUIRY_NOTIFICATION_EMAIL:process.env.ENQUIRY_NOTIFICATION_EMAIL!,
-  REDIS_URL:process.env.REDIS_URL!
+  REDIS_URL:process.env.REDIS_URL!,
+  ADMIN_NAME : process.env.ADMIN_NAME!,
+  ADMIN_EMAIL : process.env.ADMIN_EMAIL!,
+  ADMIN_PASSWORD : process.env.ADMIN_PASSWORD!
+
 };
 
 export default environment;
