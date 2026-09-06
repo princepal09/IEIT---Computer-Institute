@@ -20,6 +20,8 @@ import AdminResetPasswordPage from "./pages/admin/AdminResetPasswordPage";
 import AdminCoursesPage from "./components/admin/course/AdminCoursesPage";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminBranchesPage from "./components/admin/branch/AdminBranchesPage";
+import GalleryPage from "./components/admin/gallery/GalleryPage";
+import ContactPage from "./components/admin/contact/ContactPage";
 
 const App = () => {
   return (
@@ -47,6 +49,8 @@ const App = () => {
             <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
             <Route path="/admin/courses" element={<AdminCoursesPage />} />
             <Route path="/admin/branches" element={<AdminBranchesPage />} />
+            <Route path="/admin/gallery" element={<GalleryPage/>} />
+            <Route path="/admin/contact" element={<ContactPage/>} />
 
             {/* Later */}
 
