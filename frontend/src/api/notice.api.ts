@@ -5,6 +5,8 @@ import type {
   CreateNoticePayload,
   NoticeResponse,
   NoticesResponse,
+  PublicNotice,
+  PublicNoticesResponse,
   UpdateNoticePayload,
 } from "@/types/notice";
 
@@ -62,6 +64,15 @@ export const deleteAdminNotice = async (
 ): Promise<AdminNotice> => {
   const response = await api.delete<NoticeResponse>(
     `/notices/delete/${noticeId}`
+  );
+
+  return response.data.data;
+};
+
+
+export const getPublishedNotices = async (): Promise<PublicNotice[]> => {
+  const response = await api.get<PublicNoticesResponse>(
+    "/notices/published"
   );
 
   return response.data.data;

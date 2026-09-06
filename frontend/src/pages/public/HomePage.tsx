@@ -4,10 +4,12 @@ import FAQ from "@/components/public/home/FAQ/FAQ";
 import Hero from "@/components/public/home/Hero/Hero";
 import Testimonials from "@/components/public/home/Testimonial/Testimonials";
 import WhyIEIT from "@/components/public/home/WhyIEIT/WhyIEIT";
+import NoticeBanner from "@/components/public/notice/NoticeBanner";
 
 const HomePage = () => {
   return (
     <>
+      <NoticeBanner />
       <Hero />
       <CoursesSection />
       <EnrollmentCTA />
