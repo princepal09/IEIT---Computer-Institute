@@ -1,31 +1,69 @@
+import { BellIcon } from "lucide-react";
+
+import { Card, CardContent } from "@/components/ui/card";
+
 import { PageContainer } from "@/components/shared/PageContainer";
 
+import { useDashboard } from "@/hooks/useDashboard";
+import DashboardHeader from "@/components/admin/Dashboard/DashboardHeader";
+import DashboardSkeleton from "@/components/shared/skeletons/DashboardSkeleton";
+import DashboardStats from "@/components/admin/Dashboard/DashboardStats";
+import DashboardSummary from "@/components/admin/Dashboard/DashboardSummary";
+import RecentEnquiries from "@/components/admin/Dashboard/RecentEnquiries";
+import RecentContacts from "@/components/admin/Dashboard/RecentContacts";
+
 const AdminDashboardPage = () => {
+  const { data, isLoading, isError } = useDashboard();
+
   return (
     <PageContainer size="wide" padding="md">
       <div className="py-6 sm:py-8">
-        <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ieit-blue">
-          Dashboard
-        </p>
+        {/* Header */}
+        <DashboardHeader />
 
-        <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">
-          Overview
-        </h1>
+        {/* Loading */}
+        {isLoading && (
+          <div className="mt-8">
+            <DashboardSkeleton />
+          </div>
+        )}
 
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-          Manage your IEIT website, courses, branches, enquiries and
-          institute content.
-        </p>
+        {/* Error */}
+        {isError && (
+          <Card className="mt-8 rounded-2xl border-red-100 bg-white shadow-sm">
+            <CardContent className="flex min-h-64 flex-col items-center justify-center text-center">
+              <div className="flex size-11 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                <BellIcon className="size-5" />
+              </div>
 
-        <div className="mt-8 rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
-            Dashboard Overview
-          </p>
+              <h3 className="mt-4 text-sm font-semibold text-slate-900">
+                Failed to load dashboard
+              </h3>
 
-          <p className="mt-2 text-sm text-slate-500">
-            Dashboard statistics and recent activity will appear here.
-          </p>
-        </div>
+              <p className="mt-1 text-sm text-slate-500">
+                Please refresh the page and try again.
+              </p>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Dashboard content */}
+        {data && !isLoading && !isError && (
+          <div className="mt-8 space-y-8">
+            {/* Main statistics */}
+            <DashboardStats stats={data.stats} />
+
+            {/* Small summary */}
+            <DashboardSummary stats={data.stats} />
+
+            {/* Recent activity */}
+            <div className="grid gap-6 xl:grid-cols-2">
+              <RecentEnquiries enquiries={data.recentEnquiries} />
+
+              <RecentContacts contacts={data.recentContacts} />
+            </div>
+          </div>
+        )}
       </div>
     </PageContainer>
   );
