@@ -55,11 +55,11 @@ const navigation = [
     href: "/admin/contact",
     icon: ContactIcon,
   },
-  {
-    label: "Site Settings",
-    href: "/admin/settings",
-    icon: SettingsIcon,
-  },
+  // {
+  //   label: "Site Settings",
+  //   href: "/admin/settings",
+  //   icon: SettingsIcon,
+  // },
   {
     label: "Profile",
     href: "/admin/profile",

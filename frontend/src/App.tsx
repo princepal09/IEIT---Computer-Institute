@@ -24,6 +24,7 @@ import GalleryPage from "./components/admin/gallery/GalleryPage";
 import ContactPage from "./components/admin/contact/ContactPage";
 import EnquiryPage from "./components/admin/enquiries/EnquiryPage";
 import NoticePage from "./components/admin/notices/NoticePage";
+import AdminProfilePage from "./components/admin/profile/AdminProfilePage";
 
 const App = () => {
   return (
@@ -55,6 +56,7 @@ const App = () => {
             <Route path="/admin/contact" element={<ContactPage/>} />
             <Route path="/admin/enquiries" element={<EnquiryPage/>} />
             <Route path="/admin/notices" element={<NoticePage/>} />
+            <Route path="/admin/profile" element={<AdminProfilePage/>} />
 
             {/* Later */}
 

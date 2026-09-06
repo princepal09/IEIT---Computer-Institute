@@ -2,7 +2,7 @@ export interface Admin {
   id: string;
   name: string;
   email: string;
-  profileImageUrl?: string;
+  profileImageUrl?: string | null
 }
 
 export interface LoginRequest {
