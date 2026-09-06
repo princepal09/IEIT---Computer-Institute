@@ -1,177 +1,144 @@
-import { useMemo, useState } from "react";
-
-import { BookOpenIcon, PlusIcon, SearchIcon } from "lucide-react";
+import { useState } from "react";
+import { PlusIcon } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import ConfirmationModal from "@/components/shared/ConfirmationModal";
 
-import { PageContainer } from "@/components/shared/PageContainer";
+import CourseForm from "@/components/admin/course/CourseForm";
+import CourseTable from "@/components/admin/course/CourseTable";
 
-import { useAdminCourses } from "@/hooks/useAdminCourses";
-import CourseTable from "./CourseTable";
-import CourseForm from "./CourseForm";
+import { useAdminCourses, useDeleteAdminCourse } from "@/hooks/useAdminCourses";
+
+import { getErrorMessage } from "@/utils/error";
 import { AdminCourse } from "@/types/coursesDashboard";
 
-
 const AdminCoursesPage = () => {
-  const [search, setSearch] = useState("");
+  const [formOpen, setFormOpen] = useState(false);
 
-  const [courseFormOpen, setCourseFormOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<AdminCourse | null>(
+    null
+  );
+
+  const [courseToDelete, setCourseToDelete] = useState<AdminCourse | null>(
+    null
+  );
 
   const { data: courses = [], isLoading, isError } = useAdminCourses();
 
-  const filteredCourses = useMemo(() => {
-    const value = search.trim().toLowerCase();
+  const deleteMutation = useDeleteAdminCourse();
 
-    if (!value) {
-      return courses;
-    }
-
-    return courses.filter(
-      (course) =>
-        course.name.toLowerCase().includes(value) ||
-        course.category.toLowerCase().includes(value) ||
-        course.slug.toLowerCase().includes(value)
-    );
-  }, [courses, search]);
-
-  const handleEditCourse = (course: AdminCourse) => {
-    console.log("Edit course:", course);
+  // CREATE
+  const handleCreate = () => {
+    setSelectedCourse(null);
+    setFormOpen(true);
   };
 
-  const handleDeleteCourse = (course: AdminCourse) => {
-    console.log("Delete course:", course);
+  // EDIT
+  const handleEdit = (course: AdminCourse) => {
+    setSelectedCourse(course);
+    setFormOpen(true);
+  };
+
+  // OPEN DELETE MODAL
+  const handleDelete = (course: AdminCourse) => {
+    setCourseToDelete(course);
+  };
+
+  // CONFIRM DELETE
+  const handleConfirmDelete = () => {
+    if (!courseToDelete) return;
+
+    deleteMutation.mutate(courseToDelete.id, {
+      onSuccess: () => {
+        toast.success("Course deleted successfully");
+
+        setCourseToDelete(null);
+      },
+
+      onError: (error) => {
+        toast.error(getErrorMessage(error));
+      },
+    });
+  };
+
+  // CREATE / EDIT MODAL CLOSE
+  const handleFormOpenChange = (open: boolean) => {
+    setFormOpen(open);
+
+    if (!open) {
+      setSelectedCourse(null);
+    }
   };
 
   return (
-    <PageContainer size="wide" padding="md">
-      <div className="py-6 sm:py-8">
-        {/* Header */}
+    <div className="space-y-6 p-6">
+      {/* HEADER */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-950">Courses</h1>
 
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div className="mb-2 flex items-center gap-2">
-              <div className="flex size-9 items-center justify-center rounded-xl bg-ieit-blue/5 text-ieit-blue">
-                <BookOpenIcon className="size-4" />
-              </div>
-
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-ieit-blue">
-                Management
-              </span>
-            </div>
-
-            <h1 className="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
-              Courses
-            </h1>
-
-            <p className="mt-1 text-sm text-slate-500">
-              Manage institute courses and their information.
-            </p>
-          </div>
-
-          <Button
-            onClick={() => setCourseFormOpen(true)}
-            className="rounded-xl bg-ieit-blue px-4 hover:bg-ieit-blue/90"
-          >
-            <PlusIcon className="mr-2 size-4" />
-            Add Course
-          </Button>
+          <p className="mt-1 text-sm text-slate-500">
+            Manage institute courses.
+          </p>
         </div>
 
-        {/* Content */}
-
-        <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-          {/* Toolbar */}
-
-          <div className="flex flex-col gap-4 border-b border-slate-100 p-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="relative w-full sm:max-w-sm">
-              <SearchIcon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
-
-              <Input
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search courses..."
-                className="rounded-xl pl-9"
-              />
-            </div>
-
-            <p className="text-xs text-slate-400">
-              {filteredCourses.length}{" "}
-              {filteredCourses.length === 1 ? "course" : "courses"}
-            </p>
-          </div>
-
-          {/* Loading */}
-
-          {isLoading && (
-            <div className="flex min-h-64 items-center justify-center">
-              <div className="flex items-center gap-2 text-sm text-slate-500">
-                <div className="size-4 animate-spin rounded-full border-2 border-slate-200 border-t-ieit-blue" />
-                Loading courses...
-              </div>
-            </div>
-          )}
-
-          {/* Error */}
-
-          {isError && (
-            <div className="flex min-h-64 flex-col items-center justify-center px-6 text-center">
-              <p className="text-sm font-semibold text-slate-900">
-                Unable to load courses
-              </p>
-
-              <p className="mt-1 text-sm text-slate-500">
-                Something went wrong while fetching courses.
-              </p>
-            </div>
-          )}
-
-          {/* Empty */}
-
-          {!isLoading && !isError && filteredCourses.length === 0 && (
-            <div className="flex min-h-64 flex-col items-center justify-center px-6 text-center">
-              <div className="flex size-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
-                <BookOpenIcon className="size-5" />
-              </div>
-
-              <p className="mt-4 text-sm font-semibold text-slate-900">
-                {search ? "No courses found" : "No courses yet"}
-              </p>
-
-              <p className="mt-1 max-w-sm text-sm text-slate-500">
-                {search
-                  ? "Try searching with a different course name or category."
-                  : "Create your first course to get started."}
-              </p>
-
-              {!search && (
-                <Button
-                  onClick={() => setCourseFormOpen(true)}
-                  className="mt-4 rounded-xl bg-ieit-blue hover:bg-ieit-blue/90"
-                >
-                  <PlusIcon className="mr-2 size-4" />
-                  Add Course
-                </Button>
-              )}
-            </div>
-          )}
-
-          {/* Table */}
-
-          {!isLoading && !isError && filteredCourses.length > 0 && (
-            <CourseTable
-              courses={filteredCourses}
-              onEdit={handleEditCourse}
-              onDelete={handleDeleteCourse}
-            />
-          )}
-        </div>
+        <Button
+          onClick={handleCreate}
+          className="rounded-xl bg-ieit-blue hover:bg-ieit-blue/90"
+        >
+          <PlusIcon className="mr-2 size-4" />
+          Add Course
+        </Button>
       </div>
 
-      {/* Create Course */}
+      {/* TABLE */}
+      {isLoading ? (
+        <div className="flex min-h-40 items-center justify-center rounded-2xl border border-slate-200 bg-white">
+          <p className="text-sm text-slate-500">Loading courses...</p>
+        </div>
+      ) : isError ? (
+        <div className="rounded-2xl border border-red-200 bg-red-50 p-6">
+          <p className="text-sm font-medium text-red-600">
+            Failed to load courses.
+          </p>
+        </div>
+      ) : (
+        <CourseTable
+          courses={courses}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      )}
 
-      <CourseForm open={courseFormOpen} onOpenChange={setCourseFormOpen} />
-    </PageContainer>
+      {/* CREATE / EDIT FORM */}
+      <CourseForm
+        open={formOpen}
+        onOpenChange={handleFormOpenChange}
+        course={selectedCourse}
+      />
+
+      {/* DELETE CONFIRMATION */}
+      <ConfirmationModal
+        open={Boolean(courseToDelete)}
+        onOpenChange={(open) => {
+          if (!open && !deleteMutation.isPending) {
+            setCourseToDelete(null);
+          }
+        }}
+        title="Delete Course?"
+        description={
+          courseToDelete
+            ? `Are you sure you want to delete "${courseToDelete.name}"? This action cannot be undone.`
+            : "Are you sure you want to delete this course?"
+        }
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={handleConfirmDelete}
+        loading={deleteMutation.isPending}
+        variant="danger"
+      />
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Check, Loader2Icon } from "lucide-react";
 
@@ -22,8 +23,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { useCreateAdminCourse } from "@/hooks/useAdminCourses";
-import { useBranches } from "@/hooks/useBranches";
+import {
+  useCreateAdminCourse,
+  useUpdateAdminCourse,
+} from "@/hooks/useAdminCourses";
+
+import { useAdminBranches } from "@/hooks/useAdminBranches";
 
 import { toast } from "sonner";
 
@@ -34,13 +39,32 @@ import {
 
 import { getErrorMessage } from "@/utils/error";
 
+import type { AdminCourse } from "@/types/coursesDashboard";
+
 interface CourseFormProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  course?: AdminCourse | null;
 }
 
-const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
+const emptyFormValues: CourseFormValues = {
+  name: "",
+  shortDescription: "",
+  description: "",
+  duration: "",
+  eligibility: "",
+  fee: 0,
+  category: "",
+  branchIds: [],
+};
+
+const CourseForm = ({ open, onOpenChange, course }: CourseFormProps) => {
   const createMutation = useCreateAdminCourse();
+  const updateMutation = useUpdateAdminCourse();
+
+  const isEditMode = Boolean(course);
+
+  const isPending = createMutation.isPending || updateMutation.isPending;
 
   const {
     register,
@@ -52,51 +76,50 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
   } = useForm<CourseFormValues>({
     resolver: zodResolver(courseSchema),
 
-    defaultValues: {
-      name: "",
-      shortDescription: "",
-      description: "",
-      duration: "",
-      eligibility: "",
-      fee: 0,
-      category: "",
-      branchIds: [],
-    },
+    defaultValues: emptyFormValues,
   });
 
   const category = watch("category");
   const branchIds = watch("branchIds");
 
-  const { data: branches = [], isLoading: branchesLoading } = useBranches();
+  const {
+    data: branches = [],
+    isLoading: branchesLoading,
+    isError: branchesError,
+  } = useAdminBranches();
 
-  const onSubmit: SubmitHandler<CourseFormValues> = (values) => {
-    createMutation.mutate(values, {
-      onSuccess: () => {
-        toast.success("Course created successfully");
-
-        reset();
-
-        onOpenChange(false);
-      },
-
-      onError: (error) => {
-        toast.error(getErrorMessage(error));
-      },
-    });
-  };
-
-  const handleOpenChange = (value: boolean) => {
-    if (!value && createMutation.isPending) {
+  /*
+   * Populate form when opening.
+   * Handles both create and edit mode.
+   */
+  useEffect(() => {
+    if (!open) {
       return;
     }
 
-    onOpenChange(value);
+    if (course) {
+      reset({
+        name: course.name ?? "",
+        shortDescription: course.shortDescription ?? "",
+        description: course.description ?? "",
+        duration: course.duration ?? "",
+        eligibility: course.eligibility ?? "",
+        fee: Number(course.fee) || 0,
+        category: course.category ?? "",
 
-    if (!value) {
-      reset();
+        branchIds:
+          course.branchIds ?? course.branches?.map((branch) => branch.id) ?? [],
+      });
+
+      return;
     }
-  };
 
+    reset(emptyFormValues);
+  }, [course, open, reset]);
+
+  /*
+   * Toggle branch selection.
+   */
   const toggleBranch = (branchId: string) => {
     const selected = branchIds.includes(branchId);
 
@@ -110,21 +133,80 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
     });
   };
 
+  /*
+   * Submit form.
+   */
+  const onSubmit: SubmitHandler<CourseFormValues> = (values) => {
+    if (course) {
+      updateMutation.mutate(
+        {
+          courseId: course.id,
+          data: values,
+        },
+        {
+          onSuccess: () => {
+            toast.success("Course updated successfully");
+
+            reset(emptyFormValues);
+            onOpenChange(false);
+          },
+
+          onError: (error) => {
+            toast.error(getErrorMessage(error));
+          },
+        }
+      );
+
+      return;
+    }
+
+    createMutation.mutate(values, {
+      onSuccess: () => {
+        toast.success("Course created successfully");
+
+        reset(emptyFormValues);
+        onOpenChange(false);
+      },
+
+      onError: (error) => {
+        toast.error(getErrorMessage(error));
+      },
+    });
+  };
+
+  /*
+   * Dialog open / close.
+   */
+  const handleOpenChange = (value: boolean) => {
+    if (!value && isPending) {
+      return;
+    }
+
+    onOpenChange(value);
+
+    if (!value) {
+      reset(emptyFormValues);
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto rounded-2xl border-slate-200 sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-slate-950">
-            Add Course
+            {isEditMode ? "Edit Course" : "Add Course"}
           </DialogTitle>
 
           <DialogDescription className="text-sm text-slate-500">
-            Add a new course to the institute.
+            {isEditMode
+              ? "Update the course information."
+              : "Add a new course to the institute."}
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          {/* Course Name */}
+          {/* COURSE NAME */}
+
           <div className="space-y-2">
             <label
               htmlFor="course-name"
@@ -137,6 +219,7 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
               id="course-name"
               placeholder="e.g. Full Stack Web Development"
               className="rounded-xl"
+              disabled={isPending}
               {...register("name")}
             />
 
@@ -147,9 +230,11 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
             )}
           </div>
 
-          {/* Category + Duration */}
+          {/* CATEGORY + DURATION */}
+
           <div className="grid gap-5 sm:grid-cols-2">
-            {/* Category */}
+            {/* CATEGORY */}
+
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-700">
                 Category
@@ -158,13 +243,12 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
               <Select
                 value={category}
                 onValueChange={(value) => {
-                  if (value) {
-                    setValue("category", value, {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                    });
-                  }
+                  setValue("category", value ?? "", {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
                 }}
+                disabled={isPending}
               >
                 <SelectTrigger className="rounded-xl">
                   <SelectValue placeholder="Select category" />
@@ -202,7 +286,8 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
               )}
             </div>
 
-            {/* Duration */}
+            {/* DURATION */}
+
             <div className="space-y-2">
               <label
                 htmlFor="course-duration"
@@ -215,6 +300,7 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
                 id="course-duration"
                 placeholder="e.g. 6 Months"
                 className="rounded-xl"
+                disabled={isPending}
                 {...register("duration")}
               />
 
@@ -226,60 +312,8 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
             </div>
           </div>
 
-          {/* Fee + Eligibility */}
-          <div className="grid gap-5 sm:grid-cols-2">
-            {/* Fee */}
-            <div className="space-y-2">
-              <label
-                htmlFor="course-fee"
-                className="text-sm font-medium text-slate-700"
-              >
-                Course Fee
-              </label>
+          {/* BRANCHES */}
 
-              <Input
-                id="course-fee"
-                type="number"
-                min="0"
-                placeholder="25000"
-                className="rounded-xl"
-                {...register("fee", {
-                  valueAsNumber: true,
-                })}
-              />
-
-              {errors.fee && (
-                <p className="text-xs font-medium text-red-600">
-                  {errors.fee.message}
-                </p>
-              )}
-            </div>
-
-            {/* Eligibility */}
-            <div className="space-y-2">
-              <label
-                htmlFor="course-eligibility"
-                className="text-sm font-medium text-slate-700"
-              >
-                Eligibility
-              </label>
-
-              <Input
-                id="course-eligibility"
-                placeholder="10+2 or equivalent"
-                className="rounded-xl"
-                {...register("eligibility")}
-              />
-
-              {errors.eligibility && (
-                <p className="text-xs font-medium text-red-600">
-                  {errors.eligibility.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Branches */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-700">
               Branches
@@ -291,6 +325,10 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
                   <Loader2Icon className="size-4 animate-spin" />
                   Loading branches...
                 </div>
+              ) : branchesError ? (
+                <p className="py-2 text-sm text-red-600">
+                  Failed to load branches.
+                </p>
               ) : branches.length === 0 ? (
                 <p className="py-2 text-sm text-slate-500">
                   No branches available.
@@ -304,13 +342,16 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
                       <button
                         key={branch.id}
                         type="button"
-                        disabled={createMutation.isPending}
+                        disabled={isPending}
                         onClick={() => toggleBranch(branch.id)}
-                        className={`flex items-center justify-between rounded-lg border px-3 py-2.5 text-left text-sm transition ${
+                        className={[
+                          "flex items-center justify-between",
+                          "rounded-lg border px-3 py-2.5",
+                          "text-left text-sm transition",
                           selected
                             ? "border-ieit-blue bg-ieit-blue/5 text-ieit-blue"
-                            : "border-slate-200 text-slate-700 hover:bg-slate-50"
-                        }`}
+                            : "border-slate-200 text-slate-700 hover:bg-slate-50",
+                        ].join(" ")}
                       >
                         <span>{branch.name}</span>
 
@@ -336,7 +377,66 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
             )}
           </div>
 
-          {/* Short Description */}
+          {/* FEE + ELIGIBILITY */}
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            {/* FEE */}
+
+            <div className="space-y-2">
+              <label
+                htmlFor="course-fee"
+                className="text-sm font-medium text-slate-700"
+              >
+                Course Fee
+              </label>
+
+              <Input
+                id="course-fee"
+                type="number"
+                min="0"
+                placeholder="25000"
+                className="rounded-xl"
+                disabled={isPending}
+                {...register("fee", {
+                  valueAsNumber: true,
+                })}
+              />
+
+              {errors.fee && (
+                <p className="text-xs font-medium text-red-600">
+                  {errors.fee.message}
+                </p>
+              )}
+            </div>
+
+            {/* ELIGIBILITY */}
+
+            <div className="space-y-2">
+              <label
+                htmlFor="course-eligibility"
+                className="text-sm font-medium text-slate-700"
+              >
+                Eligibility
+              </label>
+
+              <Input
+                id="course-eligibility"
+                placeholder="10+2 or equivalent"
+                className="rounded-xl"
+                disabled={isPending}
+                {...register("eligibility")}
+              />
+
+              {errors.eligibility && (
+                <p className="text-xs font-medium text-red-600">
+                  {errors.eligibility.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* SHORT DESCRIPTION */}
+
           <div className="space-y-2">
             <label
               htmlFor="short-description"
@@ -349,6 +449,7 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
               id="short-description"
               placeholder="Brief description of the course..."
               className="min-h-20 resize-none rounded-xl"
+              disabled={isPending}
               {...register("shortDescription")}
             />
 
@@ -359,7 +460,8 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
             )}
           </div>
 
-          {/* Description */}
+          {/* DESCRIPTION */}
+
           <div className="space-y-2">
             <label
               htmlFor="description"
@@ -372,6 +474,7 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
               id="description"
               placeholder="Detailed course description..."
               className="min-h-32 resize-y rounded-xl"
+              disabled={isPending}
               {...register("description")}
             />
 
@@ -382,13 +485,14 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
             )}
           </div>
 
-          {/* Actions */}
+          {/* ACTIONS */}
+
           <div className="flex justify-end gap-3 border-t border-slate-100 pt-5">
             <Button
               type="button"
               variant="outline"
               className="rounded-xl"
-              disabled={createMutation.isPending}
+              disabled={isPending}
               onClick={() => handleOpenChange(false)}
             >
               Cancel
@@ -396,14 +500,20 @@ const CourseForm = ({ open, onOpenChange }: CourseFormProps) => {
 
             <Button
               type="submit"
-              disabled={createMutation.isPending}
+              disabled={isPending}
               className="rounded-xl bg-ieit-blue hover:bg-ieit-blue/90"
             >
-              {createMutation.isPending && (
+              {isPending && (
                 <Loader2Icon className="mr-2 size-4 animate-spin" />
               )}
 
-              {createMutation.isPending ? "Creating..." : "Create Course"}
+              {isPending
+                ? isEditMode
+                  ? "Updating..."
+                  : "Creating..."
+                : isEditMode
+                  ? "Update Course"
+                  : "Create Course"}
             </Button>
           </div>
         </form>
