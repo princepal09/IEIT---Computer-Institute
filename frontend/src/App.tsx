@@ -19,6 +19,7 @@ import AdminForgotPasswordPage from "./pages/admin/AdminForgotPassword";
 import AdminResetPasswordPage from "./pages/admin/AdminResetPasswordPage";
 import AdminCoursesPage from "./components/admin/course/AdminCoursesPage";
 import AdminLayout from "./layouts/AdminLayout";
+import AdminBranchesPage from "./components/admin/branch/AdminBranchesPage";
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
             {/* Protected Admin */}
             <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
             <Route path="/admin/courses" element={<AdminCoursesPage />} />
+            <Route path="/admin/branches" element={<AdminBranchesPage />} />
 
             {/* Later */}
 

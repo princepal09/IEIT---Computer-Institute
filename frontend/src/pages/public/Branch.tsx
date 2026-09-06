@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { useBranch } from "@/hooks/useOneBranch";
 import BranchHero from "@/components/public/branches/BranchHero";
 import BranchContact from "@/components/public/branches/BranchContact";
-import BranchInfo from "@/components/public/branches/BranchInfo";
 import LoadingState from "@/components/shared/LoadingState";
+import BranchInfo from "@/components/public/branches/BranchInfo";
 
 const Branch = () => {
   const { branchSlug } = useParams<{ branchSlug: string }>();
@@ -39,7 +39,7 @@ const Branch = () => {
     <main>
       <BranchHero branch={branch} />
 
-      {/* <BranchInfo branch={branch} /> */}
+      <BranchInfo branch={branch} />
 
       <BranchContact branch={branch} />
     </main>

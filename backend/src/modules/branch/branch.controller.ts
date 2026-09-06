@@ -13,6 +13,7 @@ export const createBranchController = asyncHandler(async (req: Request, res: Res
 
 export const getAllBranches = asyncHandler(async (_req: Request, res: Response) => {
   const branches = await branchService.getAllBranches();
+  console.log(branches)
 
   return res.status(200).json(new ApiResponse(200, branches, 'Branches fetched successfully'));
 });

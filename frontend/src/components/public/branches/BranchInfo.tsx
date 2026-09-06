@@ -1,9 +1,4 @@
-import {
-  Clock3Icon,
-  MailIcon,
-  MapPinIcon,
-  PhoneIcon,
-} from "lucide-react";
+import { Clock3Icon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 

@@ -30,6 +30,12 @@ export const createBranchSchema = z.object({
   openingTime: z.string().trim().max(10, 'Opening time is invalid').optional(),
 
   closingTime: z.string().trim().max(10, 'Closing time is invalid').optional(),
+  isActive: z.preprocess((value) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+
+    return value;
+  }, z.boolean().optional()),
 });
 
 export const updateBranchSchema = z.object({
@@ -65,7 +71,12 @@ export const updateBranchSchema = z.object({
 
   closingTime: z.string().trim().max(10, 'Closing time is invalid').optional(),
 
-  isActive: z.boolean().optional(),
+  isActive: z.preprocess((value) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+
+    return value;
+  }, z.boolean().optional()),
 });
 
 export type createBranchSchemaDTO = z.infer<typeof createBranchSchema>;

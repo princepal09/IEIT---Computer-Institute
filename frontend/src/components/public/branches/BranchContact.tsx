@@ -20,7 +20,7 @@ const BranchContact = ({ branch }: BranchContactProps) => {
     : null;
 
   return (
-    <section className="overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+    <section className="overflow-hidden bg-white py-16 sm:py-20 lg:py-1">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-center lg:gap-16">
           {/* =========================================================
