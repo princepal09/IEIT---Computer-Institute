@@ -15,7 +15,8 @@ export const homeCourses: Course[] = [
   {
     id: "dcam",
     title: "DCAM",
-    description: "Diploma in Computer Application & Multimedia.",
+    description:
+      "Build essential computer and multimedia skills for academic and professional use.",
     category: "1 Year Diploma",
     duration: "1 Year",
     subtitle: "Computer Application & Multimedia",
@@ -26,7 +27,8 @@ export const homeCourses: Course[] = [
   {
     id: "dcap",
     title: "DCAP",
-    description: "Diploma in Computer Application & Programming.",
+    description:
+      "Develop strong computer and programming skills for modern technical careers.",
     category: "1 Year Diploma",
     duration: "1 Year",
     subtitle: "Computer Application & Programming",
@@ -37,10 +39,11 @@ export const homeCourses: Course[] = [
   {
     id: "cca",
     title: "CCA",
-    description: "Certificate in Computer Application.",
+    description:
+      "Learn essential computer applications, office tools, AI, HTML, and CSS.",
     category: "6 Month Certificate",
     duration: "6 Months",
-    subtitle: "Computer Application",
+    subtitle: "Certificate in Computer Application",
     icon: "</>",
     variant: "blue",
   },
@@ -48,10 +51,11 @@ export const homeCourses: Course[] = [
   {
     id: "com",
     title: "COM",
-    description: "Certificate in Office Management.",
+    description:
+      "Build practical office management skills with computer and accounting tools.",
     category: "6 Month Certificate",
     duration: "6 Months",
-    subtitle: "Office Management",
+    subtitle: "Certificate in Office Management",
     icon: "↗",
     variant: "neutral",
   },
