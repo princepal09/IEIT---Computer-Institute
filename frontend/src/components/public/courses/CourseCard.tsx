@@ -175,7 +175,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
               hover:shadow-md
             "
           >
-            Enquire
+            Enroll
             <ArrowRightIcon className="ml-1.5 size-3.5" />
           </Link>
         </div>

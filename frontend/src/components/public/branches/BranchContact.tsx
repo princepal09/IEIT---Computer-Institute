@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 
 import type { Branch } from "@/types/branch";
+import { Link } from "react-router-dom";
 
 interface BranchContactProps {
   branch: Branch;
@@ -77,18 +78,17 @@ const BranchContact = ({ branch }: BranchContactProps) => {
             {/* Main actions */}
             <div className="mt-9 flex flex-wrap gap-3">
               {/* Enquire Now */}
-              {whatsappUrl && (
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
+              
+                <Link
+                  to={"/courses"}
                   rel="noreferrer"
                   className="group inline-flex h-11 items-center gap-2 rounded-lg bg-ieit-blue px-5 text-xs font-semibold text-white transition-all duration-300 hover:bg-ieit-blue/90 hover:shadow-lg hover:shadow-blue-900/10"
                 >
                   <MessageCircleIcon className="size-4" />
                   Enquire Now
                   <ArrowUpRightIcon className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-              )}
+                </Link>
+              
 
               {/* Call */}
               <a

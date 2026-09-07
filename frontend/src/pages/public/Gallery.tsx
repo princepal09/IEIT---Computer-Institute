@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 import GalleryCard from "@/components/public/gallery/GalleryCard";
 import { useGallery } from "@/hooks/useGallery";
-import GallerySkeleton from "@/components/shared/skeletons/GallerySkeleton";
+import PublicGallerySkeleton from "@/components/shared/skeletons/PublicGallerySkeleton";
 
 const Gallery = () => {
   const {
@@ -68,7 +68,7 @@ const Gallery = () => {
         {/* Gallery */}
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {/* Loading */}
-          {isLoading && <GallerySkeleton />}
+          {isLoading && <PublicGallerySkeleton />}
 
           {/* Error */}
           {!isLoading && isError && (

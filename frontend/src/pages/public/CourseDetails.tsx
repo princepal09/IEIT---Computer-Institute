@@ -196,7 +196,7 @@ const CourseDetails = () => {
                     {course.branches.map((branch) => (
                       <Link
                         key={branch.id}
-                        to={`/branches/${branch.slug}`}
+                        to={`/enquire`}
                         className="group flex items-center justify-between rounded-xl border border-slate-200 p-4 transition-colors hover:border-ieit-blue/40 hover:bg-blue-50/40"
                       >
                         <div className="flex items-center gap-3">

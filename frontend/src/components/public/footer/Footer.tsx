@@ -14,8 +14,8 @@ import {
 import {
   FaFacebookF,
   FaInstagram,
-  FaYoutube,
   FaLinkedinIn,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 const quickLinks = [
@@ -26,10 +26,27 @@ const quickLinks = [
 ] as const;
 
 const socialLinks = [
-  { label: "Facebook", icon: FaFacebookF, href: "#" },
-  { label: "Instagram", icon: FaInstagram, href: "https://www.instagram.com/ieit_computer_institute_almora/" },
-  { label: "YouTube", icon: FaYoutube, href: "#" },
-  { label: "LinkedIn", icon: FaLinkedinIn, href: "https://www.linkedin.com/in/bhaskar-giri-goswami-b5b3071a8/" },
+  {
+    label: "Facebook",
+    icon: FaFacebookF,
+    href: "https://www.facebook.com/share/19ZWn9dHZw/",
+  },
+  {
+    label: "Instagram",
+    icon: FaInstagram,
+    href: "https://www.instagram.com/ieit_computer_institute_almora/",
+  },
+  // { label: "YouTube", icon: FaYoutube, href: "#" },
+  {
+    label: "LinkedIn",
+    icon: FaLinkedinIn,
+    href: "https://www.linkedin.com/in/bhaskar-giri-goswami-b5b3071a8/",
+  },
+  {
+    label: "WhatsApp",
+    icon: FaWhatsapp,
+     href: "https://wa.me/919536815699",
+  },
 ] as const;
 
 const contactInfo = [
