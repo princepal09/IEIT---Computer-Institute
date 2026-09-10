@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 
 import PublicLayout from "@/layouts/PublicLayout";
-
+import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import HomePage from "@/pages/public/HomePage";
 import ErrorState from "@/components/shared/ErrorState";
 import About from "./pages/public/About";
@@ -25,10 +26,21 @@ import ContactPage from "./components/admin/contact/ContactPage";
 import EnquiryPage from "./components/admin/enquiries/EnquiryPage";
 import NoticePage from "./components/admin/notices/NoticePage";
 import AdminProfilePage from "./components/admin/profile/AdminProfilePage";
+import SplashScreen from "./components/shared/SplashScreen";
 
 const App = () => {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
+      <AnimatePresence>{showSplash && <SplashScreen />}</AnimatePresence>
       <Routes>
         {/* Public routes */}
         <Route element={<PublicLayout />}>
