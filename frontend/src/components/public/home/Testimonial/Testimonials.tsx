@@ -8,7 +8,7 @@ import "react-google-reviews/dist/index.css";
 
 const FEATURABLE_ID = "54a11545-881f-4620-9d3b-e8761cafbe3a";
 
-const AUTOPLAY_DELAY = 3000;
+const AUTOPLAY_DELAY = 5000;
 
 /* ---------------------------------------------
    Responsive visible review count
@@ -422,9 +422,8 @@ const ReviewCarousel = ({ reviews }: ReviewCarouselProps) => {
           "
           drag="x"
           dragDirectionLock
-          dragElastic={0.15}
+          dragElastic={0.7}
           dragMomentum={false}
-          dragConstraints={{ left: 0, right: 0 }}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           animate={{
