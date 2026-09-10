@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 
-import { ChevronDownIcon, LogInIcon, MapPinIcon, MenuIcon } from "lucide-react";
+import { ChevronDownIcon, MapPinIcon, MenuIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 

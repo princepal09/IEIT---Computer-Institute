@@ -11,7 +11,6 @@ import {
   Loader2Icon,
   LogOutIcon,
   MegaphoneIcon,
-  SettingsIcon,
   UsersIcon,
 } from "lucide-react";
 

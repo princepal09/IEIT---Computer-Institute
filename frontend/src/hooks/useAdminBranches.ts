@@ -4,7 +4,6 @@ import {
   deleteAdminBranch,
   getAdminBranchById,
   getAdminBranches,
-  getBranches,
   updateAdminBranch,
   UpdateBranchPayload,
 } from "@/api/branch.api";

@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowUpRightIcon, Code2Icon } from "lucide-react";
 import { Course } from "@/types/homeCourses";
-import { Link } from "react-router-dom";
 
 type FeaturedCourseCardProps = {
   course: Course;

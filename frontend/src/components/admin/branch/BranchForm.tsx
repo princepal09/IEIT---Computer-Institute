@@ -17,14 +17,6 @@ import {
 } from "@/components/ui/dialog";
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-import {
   useCreateAdminBranch,
   useUpdateAdminBranch,
 } from "@/hooks/useAdminBranches";
@@ -74,7 +66,6 @@ const BranchForm = ({ open, onOpenChange, branch }: BranchFormProps) => {
   const {
     register,
     handleSubmit,
-    setValue,
     reset,
     formState: { errors },
   } = useForm<CreateBranchFormValues>({
