@@ -558,32 +558,28 @@ const GoogleReviews = () => {
 
           <h2 className="text-3xl font-extrabold leading-[1.05] tracking-[-0.045em] text-slate-900 sm:text-4xl lg:text-5xl">
             What people
-            <span className="block text-ieit-blue">
-              say about IEIT.
-            </span>
+            <span className="block text-ieit-blue">say about IEIT.</span>
           </h2>
 
           <p className="mx-auto mt-3 max-w-lg px-2 text-xs leading-5 text-slate-500 sm:px-0 sm:text-sm sm:leading-6">
-            Real experiences from students and visitors who have
-            been part of the IEIT community.
+            Real experiences from students and visitors who have been part of
+            the IEIT community.
           </p>
         </div>
 
         {/* Reviews */}
 
-        <div className="mt-8 w-full min-w-0 sm:mt-10 lg:mt-12">
-          <div className="w-full min-w-0 overflow-hidden">
-            <ReactGoogleReviews
-              layout="carousel"
-              featurableId={FEATURABLE_ID}
-              showDots={false}
-              carouselAutoplay
-              carouselSpeed={5000}
-              maxItems={3}
-              reviewVariant="card"
-              theme="light"
-            />
-          </div>
+        <div className="google-reviews w-full overflow-hidden">
+          <ReactGoogleReviews
+            layout="carousel"
+            featurableId={FEATURABLE_ID}
+            showDots={false}
+            carouselAutoplay
+            carouselSpeed={5000}
+            maxItems={3}
+            reviewVariant="card"
+            theme="light"
+          />
         </div>
 
         {/* Trust line */}
