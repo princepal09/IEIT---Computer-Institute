@@ -170,9 +170,11 @@ const Hero = () => {
                       </p>
                     </div>
 
+                      <Link to={"/courses"}>
                     <div className="flex size-8 items-center justify-center rounded-lg bg-ieit-blue">
                       <ArrowRightIcon className="size-3.5" />
                     </div>
+                      </Link>
                   </div>
                 </div>
               </div>
