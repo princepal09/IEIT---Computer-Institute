@@ -1,7 +1,6 @@
 import { getDashboard } from "@/api/dashboard.api";
 import { useQuery } from "@tanstack/react-query";
 
-
 export const dashboardKeys = {
   all: ["admin-dashboard"] as const,
 };

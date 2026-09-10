@@ -1,6 +1,10 @@
 import api from "@/lib/axios";
 import { BranchResponse } from "@/types/branch";
-import { AdminBranch, AdminBranchesResponse, AdminBranchResponse } from "@/types/branchDashboard";
+import {
+  AdminBranch,
+  AdminBranchesResponse,
+  AdminBranchResponse,
+} from "@/types/branchDashboard";
 export interface Branch {
   id: string;
   name: string;
@@ -23,7 +27,7 @@ export interface CreateBranchPayload {
   mapUrl?: string;
   openingTime?: string;
   closingTime?: string;
-  isActive?:boolean;
+  isActive?: boolean;
   image?: File;
 }
 
@@ -44,7 +48,8 @@ export interface UpdateBranchPayload {
 export const getBranches = async (): Promise<Branch[]> => {
   const response = await api.get<BranchesResponse>("/branch/all-branches");
   return response?.data?.data;
-};''
+};
+("");
 export const getAdminBranches = async (): Promise<AdminBranch[]> => {
   const response = await api.get<AdminBranchesResponse>("/branch/all-branches");
   return response?.data?.data;
@@ -73,9 +78,7 @@ export const getAdminBranchById = async (
  * CREATE BRANCH
  */
 export const createBranchFormData = (
-  data:
-    | CreateBranchPayload
-    | UpdateBranchPayload
+  data: CreateBranchPayload | UpdateBranchPayload
 ) => {
   const formData = new FormData();
 
@@ -84,73 +87,43 @@ export const createBranchFormData = (
   }
 
   if (data.description !== undefined) {
-    formData.append(
-      "description",
-      data.description
-    );
+    formData.append("description", data.description);
   }
 
   if (data.address !== undefined) {
-    formData.append(
-      "address",
-      data.address
-    );
+    formData.append("address", data.address);
   }
 
   if (data.phone !== undefined) {
-    formData.append(
-      "phone",
-      data.phone
-    );
+    formData.append("phone", data.phone);
   }
 
   if (data.email !== undefined) {
-    formData.append(
-      "email",
-      data.email
-    );
+    formData.append("email", data.email);
   }
 
   if (data.whatsapp !== undefined) {
-    formData.append(
-      "whatsapp",
-      data.whatsapp
-    );
+    formData.append("whatsapp", data.whatsapp);
   }
 
   if (data.mapUrl !== undefined) {
-    formData.append(
-      "mapUrl",
-      data.mapUrl
-    );
+    formData.append("mapUrl", data.mapUrl);
   }
 
   if (data.openingTime !== undefined) {
-    formData.append(
-      "openingTime",
-      data.openingTime
-    );
+    formData.append("openingTime", data.openingTime);
   }
 
   if (data.closingTime !== undefined) {
-    formData.append(
-      "closingTime",
-      data.closingTime
-    );
+    formData.append("closingTime", data.closingTime);
   }
 
   if (data.isActive !== undefined) {
-    formData.append(
-      "isActive",
-      String(data.isActive)
-    );
+    formData.append("isActive", String(data.isActive));
   }
 
   if (data.image instanceof File) {
-    formData.append(
-      "image",
-      data.image
-    );
+    formData.append("image", data.image);
   }
 
   return formData;
@@ -162,18 +135,15 @@ export const createBranchFormData = (
 export const createAdminBranch = async (
   data: CreateBranchPayload
 ): Promise<AdminBranch> => {
-  const formData =
-    createBranchFormData(data);
+  const formData = createBranchFormData(data);
 
-  const response =
-    await api.post<AdminBranchResponse>(
-      "/branch/create",
-      formData
-    );
+  const response = await api.post<AdminBranchResponse>(
+    "/branch/create",
+    formData
+  );
 
   return response.data.data;
 };
-
 
 /**
  * UPDATE BRANCH
@@ -182,14 +152,12 @@ export const updateAdminBranch = async (
   branchId: string,
   data: UpdateBranchPayload
 ): Promise<AdminBranch> => {
-  const formData =
-    createBranchFormData(data);
+  const formData = createBranchFormData(data);
 
-  const response =
-    await api.patch<AdminBranchResponse>(
-      `/branch/update/${branchId}`,
-      formData
-    );
+  const response = await api.patch<AdminBranchResponse>(
+    `/branch/update/${branchId}`,
+    formData
+  );
 
   return response.data.data;
 };

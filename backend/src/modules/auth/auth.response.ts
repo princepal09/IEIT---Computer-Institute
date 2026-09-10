@@ -6,6 +6,6 @@ export interface ILoginResponse {
   refreshToken: string;
 }
 
-export interface IUpdatePasswordResponse{
-  passwordHash : string
+export interface IUpdatePasswordResponse {
+  passwordHash: string;
 }

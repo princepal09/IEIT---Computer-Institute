@@ -7,13 +7,13 @@ import { IUpdatePasswordResponse } from './auth.response.js';
 export class AuthRepository implements IAuthRepository {
   async findAdminByEmail(email: string): Promise<any> {
     return prisma.admin.findUnique({
-      where: { email},
+      where: { email },
       select: {
         id: true,
         name: true,
         email: true,
-        isActive : true,
-        passwordHash : true
+        isActive: true,
+        passwordHash: true,
       },
     });
   }

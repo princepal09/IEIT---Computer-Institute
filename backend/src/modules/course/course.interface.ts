@@ -1,7 +1,4 @@
-import {
-  createCourseSchemaDTO,
-  updateCourseSchemaDTO,
-} from './course.schema.js';
+import { createCourseSchemaDTO, updateCourseSchemaDTO } from './course.schema.js';
 
 export interface ICourseRepository {
   createCourse(
@@ -14,21 +11,13 @@ export interface ICourseRepository {
 
   findAllCourses(): Promise<any[]>;
 
-  findCourseById(
-    id: string,
-  ): Promise<any | null>;
+  findCourseById(id: string): Promise<any | null>;
 
-  findCourseBySlug(
-    slug: string,
-  ): Promise<any | null>;
+  findCourseBySlug(slug: string): Promise<any | null>;
 
-  findCourseByName(
-    name: string,
-  ): Promise<any | null>;
+  findCourseByName(name: string): Promise<any | null>;
 
-  countCourseEnquiries(
-    courseId: string,
-  ): Promise<number>;
+  countCourseEnquiries(courseId: string): Promise<number>;
 
   updateCourse(
     id: string,
@@ -39,9 +28,7 @@ export interface ICourseRepository {
     },
   ): Promise<any>;
 
-  deleteCourse(
-    id: string,
-  ): Promise<any>;
-  
-  findBranchById(id:string) : Promise<any>
+  deleteCourse(id: string): Promise<any>;
+
+  findBranchById(id: string): Promise<any>;
 }

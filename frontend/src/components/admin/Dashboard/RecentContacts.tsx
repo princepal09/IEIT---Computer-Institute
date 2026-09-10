@@ -1,13 +1,9 @@
-import {
-  ContactIcon,
-  MessageSquareIcon,
-} from "lucide-react";
+import { ContactIcon, MessageSquareIcon } from "lucide-react";
 
 import { Link } from "react-router-dom";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { DashboardContact } from "@/types/adminDashboard";
-
 
 interface RecentContactsProps {
   contacts: DashboardContact[];
@@ -23,9 +19,7 @@ const formatDate = (date: string) => {
   }).format(new Date(date));
 };
 
-const RecentContacts = ({
-  contacts,
-}: RecentContactsProps) => {
+const RecentContacts = ({ contacts }: RecentContactsProps) => {
   return (
     <Card className="rounded-2xl border-slate-200 bg-white shadow-sm">
       <CardContent className="p-0">
@@ -67,10 +61,7 @@ const RecentContacts = ({
         ) : (
           <div className="divide-y divide-slate-100">
             {contacts.map((contact) => (
-              <div
-                key={contact.id}
-                className="p-5 hover:bg-slate-50/70"
-              >
+              <div key={contact.id} className="p-5 hover:bg-slate-50/70">
                 <div className="flex gap-3">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-ieit-blue/5 text-ieit-blue">
                     <ContactIcon className="size-4" />

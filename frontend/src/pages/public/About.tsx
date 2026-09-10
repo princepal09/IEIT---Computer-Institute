@@ -1,7 +1,6 @@
 import AboutIEIT from "@/components/public/about/AboutIEIT";
 import WhoWeAre from "@/components/public/about/WhoWeAre";
 
-
 const About = () => {
   return (
     <>

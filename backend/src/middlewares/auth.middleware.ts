@@ -15,7 +15,7 @@ export const verifyUser = (authService: AuthService) => {
       }
 
       const decoded = verifyAccessToken(token);
-      
+
       if (decoded.type !== 'access') {
         throw new ApiError(401, 'Invalid access token');
       }

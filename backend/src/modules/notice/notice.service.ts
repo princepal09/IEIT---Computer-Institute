@@ -175,7 +175,7 @@ export class NoticeService {
   }
 
   // FORMAT RESPONSE
-  private formatNotice(notice: any):INoticeResponse {
+  private formatNotice(notice: any): INoticeResponse {
     return {
       id: notice.id,
       title: notice.title,

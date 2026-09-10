@@ -1,4 +1,3 @@
-
 export interface IBranchCourseResponse {
   id: string;
   name: string;
@@ -20,7 +19,7 @@ export interface IBranchResponse {
   imageUrl: string | null;
   isActive: boolean;
 
-  courses : IBranchCourseResponse[];
+  courses: IBranchCourseResponse[];
   createdAt: Date;
   updatedAt: Date;
 }

@@ -23,14 +23,12 @@ const EnrollmentCTA = () => {
           alt="IEIT students learning technology"
           className="absolute inset-0 h-full w-full object-cover object-[center_25%]"
         />
-
         {/* Optional dark gradient ONLY behind the text */}
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"
-        />+
-
-        {/* Content */}
+        />
+        +{/* Content */}
         <div className="relative mx-auto flex h-full w-full max-w-7xl items-center px-5 sm:px-8 lg:px-10">
           <div className="max-w-xl">
             {/* Eyebrow */}
@@ -57,9 +55,7 @@ const EnrollmentCTA = () => {
               className="text-3xl font-extrabold tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl"
             >
               Build skills.
-              <span className="block text-blue-300">
-                Shape your future.
-              </span>
+              <span className="block text-blue-300">Shape your future.</span>
             </motion.h2>
 
             {/* Description */}

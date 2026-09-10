@@ -19,7 +19,7 @@ export interface IBranchRepository {
 
   updateBranch(
     id: string,
-    data: updateBranchSchemaDTO & { 
+    data: updateBranchSchemaDTO & {
       slug?: string;
       imageUrl?: string;
       imagePublicId?: string;
@@ -30,13 +30,13 @@ export interface IBranchRepository {
 
   // BRANCH __ COURSE
 
-  findCourseById(courseId:string):Promise<any | null>;
+  findCourseById(courseId: string): Promise<any | null>;
 
-  findBranchCourse(branchId:string, courseId:string):Promise<any | null>;
+  findBranchCourse(branchId: string, courseId: string): Promise<any | null>;
 
-  assignCourseToBranch(branchId:string, courseId:string):Promise<any>;
-  
-  removeCourseFromBranch(branchId:string, courseId:string):Promise<any>;
+  assignCourseToBranch(branchId: string, courseId: string): Promise<any>;
 
-  findCoursesByBranch(branchId:string):Promise<any[]>
+  removeCourseFromBranch(branchId: string, courseId: string): Promise<any>;
+
+  findCoursesByBranch(branchId: string): Promise<any[]>;
 }

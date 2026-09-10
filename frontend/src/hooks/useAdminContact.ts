@@ -6,19 +6,12 @@ import {
 } from "@/api/contact.api";
 import { UpdateContactMessagePayload } from "@/types/contactDashboard";
 
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-
-
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const adminContactKeys = {
   all: ["admin-contact"] as const,
 
-  detail: (contactId: string) =>
-    ["admin-contact", contactId] as const,
+  detail: (contactId: string) => ["admin-contact", contactId] as const,
 };
 
 /*
@@ -63,9 +56,7 @@ export const useUpdateAdminContactMessage = () => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: adminContactKeys.detail(
-          variables.contactId
-        ),
+        queryKey: adminContactKeys.detail(variables.contactId),
       });
     },
   });
@@ -78,8 +69,7 @@ export const useDeleteAdminContactMessage = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (contactId: string) =>
-      deleteAdminContactMessage(contactId),
+    mutationFn: (contactId: string) => deleteAdminContactMessage(contactId),
 
     onSuccess: (_, contactId) => {
       queryClient.invalidateQueries({

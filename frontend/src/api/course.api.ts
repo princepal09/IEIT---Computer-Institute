@@ -1,8 +1,5 @@
 import api from "@/lib/axios";
-import {
-  CourseResponse,
-  CoursesResponse,
-} from "@/types/course";
+import { CourseResponse, CoursesResponse } from "@/types/course";
 import { AdminCourse } from "@/types/coursesDashboard";
 
 export interface CreateCoursePayload {
@@ -28,9 +25,7 @@ export interface UpdateCoursePayload {
 }
 
 export const getCourses = async (): Promise<CoursesResponse> => {
-  const response = await api.get<CoursesResponse>(
-    "/course/all-courses"
-  );
+  const response = await api.get<CoursesResponse>("/course/all-courses");
 
   return response.data;
 };
@@ -38,9 +33,7 @@ export const getCourses = async (): Promise<CoursesResponse> => {
 export const getCourseBySlug = async (
   courseSlug: string
 ): Promise<CourseResponse> => {
-  const response = await api.get<CourseResponse>(
-    `/course/slug/${courseSlug}`
-  );
+  const response = await api.get<CourseResponse>(`/course/slug/${courseSlug}`);
 
   return response.data;
 };
@@ -71,10 +64,7 @@ export const updateAdminCourse = async (
   courseId: string,
   data: UpdateCoursePayload
 ): Promise<AdminCourse> => {
-  const response = await api.patch(
-    `/course/update/${courseId}`,
-    data
-  );
+  const response = await api.patch(`/course/update/${courseId}`, data);
 
   return response.data.data;
 };
@@ -82,9 +72,7 @@ export const updateAdminCourse = async (
 export const deleteAdminCourse = async (
   courseId: string
 ): Promise<AdminCourse> => {
-  const response = await api.delete(
-    `/course/delete/${courseId}`
-  );
+  const response = await api.delete(`/course/delete/${courseId}`);
 
   return response.data.data;
 };

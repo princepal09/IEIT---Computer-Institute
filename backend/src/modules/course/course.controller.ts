@@ -5,7 +5,7 @@ import ApiResponse from '../../utils/ApiResponse.js';
 
 export const createCourse = async (req: Request, res: Response) => {
   const file = req.file;
- 
+
   const course = await courseService.createCourse(req.body, file);
 
   return res.status(201).json(new ApiResponse(201, course, 'Course Created Successfully'));
@@ -45,7 +45,7 @@ export const updateCourse = async (req: Request, res: Response) => {
     throw new ApiError(404, 'CourseId not found');
   }
   const file = req.file;
- 
+
   const course = await courseService.updateCourse(courseId, req.body, file);
 
   return res.status(200).json(new ApiResponse(200, course, 'Course updated Successfully'));

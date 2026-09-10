@@ -12,8 +12,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 export const adminCourseKeys = {
   all: ["admin-courses"] as const,
 
-  detail: (courseId: string) => 
-    ["admin-courses", courseId] as const
+  detail: (courseId: string) => ["admin-courses", courseId] as const,
 };
 
 // GETL ALL COURSES

@@ -33,17 +33,11 @@ const DashboardStatCard = ({
             <ChevronRightIcon className="size-4 text-slate-300 transition group-hover:translate-x-1 group-hover:text-ieit-blue" />
           </div>
 
-          <p className="mt-5 text-2xl font-bold text-slate-950">
-            {value}
-          </p>
+          <p className="mt-5 text-2xl font-bold text-slate-950">{value}</p>
 
-          <p className="mt-1 text-sm font-semibold text-slate-800">
-            {label}
-          </p>
+          <p className="mt-1 text-sm font-semibold text-slate-800">{label}</p>
 
-          <p className="mt-1 text-xs text-slate-400">
-            {description}
-          </p>
+          <p className="mt-1 text-xs text-slate-400">{description}</p>
         </CardContent>
       </Card>
     </Link>

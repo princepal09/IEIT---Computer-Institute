@@ -7,16 +7,9 @@ export const createContactMessageSchema = z.object({
     .min(2, 'Name must be at least 2 characters')
     .max(100, 'Name must not exceed 100 characters'),
 
-  email: z
-    .string()
-    .trim()
-    .email('Invalid email address'),
+  email: z.string().trim().email('Invalid email address'),
 
-  phone: z
-    .string()
-    .trim()
-    .max(20, 'Phone number is too long')
-    .optional(),
+  phone: z.string().trim().max(20, 'Phone number is too long').optional(),
 
   message: z
     .string()
@@ -29,10 +22,6 @@ export const updateContactMessageSchema = z.object({
   status: z.enum(['UNREAD', 'READ']),
 });
 
-export type createContactMessageSchemaDTO = z.infer<
-  typeof createContactMessageSchema
->;
+export type createContactMessageSchemaDTO = z.infer<typeof createContactMessageSchema>;
 
-export type updateContactMessageSchemaDTO = z.infer<
-  typeof updateContactMessageSchema
->;
+export type updateContactMessageSchemaDTO = z.infer<typeof updateContactMessageSchema>;

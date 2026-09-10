@@ -1,13 +1,20 @@
-import { createAdminBranch, CreateBranchPayload, deleteAdminBranch, getAdminBranchById, getAdminBranches, getBranches, updateAdminBranch, UpdateBranchPayload } from "@/api/branch.api";
+import {
+  createAdminBranch,
+  CreateBranchPayload,
+  deleteAdminBranch,
+  getAdminBranchById,
+  getAdminBranches,
+  getBranches,
+  updateAdminBranch,
+  UpdateBranchPayload,
+} from "@/api/branch.api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const adminBranchKeys = {
   all: ["admin-branches"] as const,
 
-  detail: (branchId: string) =>
-    ["admin-branches", branchId] as const,
+  detail: (branchId: string) => ["admin-branches", branchId] as const,
 };
-
 
 // GET ALL
 export const useAdminBranches = () => {
@@ -20,20 +27,15 @@ export const useAdminBranches = () => {
 /*
  * GET SINGLE
  */
-export const useAdminBranch = (
-  branchId: string
-) => {
+export const useAdminBranch = (branchId: string) => {
   return useQuery({
     queryKey: adminBranchKeys.detail(branchId),
 
-    queryFn: () =>
-      getAdminBranchById(branchId),
+    queryFn: () => getAdminBranchById(branchId),
 
     enabled: Boolean(branchId),
   });
 };
-
-
 
 /*
  * CREATE
@@ -42,9 +44,7 @@ export const useCreateAdminBranch = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (
-      data: CreateBranchPayload
-    ) => createAdminBranch(data),
+    mutationFn: (data: CreateBranchPayload) => createAdminBranch(data),
 
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -53,7 +53,6 @@ export const useCreateAdminBranch = () => {
     },
   });
 };
-
 
 /*
  * UPDATE
@@ -68,11 +67,7 @@ export const useUpdateAdminBranch = () => {
     }: {
       branchId: string;
       data: UpdateBranchPayload;
-    }) =>
-      updateAdminBranch(
-        branchId,
-        data
-      ),
+    }) => updateAdminBranch(branchId, data),
 
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
@@ -80,14 +75,11 @@ export const useUpdateAdminBranch = () => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: adminBranchKeys.detail(
-          variables.branchId
-        ),
+        queryKey: adminBranchKeys.detail(variables.branchId),
       });
     },
   });
 };
-
 
 /*
  * DELETE
@@ -96,10 +88,7 @@ export const useDeleteAdminBranch = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (
-      branchId: string
-    ) =>
-      deleteAdminBranch(branchId),
+    mutationFn: (branchId: string) => deleteAdminBranch(branchId),
 
     onSuccess: () => {
       queryClient.invalidateQueries({

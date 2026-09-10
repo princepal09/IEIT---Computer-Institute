@@ -1,4 +1,4 @@
-import { createNoticeSchemaDTO, updateNoticeSchemaDTO } from "./notice.schema.js";
+import { createNoticeSchemaDTO, updateNoticeSchemaDTO } from './notice.schema.js';
 
 export interface INoticeRepository {
   createNotice(

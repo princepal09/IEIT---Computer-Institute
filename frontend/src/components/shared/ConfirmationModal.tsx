@@ -1,7 +1,4 @@
-import {
-  AlertTriangleIcon,
-  Loader2Icon,
-} from "lucide-react";
+import { AlertTriangleIcon, Loader2Icon } from "lucide-react";
 
 import {
   AlertDialog,
@@ -45,10 +42,7 @@ const ConfirmationModal = ({
   const isDanger = variant === "danger";
 
   return (
-    <AlertDialog
-      open={open}
-      onOpenChange={onOpenChange}
-    >
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent className="rounded-2xl border-slate-200 sm:max-w-md">
         <AlertDialogHeader>
           {/* Icon */}
@@ -73,10 +67,7 @@ const ConfirmationModal = ({
         </AlertDialogHeader>
 
         <AlertDialogFooter className="mt-2">
-          <AlertDialogCancel
-            disabled={loading}
-            className="rounded-xl"
-          >
+          <AlertDialogCancel disabled={loading} className="rounded-xl">
             {cancelText}
           </AlertDialogCancel>
 
@@ -93,9 +84,7 @@ const ConfirmationModal = ({
                 : "bg-ieit-blue hover:bg-ieit-blue/90",
             ].join(" ")}
           >
-            {loading && (
-              <Loader2Icon className="mr-2 size-4 animate-spin" />
-            )}
+            {loading && <Loader2Icon className="mr-2 size-4 animate-spin" />}
 
             {loading ? "Please wait..." : confirmText}
           </AlertDialogAction>

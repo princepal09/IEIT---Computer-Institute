@@ -34,7 +34,6 @@ router.get('/:noticeId', getNoticeById);
 
 //ADMIN ROUTES
 
-
 // Create notice
 router.post(
   '/create',

@@ -28,14 +28,13 @@ export class BranchRepository implements IBranchRepository {
       orderBy: {
         createdAt: 'desc',
       },
-      include:{
-        courses : {
-          select : {
-            course : true
-          }
-        }
-
-      }
+      include: {
+        courses: {
+          select: {
+            course: true,
+          },
+        },
+      },
     });
   }
 
@@ -44,13 +43,13 @@ export class BranchRepository implements IBranchRepository {
       where: {
         id,
       },
-      include : {
-        courses : {
-          select :{
-            course : true
-          }
-        }
-      }
+      include: {
+        courses: {
+          select: {
+            course: true,
+          },
+        },
+      },
     });
   }
 
@@ -59,13 +58,13 @@ export class BranchRepository implements IBranchRepository {
       where: {
         slug,
       },
-      include : {
-        courses : {
-          select : {
-            course : true
-          }
-        }
-      }
+      include: {
+        courses: {
+          select: {
+            course: true,
+          },
+        },
+      },
     });
   }
 
@@ -195,8 +194,8 @@ export class BranchRepository implements IBranchRepository {
 
   async findCoursesByBranch(branchId: string): Promise<any[]> {
     const branchCourses = await prisma.branchCourse.findMany({
-      where :{
-        branchId
+      where: {
+        branchId,
       },
       include: {
         course: true,

@@ -4,11 +4,7 @@ import {
   getAdminGallery,
 } from "@/api/gallery.api";
 
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const adminGalleryKeys = {
   all: ["admin-gallery"] as const,
@@ -39,8 +35,7 @@ export const useDeleteAdminGallery = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (galleryId: string) =>
-      deleteAdminGallery(galleryId),
+    mutationFn: (galleryId: string) => deleteAdminGallery(galleryId),
 
     onSuccess: () => {
       queryClient.invalidateQueries({

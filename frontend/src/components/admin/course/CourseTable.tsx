@@ -21,11 +21,7 @@ interface CourseTableProps {
   onDelete: (course: AdminCourse) => void;
 }
 
-const CourseTable = ({
-  courses,
-  onEdit,
-  onDelete,
-}: CourseTableProps) => {
+const CourseTable = ({ courses, onEdit, onDelete }: CourseTableProps) => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[800px]">
@@ -59,9 +55,7 @@ const CourseTable = ({
           {courses.map((course) => {
             const fee = Number(course.fee);
 
-            const originalFee =
-              course.originalFee ??
-              null;
+            const originalFee = course.originalFee ?? null;
 
             return (
               <tr
@@ -106,33 +100,21 @@ const CourseTable = ({
 
                 <td className="px-5 py-4">
                   <p className="text-sm font-semibold text-slate-900">
-                    ₹
-                    {Number.isFinite(fee)
-                      ? fee.toLocaleString(
-                          "en-IN",
-                        )
-                      : "-"}
+                    ₹{Number.isFinite(fee) ? fee.toLocaleString("en-IN") : "-"}
                   </p>
 
-                  {originalFee !== null &&
-                    originalFee > fee && (
-                      <p className="text-xs text-slate-400 line-through">
-                        ₹
-                        {Number(
-                          originalFee,
-                        ).toLocaleString(
-                          "en-IN",
-                        )}
-                      </p>
-                    )}
+                  {originalFee !== null && originalFee > fee && (
+                    <p className="text-xs text-slate-400 line-through">
+                      ₹{Number(originalFee).toLocaleString("en-IN")}
+                    </p>
+                  )}
                 </td>
 
                 {/* Branches */}
 
                 <td className="px-5 py-4">
                   <span className="text-sm text-slate-600">
-                    {course.branches
-                      ?.length ?? 0}
+                    {course.branches?.length ?? 0}
                   </span>
                 </td>
 
@@ -149,9 +131,7 @@ const CourseTable = ({
                       className="w-36 rounded-xl"
                     >
                       <DropdownMenuItem
-                        onClick={() =>
-                          onEdit(course)
-                        }
+                        onClick={() => onEdit(course)}
                         className="cursor-pointer rounded-lg"
                       >
                         <PencilIcon className="mr-2 size-4" />
@@ -161,9 +141,7 @@ const CourseTable = ({
                       <DropdownMenuSeparator />
 
                       <DropdownMenuItem
-                        onClick={() =>
-                          onDelete(course)
-                        }
+                        onClick={() => onDelete(course)}
                         className="cursor-pointer rounded-lg text-red-600 focus:bg-red-50 focus:text-red-600"
                       >
                         <Trash2Icon className="mr-2 size-4" />

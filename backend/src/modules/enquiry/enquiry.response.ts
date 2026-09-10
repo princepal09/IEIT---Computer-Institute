@@ -1,4 +1,4 @@
-import { EnquiryStatus } from "../../generated/prisma/enums.js";
+import { EnquiryStatus } from '../../generated/prisma/enums.js';
 
 export interface IEnquiryResponse {
   id: string;

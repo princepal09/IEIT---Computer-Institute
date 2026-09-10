@@ -9,16 +9,12 @@ import type {
 } from "@/types/adminProfile";
 
 export const getAdminProfile = async (): Promise<AdminProfile> => {
-  const response = await api.get<AdminProfileResponse>(
-    "/auth/admin/me"
-  );
+  const response = await api.get<AdminProfileResponse>("/auth/admin/me");
 
   return response.data.data;
 };
 
-const createProfileFormData = (
-  data: UpdateProfilePayload
-) => {
+const createProfileFormData = (data: UpdateProfilePayload) => {
   const formData = new FormData();
 
   if (data.name !== undefined) {
@@ -48,8 +44,5 @@ export const updateAdminProfile = async (
 export const updateAdminPassword = async (
   data: UpdatePasswordPayload
 ): Promise<void> => {
-  await api.patch<BasicResponse>(
-    "/auth/admin/change-password",
-    data
-  );
+  await api.patch<BasicResponse>("/auth/admin/change-password", data);
 };

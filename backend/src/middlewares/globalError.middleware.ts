@@ -29,25 +29,17 @@ const errorMiddleware = (
   }
 
   // Your ApiError
-  const statusCode =
-    err instanceof ApiError ? err.status : 500;
+  const statusCode = err instanceof ApiError ? err.status : 500;
 
-  const message =
-    err instanceof ApiError
-      ? err.message
-      : 'Internal Server Error';
+  const message = err instanceof ApiError ? err.message : 'Internal Server Error';
 
-  const errors =
-    err instanceof ApiError ? err.errors : [];
+  const errors = err instanceof ApiError ? err.errors : [];
 
   return res.status(statusCode).json({
     success: false,
     message,
     errors,
-    stack:
-      process.env.NODE_ENV === 'development'
-        ? err.stack
-        : undefined,
+    stack: process.env.NODE_ENV === 'development' ? err.stack : undefined,
   });
 };
 

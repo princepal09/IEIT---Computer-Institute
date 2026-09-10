@@ -310,7 +310,6 @@ const MobileNav = () => {
         ========================================================= */}
 
         <div className="mt-auto flex flex-col gap-2 border-t border-slate-200/70 px-5 py-4">
-
           <Button
             variant="default"
             size="default"

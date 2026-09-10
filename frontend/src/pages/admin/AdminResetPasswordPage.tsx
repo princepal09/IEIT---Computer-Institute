@@ -1,7 +1,6 @@
 import { ShieldCheckIcon } from "lucide-react";
 import ResetPasswordForm from "./ResetPasswordForm";
 
-
 const AdminResetPasswordPage = () => {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-50 px-4 py-10">
@@ -34,7 +33,7 @@ const AdminResetPasswordPage = () => {
           </p>
         </div>
 
-        <ResetPasswordForm/>
+        <ResetPasswordForm />
 
         <p className="mt-6 text-center font-mono text-[9px] uppercase tracking-[0.18em] text-slate-400">
           IEIT · Information Technology & Education

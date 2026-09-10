@@ -6,19 +6,12 @@ import {
 } from "@/api/enquiry.api";
 import { UpdateEnquiryPayload } from "@/types/enquiryDashboard";
 
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-
-
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const adminEnquiryKeys = {
   all: ["admin-enquiries"] as const,
 
-  detail: (enquiryId: string) =>
-    ["admin-enquiries", enquiryId] as const,
+  detail: (enquiryId: string) => ["admin-enquiries", enquiryId] as const,
 };
 
 /*
@@ -63,9 +56,7 @@ export const useUpdateAdminEnquiry = () => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: adminEnquiryKeys.detail(
-          variables.enquiryId
-        ),
+        queryKey: adminEnquiryKeys.detail(variables.enquiryId),
       });
     },
   });
@@ -78,8 +69,7 @@ export const useDeleteAdminEnquiry = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (enquiryId: string) =>
-      deleteAdminEnquiry(enquiryId),
+    mutationFn: (enquiryId: string) => deleteAdminEnquiry(enquiryId),
 
     onSuccess: (_, enquiryId) => {
       queryClient.invalidateQueries({

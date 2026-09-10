@@ -3,7 +3,7 @@ import CoursesSection from "@/components/public/courses/CourseSection";
 const Courses = () => {
   return (
     <main>
-      <CoursesSection/>
+      <CoursesSection />
     </main>
   );
 };

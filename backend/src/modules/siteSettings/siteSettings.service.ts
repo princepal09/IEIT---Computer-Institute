@@ -31,7 +31,7 @@ export class SiteSettingsService {
     let logoPublicId = settings.logoPublicId ?? undefined;
 
     let oldLogoPublicId: string | undefined;
-   
+
     if (file) {
       const uploadedImage = await uploadToCloudinary(file, 'ieit/site-settings');
 
@@ -48,12 +48,11 @@ export class SiteSettingsService {
         logoPublicId,
       }),
     });
-   
+
     if (file && oldLogoPublicId && oldLogoPublicId !== logoPublicId) {
       try {
         await deleteFromCloudinary(oldLogoPublicId);
       } catch (error) {
-       
         console.error('Failed to delete old site logo:', error);
       }
     }

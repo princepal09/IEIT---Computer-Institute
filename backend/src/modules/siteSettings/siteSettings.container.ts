@@ -5,5 +5,4 @@ const siteSettingsRepository = new SiteSettingsRepository();
 
 const siteSettingsService = new SiteSettingsService(siteSettingsRepository);
 
-
 export default siteSettingsService;

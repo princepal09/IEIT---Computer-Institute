@@ -256,10 +256,9 @@ export class CourseService {
       // Decimal → string
       fee: course.fee !== null ? course.fee.toString() : null,
 
-
       category: course.category,
       originalFee: course.originalFee,
-      discountPercent : course.discountPercent,
+      discountPercent: course.discountPercent,
 
       imageUrl: course.imageUrl,
 

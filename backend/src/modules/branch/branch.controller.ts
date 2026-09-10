@@ -13,7 +13,7 @@ export const createBranchController = asyncHandler(async (req: Request, res: Res
 
 export const getAllBranches = asyncHandler(async (_req: Request, res: Response) => {
   const branches = await branchService.getAllBranches();
-  console.log(branches)
+  console.log(branches);
 
   return res.status(200).json(new ApiResponse(200, branches, 'Branches fetched successfully'));
 });
@@ -68,15 +68,9 @@ export const removeCourseFromBranch = async (req: Request, res: Response) => {
     .json(new ApiResponse(200, null, 'Course removed from branch  successfully'));
 };
 
-
-export const getBranchCourses  = async (req: Request, res: Response) => {
-  const { branchId} = req.params;
+export const getBranchCourses = async (req: Request, res: Response) => {
+  const { branchId } = req.params;
   const courses = await branchService.getBranchCourses(branchId as string);
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, courses, 'Branch courses fetched successfully'));
+  return res.status(200).json(new ApiResponse(200, courses, 'Branch courses fetched successfully'));
 };
-
-
-

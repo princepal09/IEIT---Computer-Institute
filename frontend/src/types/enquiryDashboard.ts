@@ -1,8 +1,4 @@
-export type EnquiryStatus =
-  | "NEW"
-  | "CONTACTED"
-  | "CONVERTED"
-  | "CLOSED";
+export type EnquiryStatus = "NEW" | "CONTACTED" | "CONVERTED" | "CLOSED";
 
 export interface AdminEnquiryBranch {
   id: string;

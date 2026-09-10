@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { DashboardEnquiry } from "@/types/adminDashboard";
 
-
 interface RecentEnquiriesProps {
   enquiries: DashboardEnquiry[];
 }
@@ -20,9 +19,7 @@ const formatDate = (date: string) => {
   }).format(new Date(date));
 };
 
-const getStatusClass = (
-  status: DashboardEnquiry["status"]
-) => {
+const getStatusClass = (status: DashboardEnquiry["status"]) => {
   switch (status) {
     case "NEW":
       return "bg-blue-50 text-blue-700";
@@ -38,9 +35,7 @@ const getStatusClass = (
   }
 };
 
-const RecentEnquiries = ({
-  enquiries,
-}: RecentEnquiriesProps) => {
+const RecentEnquiries = ({ enquiries }: RecentEnquiriesProps) => {
   return (
     <Card className="rounded-2xl border-slate-200 bg-white shadow-sm">
       <CardContent className="p-0">
@@ -82,10 +77,7 @@ const RecentEnquiries = ({
         ) : (
           <div className="divide-y divide-slate-100">
             {enquiries.map((enquiry) => (
-              <div
-                key={enquiry.id}
-                className="p-5 hover:bg-slate-50/70"
-              >
+              <div key={enquiry.id} className="p-5 hover:bg-slate-50/70">
                 <div className="flex gap-3">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-ieit-blue/5 text-ieit-blue">
                     <UsersIcon className="size-4" />
@@ -108,22 +100,13 @@ const RecentEnquiries = ({
 
                     <p className="mt-1 text-xs text-slate-400">
                       {enquiry.phone}
-                      {enquiry.email &&
-                        ` • ${enquiry.email}`}
+                      {enquiry.email && ` • ${enquiry.email}`}
                     </p>
 
                     <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-500">
-                      {enquiry.branch && (
-                        <span>
-                          {enquiry.branch.name}
-                        </span>
-                      )}
+                      {enquiry.branch && <span>{enquiry.branch.name}</span>}
 
-                      {enquiry.course && (
-                        <span>
-                          • {enquiry.course.name}
-                        </span>
-                      )}
+                      {enquiry.course && <span>• {enquiry.course.name}</span>}
                     </div>
 
                     <p className="mt-2 text-[11px] text-slate-400">

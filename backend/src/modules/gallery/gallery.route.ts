@@ -23,6 +23,4 @@ router.get('/all', getAllGallery);
 // Delete gallery image
 router.delete('/delete/:galleryId', verifyUser(authService), deleteGallery);
 
-
-
 export default router;

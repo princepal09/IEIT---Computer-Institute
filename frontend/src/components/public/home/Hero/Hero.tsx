@@ -2,7 +2,7 @@ import { motion, useInView } from "motion/react";
 import { ArrowRightIcon, PlayIcon, TrendingUpIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import heroPhoto from "@/assets/gallery/two.jpeg"
+import heroPhoto from "@/assets/gallery/two.jpeg";
 import { cn } from "@/lib/utils";
 
 const Hero = () => {

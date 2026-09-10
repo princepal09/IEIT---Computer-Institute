@@ -9,7 +9,6 @@ import { CreateNoticePayload, UpdateNoticePayload } from "@/types/notice";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-
 export const adminNoticeKeys = {
   all: ["admin-notices"] as const,
 

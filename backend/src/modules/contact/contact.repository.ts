@@ -2,7 +2,7 @@ import { prisma } from '../../lib/prisma.js';
 import { IContactRepository } from './contact.interface.js';
 import { createContactMessageSchemaDTO, updateContactMessageSchemaDTO } from './contact.schema.js';
 
-export class ContactRepository implements IContactRepository{
+export class ContactRepository implements IContactRepository {
   async createContactMessage(data: createContactMessageSchemaDTO): Promise<any> {
     return prisma.contactMessage.create({
       data: {

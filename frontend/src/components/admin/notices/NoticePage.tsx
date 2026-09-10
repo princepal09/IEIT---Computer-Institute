@@ -16,8 +16,7 @@ const NoticePage = () => {
         </h1>
 
         <p className="mt-2 text-sm text-slate-500">
-          Create and manage announcements displayed on
-          the institute website.
+          Create and manage announcements displayed on the institute website.
         </p>
       </div>
 

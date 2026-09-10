@@ -21,7 +21,10 @@ import {
 import { verifyUser } from '../../middlewares/auth.middleware.js';
 import { authService } from './auth.container.js';
 import { upload } from '../../middlewares/multer.middleware.js';
-import { forgotPasswordRateLimiter, loginRateLimiter } from '../../middlewares/rate-limit.middleware.js';
+import {
+  forgotPasswordRateLimiter,
+  loginRateLimiter,
+} from '../../middlewares/rate-limit.middleware.js';
 
 const router = express.Router();
 
@@ -44,6 +47,11 @@ router.patch(
   updatePasswordController,
 );
 
-router.post('/admin/forgot-password', forgotPasswordRateLimiter, validate(forgotPasswordSchema), forgotPasswordController);
+router.post(
+  '/admin/forgot-password',
+  forgotPasswordRateLimiter,
+  validate(forgotPasswordSchema),
+  forgotPasswordController,
+);
 router.post('/admin/reset-password', validate(resetPasswordSchema), resetPasswordController);
 export default router;

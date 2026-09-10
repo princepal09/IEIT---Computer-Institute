@@ -19,41 +19,17 @@ export const createBranchSchema = z.object({
     .min(5, "Address must be at least 5 characters")
     .max(500, "Address must not exceed 500 characters"),
 
-  phone: z
-    .string()
-    .trim()
-    .max(20, "Phone number is too long")
-    .optional(),
+  phone: z.string().trim().max(20, "Phone number is too long").optional(),
 
-  email: z
-    .string()
-    .trim()
-    .email("Invalid email address")
-    .optional(),
+  email: z.string().trim().email("Invalid email address").optional(),
 
-  whatsapp: z
-    .string()
-    .trim()
-    .max(20, "WhatsApp number is too long")
-    .optional(),
+  whatsapp: z.string().trim().max(20, "WhatsApp number is too long").optional(),
 
-  mapUrl: z
-    .string()
-    .trim()
-    .url("Invalid map URL")
-    .optional(),
+  mapUrl: z.string().trim().url("Invalid map URL").optional(),
 
-  openingTime: z
-    .string()
-    .trim()
-    .max(10, "Opening time is invalid")
-    .optional(),
+  openingTime: z.string().trim().max(10, "Opening time is invalid").optional(),
 
-  closingTime: z
-    .string()
-    .trim()
-    .max(10, "Closing time is invalid")
-    .optional(),
+  closingTime: z.string().trim().max(10, "Closing time is invalid").optional(),
 
   isActive: z.boolean().optional(),
 });

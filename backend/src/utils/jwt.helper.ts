@@ -19,7 +19,7 @@ export const generateRefreshToken = (payload: IPayload) => {
   });
 };
 
-export const verifyRefreshToken = (token: string):IPayload => {
+export const verifyRefreshToken = (token: string): IPayload => {
   return jwt.verify(token, JWT_REFRESH_SECRET) as IPayload;
 };
 
@@ -32,4 +32,3 @@ export const verifyAccessToken = (token: string): IPayload => {
     throw new ApiError(401, 'Invalid or expired access token');
   }
 };
-

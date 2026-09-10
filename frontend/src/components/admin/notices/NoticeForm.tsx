@@ -8,15 +8,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 
-
-
 import {
   useCreateAdminNotice,
   useUpdateAdminNotice,
 } from "@/hooks/useAdminNotice";
 
 import type { AdminNotice } from "@/types/notice";
-import { createNoticeSchema, NoticeFormValues } from "@/validations/notice.schema";
+import {
+  createNoticeSchema,
+  NoticeFormValues,
+} from "@/validations/notice.schema";
 
 interface NoticeFormProps {
   notice?: AdminNotice | null;
@@ -40,11 +41,7 @@ const formatDateTimeLocal = (date?: string | null) => {
   return localDate.toISOString().slice(0, 16);
 };
 
-const NoticeForm = ({
-  notice,
-  onSuccess,
-  onCancel,
-}: NoticeFormProps) => {
+const NoticeForm = ({ notice, onSuccess, onCancel }: NoticeFormProps) => {
   const isEdit = Boolean(notice);
 
   const createMutation = useCreateAdminNotice();
@@ -125,10 +122,7 @@ const NoticeForm = ({
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Title */}
       <div className="space-y-2">
-        <label
-          htmlFor="title"
-          className="text-sm font-medium text-slate-900"
-        >
+        <label htmlFor="title" className="text-sm font-medium text-slate-900">
           Notice Title
         </label>
 
@@ -141,9 +135,7 @@ const NoticeForm = ({
         />
 
         {errors.title && (
-          <p className="text-sm text-red-600">
-            {errors.title.message}
-          </p>
+          <p className="text-sm text-red-600">{errors.title.message}</p>
         )}
       </div>
 
@@ -166,9 +158,7 @@ const NoticeForm = ({
         />
 
         {errors.description && (
-          <p className="text-sm text-red-600">
-            {errors.description.message}
-          </p>
+          <p className="text-sm text-red-600">{errors.description.message}</p>
         )}
       </div>
 
@@ -190,9 +180,7 @@ const NoticeForm = ({
         />
 
         {errors.publishedAt && (
-          <p className="text-sm text-red-600">
-            {errors.publishedAt.message}
-          </p>
+          <p className="text-sm text-red-600">{errors.publishedAt.message}</p>
         )}
       </div>
 
@@ -214,18 +202,14 @@ const NoticeForm = ({
         />
 
         {errors.expiresAt && (
-          <p className="text-sm text-red-600">
-            {errors.expiresAt.message}
-          </p>
+          <p className="text-sm text-red-600">{errors.expiresAt.message}</p>
         )}
       </div>
 
       {/* Published Switch */}
       <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-4">
         <div>
-          <p className="text-sm font-medium text-slate-900">
-            Publish Notice
-          </p>
+          <p className="text-sm font-medium text-slate-900">Publish Notice</p>
 
           <p className="mt-1 text-xs text-slate-500">
             Make this notice visible on the public website.
@@ -244,9 +228,7 @@ const NoticeForm = ({
       </div>
 
       {errors.isPublished && (
-        <p className="text-sm text-red-600">
-          {errors.isPublished.message}
-        </p>
+        <p className="text-sm text-red-600">{errors.isPublished.message}</p>
       )}
 
       {/* Actions */}

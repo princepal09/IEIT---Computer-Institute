@@ -1,4 +1,3 @@
-
 export const enquiryStudentTemplate = (enquiry: {
   name: string;
   branch: {

@@ -8,11 +8,7 @@ import { useGallery } from "@/hooks/useGallery";
 import PublicGallerySkeleton from "@/components/shared/skeletons/PublicGallerySkeleton";
 
 const Gallery = () => {
-  const {
-    data: gallery = [],
-    isLoading,
-    isError,
-  } = useGallery();
+  const { data: gallery = [], isLoading, isError } = useGallery();
 
   return (
     <section className="relative overflow-hidden bg-[#f7f9f8] py-16 sm:py-20 lg:py-24">
@@ -59,7 +55,6 @@ const Gallery = () => {
               className="group w-fit rounded-lg border-slate-200 bg-white px-4 text-xs font-semibold text-slate-700 shadow-sm hover:border-ieit-blue hover:text-ieit-blue"
             >
               View Gallery
-
               <ArrowRightIcon className="ml-1.5 size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
             </Button>
           </Link>
@@ -86,13 +81,10 @@ const Gallery = () => {
           )}
 
           {/* Gallery Images */}
-          {!isLoading && !isError && gallery.length > 0 &&
-            gallery.map((item) => (
-              <GalleryCard
-                key={item.id}
-                item={item}
-              />
-            ))}
+          {!isLoading &&
+            !isError &&
+            gallery.length > 0 &&
+            gallery.map((item) => <GalleryCard key={item.id} item={item} />)}
 
           {/* Empty State */}
           {!isLoading && !isError && gallery.length === 0 && (

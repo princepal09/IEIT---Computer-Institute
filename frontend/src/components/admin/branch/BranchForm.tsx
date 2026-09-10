@@ -71,17 +71,16 @@ const BranchForm = ({ open, onOpenChange, branch }: BranchFormProps) => {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-const {
-  register,
-  handleSubmit,
-  setValue,
-  reset,
-  formState: { errors },
-} = useForm<CreateBranchFormValues>({
-  resolver: zodResolver(createBranchSchema),
-  defaultValues: emptyFormValues,
-});
-
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm<CreateBranchFormValues>({
+    resolver: zodResolver(createBranchSchema),
+    defaultValues: emptyFormValues,
+  });
 
   /*
    * Populate form
@@ -616,7 +615,6 @@ const {
               </p>
             )}
           </div>
- 
 
           {/* ACTIONS */}
 

@@ -1,4 +1,4 @@
-import { ContactEmailData } from "../../types/email.types.js";
+import { ContactEmailData } from '../../types/email.types.js';
 
 export const contactAdminTemplate = (contact: ContactEmailData): string => {
   return `

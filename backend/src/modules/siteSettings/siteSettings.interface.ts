@@ -1,8 +1,6 @@
 import { SiteSettings } from '../../generated/prisma/client.js';
 import { UpdateSiteSettingsDTO } from './siteSettings.schema.js';
 
-
-
 export interface ISiteSettingsRepository {
   findSiteSettings(): Promise<SiteSettings | null>;
 

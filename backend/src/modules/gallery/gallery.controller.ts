@@ -15,11 +15,9 @@ export const createGallery = asyncHandler(async (req: Request, res: Response) =>
     throw new ApiError(400, 'At least one image is required');
   }
 
-   await galleryService.createGallery(files);
+  await galleryService.createGallery(files);
 
-  return res
-    .status(201)
-    .json(new ApiResponse(201, null, 'Gallery images uploaded successfully'));
+  return res.status(201).json(new ApiResponse(201, null, 'Gallery images uploaded successfully'));
 });
 
 export const getAllGallery = asyncHandler(async (_req: Request, res: Response) => {
@@ -27,7 +25,6 @@ export const getAllGallery = asyncHandler(async (_req: Request, res: Response) =
 
   return res.status(200).json(new ApiResponse(200, gallery, 'Gallery fetched successfully'));
 });
-
 
 export const getGalleryById = asyncHandler(async (req: Request, res: Response) => {
   const galleryId = req.params.galleryId as string;

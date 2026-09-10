@@ -1,9 +1,9 @@
-export interface CourseBranch{
-    id : string,
-    branch : {
-        id : string,
-        name : string
-    }
+export interface CourseBranch {
+  id: string;
+  branch: {
+    id: string;
+    name: string;
+  };
 }
 
 export interface AdminCourse {

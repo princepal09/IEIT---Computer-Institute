@@ -69,11 +69,8 @@ export const deleteAdminNotice = async (
   return response.data.data;
 };
 
-
 export const getPublishedNotices = async (): Promise<PublicNotice[]> => {
-  const response = await api.get<PublicNoticesResponse>(
-    "/notices/published"
-  );
+  const response = await api.get<PublicNoticesResponse>("/notices/published");
 
   return response.data.data;
 };

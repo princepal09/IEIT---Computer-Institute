@@ -7,7 +7,7 @@ const resend = new Resend(environment.RESEND_API_KEY);
 export default resend;
 
 interface SendEmailOptions {
-  to: string|string[]
+  to: string | string[];
   subject: string;
   html: string;
 }

@@ -9,15 +9,13 @@ import {
 
 import DashboardStatCard from "./DashboardStatCard";
 
-import {DashboardStats} from "@/types/adminDashboard";
+import { DashboardStats } from "@/types/adminDashboard";
 
 interface DashboardStatsProps {
   stats: DashboardStats;
 }
 
-const DashboardStats = ({
-  stats,
-}: DashboardStatsProps) => {
+const DashboardStats = ({ stats }: DashboardStatsProps) => {
   return (
     <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
       <DashboardStatCard

@@ -10,8 +10,8 @@ const DashboardHeader = () => {
       </h1>
 
       <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-        Manage your IEIT website, courses, branches,
-        enquiries and institute content.
+        Manage your IEIT website, courses, branches, enquiries and institute
+        content.
       </p>
     </div>
   );

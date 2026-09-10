@@ -96,7 +96,7 @@ const EnquiryForm = ({ course }: EnquiryFormProps) => {
       },
 
       onError: (error) => {
-       toast.error(getErrorMessage(error));
+        toast.error(getErrorMessage(error));
       },
     });
   };

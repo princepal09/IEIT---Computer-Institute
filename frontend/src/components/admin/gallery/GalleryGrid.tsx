@@ -1,7 +1,4 @@
-import {
-  ImageIcon,
-  Trash2Icon,
-} from "lucide-react";
+import { ImageIcon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -17,21 +14,18 @@ import {
   useDeleteAdminGallery,
 } from "@/hooks/useAdminGallery";
 
-import {AdminGallery} from "@/types/gallery";
+import { AdminGallery } from "@/types/gallery";
 
 import { getErrorMessage } from "@/utils/error";
 
 const GalleryGrid = () => {
-  const {
-    data: gallery = [],
-    isLoading,
-    isError,
-  } = useAdminGallery();
+  const { data: gallery = [], isLoading, isError } = useAdminGallery();
 
   const deleteMutation = useDeleteAdminGallery();
 
-  const [selectedGallery, setSelectedGallery] =
-    useState<AdminGallery | null>(null);
+  const [selectedGallery, setSelectedGallery] = useState<AdminGallery | null>(
+    null
+  );
 
   /*
    * Delete gallery image
@@ -144,8 +138,7 @@ const GalleryGrid = () => {
           </div>
 
           <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-            {gallery.length}{" "}
-            {gallery.length === 1 ? "image" : "images"}
+            {gallery.length} {gallery.length === 1 ? "image" : "images"}
           </span>
         </div>
 

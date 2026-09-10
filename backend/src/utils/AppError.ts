@@ -3,11 +3,7 @@ class ApiError extends Error {
   public errors: unknown[];
   public success: boolean;
 
-  constructor(
-    status: number,
-    message = "Something went wrong",
-    errors: unknown[] = []
-  ) {
+  constructor(status: number, message = 'Something went wrong', errors: unknown[] = []) {
     super(message);
 
     this.status = status;

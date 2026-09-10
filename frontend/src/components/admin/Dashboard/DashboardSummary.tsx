@@ -6,14 +6,11 @@ import {
   MessageSquareIcon,
 } from "lucide-react";
 
-
 interface DashboardSummaryProps {
   stats: DashboardStats;
 }
 
-const DashboardSummary = ({
-  stats,
-}: DashboardSummaryProps) => {
+const DashboardSummary = ({ stats }: DashboardSummaryProps) => {
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {/* Converted */}
@@ -24,9 +21,7 @@ const DashboardSummary = ({
           </div>
 
           <div>
-            <p className="text-xs text-slate-400">
-              Converted
-            </p>
+            <p className="text-xs text-slate-400">Converted</p>
 
             <p className="text-lg font-bold text-slate-950">
               {stats.enquiries.converted}
@@ -43,9 +38,7 @@ const DashboardSummary = ({
           </div>
 
           <div>
-            <p className="text-xs text-slate-400">
-              Contacted
-            </p>
+            <p className="text-xs text-slate-400">Contacted</p>
 
             <p className="text-lg font-bold text-slate-950">
               {stats.enquiries.contacted}
@@ -62,9 +55,7 @@ const DashboardSummary = ({
           </div>
 
           <div>
-            <p className="text-xs text-slate-400">
-              Unread Messages
-            </p>
+            <p className="text-xs text-slate-400">Unread Messages</p>
 
             <p className="text-lg font-bold text-slate-950">
               {stats.contactMessages.unread}
@@ -81,9 +72,7 @@ const DashboardSummary = ({
           </div>
 
           <div>
-            <p className="text-xs text-slate-400">
-              Published Notices
-            </p>
+            <p className="text-xs text-slate-400">Published Notices</p>
 
             <p className="text-lg font-bold text-slate-950">
               {stats.notices.published}

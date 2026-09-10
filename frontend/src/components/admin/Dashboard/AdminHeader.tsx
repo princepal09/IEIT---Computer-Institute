@@ -43,9 +43,7 @@ const AdminHeader = ({ onMenuClick }: AdminHeaderProps) => {
               {admin?.name}
             </p>
 
-            <p className="text-xs text-slate-500">
-              {admin?.email}
-            </p>
+            <p className="text-xs text-slate-500">{admin?.email}</p>
           </div>
 
           {/* Avatar */}

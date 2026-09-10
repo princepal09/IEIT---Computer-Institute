@@ -20,12 +20,7 @@ interface BranchTableProps {
   onDelete: (branch: AdminBranch) => void;
 }
 
-
-
-
 const BranchTable = ({ branches, onEdit, onDelete }: BranchTableProps) => {
-
-    
   if (branches.length === 0) {
     return (
       <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center">
@@ -69,7 +64,7 @@ const BranchTable = ({ branches, onEdit, onDelete }: BranchTableProps) => {
           </thead>
 
           <tbody className="divide-y divide-slate-100">
-            {branches.map((branch) =>  (
+            {branches.map((branch) => (
               <tr key={branch.id} className="transition hover:bg-slate-50/60">
                 {/* BRANCH */}
 

@@ -47,16 +47,16 @@ const App = () => {
         <Route path="/forgot-password" element={<AdminForgotPasswordPage />} />
 
         <Route element={<ProtectedAdminRoute />}>
-          <Route element={<AdminLayout/>}>
+          <Route element={<AdminLayout />}>
             {/* Protected Admin */}
             <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
             <Route path="/admin/courses" element={<AdminCoursesPage />} />
             <Route path="/admin/branches" element={<AdminBranchesPage />} />
-            <Route path="/admin/gallery" element={<GalleryPage/>} />
-            <Route path="/admin/contact" element={<ContactPage/>} />
-            <Route path="/admin/enquiries" element={<EnquiryPage/>} />
-            <Route path="/admin/notices" element={<NoticePage/>} />
-            <Route path="/admin/profile" element={<AdminProfilePage/>} />
+            <Route path="/admin/gallery" element={<GalleryPage />} />
+            <Route path="/admin/contact" element={<ContactPage />} />
+            <Route path="/admin/enquiries" element={<EnquiryPage />} />
+            <Route path="/admin/notices" element={<NoticePage />} />
+            <Route path="/admin/profile" element={<AdminProfilePage />} />
 
             {/* Later */}
 

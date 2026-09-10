@@ -1,7 +1,6 @@
-import { prisma } from "../../lib/prisma.js";
-import { INoticeRepository } from "./notice.interface.js";
-import { createNoticeSchemaDTO, updateNoticeSchemaDTO } from "./notice.schema.js";
-
+import { prisma } from '../../lib/prisma.js';
+import { INoticeRepository } from './notice.interface.js';
+import { createNoticeSchemaDTO, updateNoticeSchemaDTO } from './notice.schema.js';
 
 export class NoticeRepository implements INoticeRepository {
   // CREATE

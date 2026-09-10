@@ -96,8 +96,8 @@ const AboutIEIT = () => {
             <div className="mt-5 space-y-4 text-sm leading-6 text-slate-500 sm:text-[15px]">
               <p>
                 IEIT is a computer institute dedicated to helping students
-                develop practical computer and technology skills through
-                focused and career-oriented learning.
+                develop practical computer and technology skills through focused
+                and career-oriented learning.
               </p>
 
               <p>

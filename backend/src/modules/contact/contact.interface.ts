@@ -11,5 +11,3 @@ export interface IContactRepository {
 
   deleteContactMessage(id: string): Promise<any>;
 }
-
-

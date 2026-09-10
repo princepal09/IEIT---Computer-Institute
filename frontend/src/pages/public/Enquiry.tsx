@@ -4,20 +4,12 @@ import { PageContainer } from "@/components/shared/PageContainer";
 import { useCourse } from "@/hooks/useCourse";
 import EnquiryForm from "@/components/public/enquiry/EnquiryForm";
 
-
-
 const Enquiry = () => {
   const [searchParams] = useSearchParams();
 
   const courseSlug = searchParams.get("course");
 
-
-
-  const {
-    data,
-    isLoading,
-    isError,
-  } = useCourse(courseSlug ?? "");
+  const { data, isLoading, isError } = useCourse(courseSlug ?? "");
 
   const course = data?.data;
 

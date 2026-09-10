@@ -258,7 +258,9 @@ const CourseDetails = () => {
                   asChild
                   className="mt-6 h-11 w-full rounded-lg bg-ieit-blue text-xs font-bold text-white hover:bg-ieit-blue/90"
                 >
-                  <Link to={`/enquire?course=${encodeURIComponent(course.slug)}`}>
+                  <Link
+                    to={`/enquire?course=${encodeURIComponent(course.slug)}`}
+                  >
                     Enroll Now
                   </Link>
                 </Button>

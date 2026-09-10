@@ -10,6 +10,7 @@
   /* =========================================================
      TYPOGRAPHY
      ========================================================= */
+  --font-times: "Times New Roman", Times, serif;
 
   --font-sans: "Sora Variable", system-ui, -apple-system, sans-serif;
   --font-heading: "Sora Variable", system-ui, -apple-system, sans-serif;

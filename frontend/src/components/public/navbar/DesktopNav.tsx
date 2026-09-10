@@ -65,7 +65,6 @@ const DesktopNav = ({ className }: { className?: string }) => {
 
       {/* Actions */}
       <div className="ml-4 flex items-center gap-2 border-l border-slate-200 pl-4">
-       
         <Button
           variant="default"
           size="sm"

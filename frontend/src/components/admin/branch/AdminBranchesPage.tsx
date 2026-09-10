@@ -19,24 +19,19 @@ import type { AdminBranch } from "@/types/branchDashboard";
 import { getErrorMessage } from "@/utils/error";
 
 const AdminBranchesPage = () => {
-  const [formOpen, setFormOpen] =
-    useState(false);
+  const [formOpen, setFormOpen] = useState(false);
 
-  const [selectedBranch, setSelectedBranch] =
-    useState<AdminBranch | null>(null);
+  const [selectedBranch, setSelectedBranch] = useState<AdminBranch | null>(
+    null
+  );
 
-  const [branchToDelete, setBranchToDelete] =
-    useState<AdminBranch | null>(null);
+  const [branchToDelete, setBranchToDelete] = useState<AdminBranch | null>(
+    null
+  );
 
-  const {
-    data: branches = [],
-    isLoading,
-    isError,
-  } = useAdminBranches();
+  const { data: branches = [], isLoading, isError } = useAdminBranches();
 
-
-  const deleteMutation =
-    useDeleteAdminBranch();
+  const deleteMutation = useDeleteAdminBranch();
 
   /*
    * CREATE
@@ -49,9 +44,7 @@ const AdminBranchesPage = () => {
   /*
    * EDIT
    */
-  const handleEdit = (
-    branch: AdminBranch
-  ) => {
+  const handleEdit = (branch: AdminBranch) => {
     setSelectedBranch(branch);
     setFormOpen(true);
   };
@@ -59,9 +52,7 @@ const AdminBranchesPage = () => {
   /*
    * DELETE
    */
-  const handleDelete = (
-    branch: AdminBranch
-  ) => {
+  const handleDelete = (branch: AdminBranch) => {
     setBranchToDelete(branch);
   };
 
@@ -73,32 +64,23 @@ const AdminBranchesPage = () => {
       return;
     }
 
-    deleteMutation.mutate(
-      branchToDelete.id,
-      {
-        onSuccess: () => {
-          toast.success(
-            "Branch deleted successfully"
-          );
+    deleteMutation.mutate(branchToDelete.id, {
+      onSuccess: () => {
+        toast.success("Branch deleted successfully");
 
-          setBranchToDelete(null);
-        },
+        setBranchToDelete(null);
+      },
 
-        onError: (error) => {
-          toast.error(
-            getErrorMessage(error)
-          );
-        },
-      }
-    );
+      onError: (error) => {
+        toast.error(getErrorMessage(error));
+      },
+    });
   };
 
   /*
    * FORM OPEN / CLOSE
    */
-  const handleFormOpenChange = (
-    open: boolean
-  ) => {
+  const handleFormOpenChange = (open: boolean) => {
     setFormOpen(open);
 
     if (!open) {
@@ -112,9 +94,7 @@ const AdminBranchesPage = () => {
 
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-950">
-            Branches
-          </h1>
+          <h1 className="text-2xl font-bold text-slate-950">Branches</h1>
 
           <p className="mt-1 text-sm text-slate-500">
             Manage institute branches.
@@ -134,9 +114,7 @@ const AdminBranchesPage = () => {
 
       {isLoading ? (
         <div className="flex min-h-40 items-center justify-center rounded-2xl border border-slate-200 bg-white">
-          <p className="text-sm text-slate-500">
-            Loading branches...
-          </p>
+          <p className="text-sm text-slate-500">Loading branches...</p>
         </div>
       ) : isError ? (
         <div className="rounded-2xl border border-red-200 bg-red-50 p-6">
@@ -156,23 +134,16 @@ const AdminBranchesPage = () => {
 
       <BranchForm
         open={formOpen}
-        onOpenChange={
-          handleFormOpenChange
-        }
+        onOpenChange={handleFormOpenChange}
         branch={selectedBranch}
       />
 
       {/* DELETE CONFIRMATION */}
 
       <ConfirmationModal
-        open={Boolean(
-          branchToDelete
-        )}
+        open={Boolean(branchToDelete)}
         onOpenChange={(open) => {
-          if (
-            !open &&
-            !deleteMutation.isPending
-          ) {
+          if (!open && !deleteMutation.isPending) {
             setBranchToDelete(null);
           }
         }}
@@ -184,12 +155,8 @@ const AdminBranchesPage = () => {
         }
         confirmText="Delete"
         cancelText="Cancel"
-        onConfirm={
-          handleConfirmDelete
-        }
-        loading={
-          deleteMutation.isPending
-        }
+        onConfirm={handleConfirmDelete}
+        loading={deleteMutation.isPending}
         variant="danger"
       />
     </div>

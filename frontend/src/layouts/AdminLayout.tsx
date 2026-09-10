@@ -3,7 +3,6 @@ import AdminSidebar from "@/components/admin/Dashboard/AdminSidebar";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
-
 const AdminLayout = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -18,9 +17,7 @@ const AdminLayout = () => {
       {/* Main area */}
       <div className="lg:pl-64">
         {/* Header */}
-        <AdminHeader
-          onMenuClick={() => setMobileSidebarOpen(true)}
-        />
+        <AdminHeader onMenuClick={() => setMobileSidebarOpen(true)} />
 
         {/* Page content */}
         <main className="min-h-[calc(100vh-4rem)]">

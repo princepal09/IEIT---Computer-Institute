@@ -13,10 +13,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -26,36 +23,28 @@ import NoticeSkeleton from "@/components/shared/skeletons/NoticeSkeleton";
 
 import NoticeForm from "@/components/admin/notices/NoticeForm";
 
-import {
-  useAdminNotices,
-  useDeleteAdminNotice,
-} from "@/hooks/useAdminNotice";
+import { useAdminNotices, useDeleteAdminNotice } from "@/hooks/useAdminNotice";
 
 import type { AdminNotice } from "@/types/notice";
 
 import { getErrorMessage } from "@/utils/error";
 
 const NoticeGrid = () => {
-  const {
-    data: notices = [],
-    isLoading,
-    isError,
-  } = useAdminNotices();
+  const { data: notices = [], isLoading, isError } = useAdminNotices();
 
-  const deleteMutation =
-    useDeleteAdminNotice();
+  const deleteMutation = useDeleteAdminNotice();
 
-  const [selectedNotice, setSelectedNotice] =
-    useState<AdminNotice | null>(null);
+  const [selectedNotice, setSelectedNotice] = useState<AdminNotice | null>(
+    null
+  );
 
-  const [noticeToDelete, setNoticeToDelete] =
-    useState<AdminNotice | null>(null);
+  const [noticeToDelete, setNoticeToDelete] = useState<AdminNotice | null>(
+    null
+  );
 
-  const [editingNotice, setEditingNotice] =
-    useState<AdminNotice | null>(null);
+  const [editingNotice, setEditingNotice] = useState<AdminNotice | null>(null);
 
-  const [showCreateForm, setShowCreateForm] =
-    useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(false);
 
   /*
    * Date formatter
@@ -84,14 +73,9 @@ const NoticeGrid = () => {
 
     deleteMutation.mutate(noticeToDelete.id, {
       onSuccess: () => {
-        toast.success(
-          "Notice deleted successfully."
-        );
+        toast.success("Notice deleted successfully.");
 
-        if (
-          selectedNotice?.id ===
-          noticeToDelete.id
-        ) {
+        if (selectedNotice?.id === noticeToDelete.id) {
           setSelectedNotice(null);
         }
 
@@ -99,9 +83,7 @@ const NoticeGrid = () => {
       },
 
       onError: (error) => {
-        toast.error(
-          getErrorMessage(error)
-        );
+        toast.error(getErrorMessage(error));
       },
     });
   };
@@ -123,13 +105,9 @@ const NoticeGrid = () => {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {Array.from({ length: 6 }).map(
-            (_, index) => (
-              <NoticeSkeleton
-                key={index}
-              />
-            )
-          )}
+          {Array.from({ length: 6 }).map((_, index) => (
+            <NoticeSkeleton key={index} />
+          ))}
         </div>
       </div>
     );
@@ -167,24 +145,17 @@ const NoticeGrid = () => {
             Announcements
           </p>
 
-          <h2 className="mt-1 text-xl font-bold text-slate-950">
-            Notices
-          </h2>
+          <h2 className="mt-1 text-xl font-bold text-slate-950">Notices</h2>
         </div>
 
         <div className="flex items-center gap-3">
           <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-            {notices.length}{" "}
-            {notices.length === 1
-              ? "notice"
-              : "notices"}
+            {notices.length} {notices.length === 1 ? "notice" : "notices"}
           </span>
 
           <Button
             type="button"
-            onClick={() =>
-              setShowCreateForm(true)
-            }
+            onClick={() => setShowCreateForm(true)}
             className="rounded-xl bg-ieit-blue hover:bg-ieit-blue/90"
           >
             <PlusIcon className="mr-2 size-4" />
@@ -206,15 +177,12 @@ const NoticeGrid = () => {
             </h3>
 
             <p className="mt-1 text-sm text-slate-500">
-              Create your first notice for
-              students and visitors.
+              Create your first notice for students and visitors.
             </p>
 
             <Button
               type="button"
-              onClick={() =>
-                setShowCreateForm(true)
-              }
+              onClick={() => setShowCreateForm(true)}
               className="mt-5 rounded-xl bg-ieit-blue hover:bg-ieit-blue/90"
             >
               <PlusIcon className="mr-2 size-4" />
@@ -245,9 +213,7 @@ const NoticeGrid = () => {
                         </h3>
 
                         <p className="mt-1 text-xs text-slate-400">
-                          {formatDate(
-                            notice.createdAt
-                          )}
+                          {formatDate(notice.createdAt)}
                         </p>
                       </div>
                     </div>
@@ -261,9 +227,7 @@ const NoticeGrid = () => {
                           : "bg-slate-100 text-slate-600",
                       ].join(" ")}
                     >
-                      {notice.isPublished
-                        ? "Published"
-                        : "Draft"}
+                      {notice.isPublished ? "Published" : "Draft"}
                     </span>
                   </div>
                 </div>
@@ -285,9 +249,7 @@ const NoticeGrid = () => {
                         </p>
 
                         <p className="mt-0.5 text-xs text-slate-600">
-                          {formatDate(
-                            notice.publishedAt
-                          )}
+                          {formatDate(notice.publishedAt)}
                         </p>
                       </div>
                     </div>
@@ -301,9 +263,7 @@ const NoticeGrid = () => {
                         </p>
 
                         <p className="mt-0.5 text-xs text-slate-600">
-                          {formatDate(
-                            notice.expiresAt
-                          )}
+                          {formatDate(notice.expiresAt)}
                         </p>
                       </div>
                     </div>
@@ -315,11 +275,7 @@ const NoticeGrid = () => {
                       type="button"
                       variant="outline"
                       size="sm"
-                      onClick={() =>
-                        setSelectedNotice(
-                          notice
-                        )
-                      }
+                      onClick={() => setSelectedNotice(notice)}
                       className="flex-1 rounded-xl"
                     >
                       <EyeIcon className="mr-2 size-4" />
@@ -330,11 +286,7 @@ const NoticeGrid = () => {
                       type="button"
                       variant="outline"
                       size="icon"
-                      onClick={() =>
-                        setEditingNotice(
-                          notice
-                        )
-                      }
+                      onClick={() => setEditingNotice(notice)}
                       className="size-9 rounded-xl"
                     >
                       <PencilIcon className="size-4" />
@@ -344,14 +296,8 @@ const NoticeGrid = () => {
                       type="button"
                       variant="destructive"
                       size="icon"
-                      disabled={
-                        deleteMutation.isPending
-                      }
-                      onClick={() =>
-                        setNoticeToDelete(
-                          notice
-                        )
-                      }
+                      disabled={deleteMutation.isPending}
+                      onClick={() => setNoticeToDelete(notice)}
                       className="size-9 rounded-xl"
                     >
                       <Trash2Icon className="size-4" />
@@ -368,15 +314,11 @@ const NoticeGrid = () => {
       {showCreateForm && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
-          onClick={() =>
-            setShowCreateForm(false)
-          }
+          onClick={() => setShowCreateForm(false)}
         >
           <div
             className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-xl"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
+            onClick={(event) => event.stopPropagation()}
           >
             <div className="border-b border-slate-100 p-5">
               <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ieit-blue">
@@ -390,12 +332,8 @@ const NoticeGrid = () => {
 
             <div className="p-5">
               <NoticeForm
-                onSuccess={() =>
-                  setShowCreateForm(false)
-                }
-                onCancel={() =>
-                  setShowCreateForm(false)
-                }
+                onSuccess={() => setShowCreateForm(false)}
+                onCancel={() => setShowCreateForm(false)}
               />
             </div>
           </div>
@@ -406,15 +344,11 @@ const NoticeGrid = () => {
       {editingNotice && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
-          onClick={() =>
-            setEditingNotice(null)
-          }
+          onClick={() => setEditingNotice(null)}
         >
           <div
             className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-xl"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
+            onClick={(event) => event.stopPropagation()}
           >
             <div className="border-b border-slate-100 p-5">
               <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-ieit-blue">
@@ -429,12 +363,8 @@ const NoticeGrid = () => {
             <div className="p-5">
               <NoticeForm
                 notice={editingNotice}
-                onSuccess={() =>
-                  setEditingNotice(null)
-                }
-                onCancel={() =>
-                  setEditingNotice(null)
-                }
+                onSuccess={() => setEditingNotice(null)}
+                onCancel={() => setEditingNotice(null)}
               />
             </div>
           </div>
@@ -445,15 +375,11 @@ const NoticeGrid = () => {
       {selectedNotice && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
-          onClick={() =>
-            setSelectedNotice(null)
-          }
+          onClick={() => setSelectedNotice(null)}
         >
           <div
             className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-xl"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
+            onClick={(event) => event.stopPropagation()}
           >
             <div className="border-b border-slate-100 p-5">
               <div className="flex items-start justify-between gap-4">
@@ -471,9 +397,7 @@ const NoticeGrid = () => {
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() =>
-                    setSelectedNotice(null)
-                  }
+                  onClick={() => setSelectedNotice(null)}
                   className="rounded-lg"
                 >
                   Close
@@ -484,9 +408,7 @@ const NoticeGrid = () => {
             <div className="space-y-5 p-5">
               {/* Status */}
               <div>
-                <p className="text-xs font-medium text-slate-400">
-                  Status
-                </p>
+                <p className="text-xs font-medium text-slate-400">Status</p>
 
                 <span
                   className={[
@@ -496,9 +418,7 @@ const NoticeGrid = () => {
                       : "bg-slate-100 text-slate-600",
                   ].join(" ")}
                 >
-                  {selectedNotice.isPublished
-                    ? "Published"
-                    : "Draft"}
+                  {selectedNotice.isPublished ? "Published" : "Draft"}
                 </span>
               </div>
 
@@ -522,22 +442,16 @@ const NoticeGrid = () => {
                 </p>
 
                 <p className="mt-1 text-sm text-slate-700">
-                  {formatDate(
-                    selectedNotice.publishedAt
-                  )}
+                  {formatDate(selectedNotice.publishedAt)}
                 </p>
               </div>
 
               {/* Expiry */}
               <div>
-                <p className="text-xs font-medium text-slate-400">
-                  Expires At
-                </p>
+                <p className="text-xs font-medium text-slate-400">Expires At</p>
 
                 <p className="mt-1 text-sm text-slate-700">
-                  {formatDate(
-                    selectedNotice.expiresAt
-                  )}
+                  {formatDate(selectedNotice.expiresAt)}
                 </p>
               </div>
 
@@ -550,9 +464,7 @@ const NoticeGrid = () => {
                   onClick={() => {
                     setSelectedNotice(null);
 
-                    setEditingNotice(
-                      selectedNotice
-                    );
+                    setEditingNotice(selectedNotice);
                   }}
                 >
                   <PencilIcon className="mr-2 size-4" />
@@ -564,9 +476,7 @@ const NoticeGrid = () => {
                   variant="destructive"
                   className="flex-1 rounded-xl"
                   onClick={() => {
-                    setNoticeToDelete(
-                      selectedNotice
-                    );
+                    setNoticeToDelete(selectedNotice);
 
                     setSelectedNotice(null);
                   }}
@@ -584,10 +494,7 @@ const NoticeGrid = () => {
       <ConfirmationModal
         open={Boolean(noticeToDelete)}
         onOpenChange={(open) => {
-          if (
-            !open &&
-            !deleteMutation.isPending
-          ) {
+          if (!open && !deleteMutation.isPending) {
             setNoticeToDelete(null);
           }
         }}
