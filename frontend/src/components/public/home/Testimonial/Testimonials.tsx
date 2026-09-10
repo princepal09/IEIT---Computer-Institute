@@ -576,7 +576,7 @@ const GoogleReviews = () => {
             showDots={false}
             carouselAutoplay
             carouselSpeed={5000}
-            maxItems={3}
+            maxItems={1}
             reviewVariant="card"
             theme="light"
           />
