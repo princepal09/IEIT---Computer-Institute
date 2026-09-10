@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { motion, type PanInfo } from "framer-motion";
 import {
   ReactGoogleReviews,
   type ReactGoogleReview,
@@ -8,7 +8,7 @@ import "react-google-reviews/dist/index.css";
 
 const FEATURABLE_ID = "54a11545-881f-4620-9d3b-e8761cafbe3a";
 
-const AUTOPLAY_DELAY = 5000;
+const AUTOPLAY_DELAY = 3000;
 
 /* ---------------------------------------------
    Responsive visible review count
@@ -108,6 +108,8 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
       ? `${comment.slice(0, 180).trim()}...`
       : comment;
 
+  const rating = review.starRating ?? 0;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 12 }}
@@ -148,6 +150,11 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
               object-cover
             "
             loading="lazy"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              // Google avatar URLs occasionally 403 — fall back to initials
+              e.currentTarget.style.display = "none";
+            }}
           />
         ) : (
           <div
@@ -184,7 +191,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
 
       <div className="mt-5 flex-1 min-w-0">
         <p className="break-words text-sm leading-6 text-slate-600">
-          {displayedComment}
+          {displayedComment || "No written review."}
         </p>
 
         {shouldTruncate && (
@@ -218,14 +225,19 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           pt-4
         "
       >
-        {/* Stars */}
+        {/* Stars — now reflects the actual rating instead of always showing 5 filled */}
 
         <div
           className="flex items-center gap-0.5"
-          aria-label={`${review.starRating} out of 5 stars`}
+          aria-label={`${rating} out of 5 stars`}
         >
           {Array.from({ length: 5 }).map((_, index) => (
-            <span key={index} className="text-sm leading-none text-[#F4B400]">
+            <span
+              key={index}
+              className={`text-sm leading-none ${
+                index < rating ? "text-[#F4B400]" : "text-slate-200"
+              }`}
+            >
               ★
             </span>
           ))}
@@ -250,20 +262,26 @@ interface ReviewCarouselProps {
 const ReviewCarousel = ({ reviews }: ReviewCarouselProps) => {
   const [visibleCount, setVisibleCount] = useState(getVisibleCount);
   const [currentPage, setCurrentPage] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   /* -------------------------------------------
-     Handle responsive changes
+     Responsive count (debounced)
   ------------------------------------------- */
 
   useEffect(() => {
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+
     const handleResize = () => {
-      setVisibleCount(getVisibleCount());
-      setCurrentPage(0);
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        setVisibleCount(getVisibleCount());
+      }, 150);
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
+      clearTimeout(resizeTimeout);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
@@ -283,6 +301,21 @@ const ReviewCarousel = ({ reviews }: ReviewCarouselProps) => {
   }, [reviews, visibleCount]);
 
   const totalPages = pages.length;
+
+  /* -------------------------------------------
+     Keep currentPage in range whenever the
+     number of pages changes (resize, data change)
+  ------------------------------------------- */
+
+  useEffect(() => {
+    setCurrentPage((current) => {
+      if (totalPages === 0) {
+        return 0;
+      }
+
+      return current > totalPages - 1 ? 0 : current;
+    });
+  }, [totalPages]);
 
   /* -------------------------------------------
      Next
@@ -313,11 +346,12 @@ const ReviewCarousel = ({ reviews }: ReviewCarouselProps) => {
   }, [totalPages]);
 
   /* -------------------------------------------
-     Autoplay
+     Autoplay — pauses on hover/drag/touch so it
+     never fights the user while they're reading
   ------------------------------------------- */
 
   useEffect(() => {
-    if (totalPages <= 1) {
+    if (totalPages <= 1 || isPaused) {
       return;
     }
 
@@ -328,42 +362,71 @@ const ReviewCarousel = ({ reviews }: ReviewCarouselProps) => {
     return () => {
       window.clearInterval(interval);
     };
-  }, [next, totalPages]);
+  }, [next, totalPages, isPaused]);
 
   /* -------------------------------------------
-     Empty state
+     Swipe / drag
+  ------------------------------------------- */
+
+  const handleDragStart = () => {
+    setIsPaused(true);
+  };
+
+  const handleDragEnd = (
+    _event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
+    const swipeDistance = info.offset.x;
+    const swipeVelocity = info.velocity.x;
+
+    if (swipeDistance < -50 || swipeVelocity < -500) {
+      next();
+    } else if (swipeDistance > 50 || swipeVelocity > 500) {
+      previous();
+    }
+
+    // Resume autoplay a moment after the user lets go
+    window.setTimeout(() => setIsPaused(false), 400);
+  };
+
+  /* -------------------------------------------
+     Empty
   ------------------------------------------- */
 
   if (!reviews.length) {
     return null;
   }
 
-  /*
-   * IMPORTANT:
-   *
-   * Each page is 100% of the viewport.
-   *
-   * The motion track contains `totalPages`
-   * pages, therefore one page equals:
-   *
-   * 100 / totalPages %
-   *
-   * of the entire track.
-   *
-   * This fixes the partial-card problem.
-   */
-
-  const translateX = totalPages > 0 ? currentPage * (100 / totalPages) : 0;
+  // Each page is exactly one viewport-width (w-full), so paging by
+  // whole 100% increments is correct — NOT (100 / totalPages).
+  const translateX = currentPage * 100;
 
   return (
-    <div className="relative w-full min-w-0">
-      {/* Carousel viewport */}
+    <div
+      className="relative w-full min-w-0"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* ---------------------------------------
+          Carousel viewport
+      ---------------------------------------- */}
 
       <div className="w-full min-w-0 overflow-hidden">
-        {/* Track */}
-
         <motion.div
-          className="flex w-full"
+          className="
+            flex
+            w-full
+            cursor-grab
+            touch-pan-y
+            active:cursor-grabbing
+          "
+          drag="x"
+          dragDirectionLock
+          dragElastic={0.15}
+          dragMomentum={false}
+          dragConstraints={{ left: 0, right: 0 }}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
           animate={{
             x: `-${translateX}%`,
           }}
@@ -372,7 +435,9 @@ const ReviewCarousel = ({ reviews }: ReviewCarouselProps) => {
             ease: "easeInOut",
           }}
         >
-          {/* Pages */}
+          {/* -----------------------------------
+              Pages
+          ------------------------------------ */}
 
           {pages.map((page, pageIndex) => (
             <div
@@ -380,8 +445,8 @@ const ReviewCarousel = ({ reviews }: ReviewCarouselProps) => {
               className="
                 grid
                 w-full
-                shrink-0
                 min-w-0
+                shrink-0
                 grid-cols-1
                 gap-5
                 sm:grid-cols-2
@@ -399,7 +464,9 @@ const ReviewCarousel = ({ reviews }: ReviewCarouselProps) => {
         </motion.div>
       </div>
 
-      {/* Navigation */}
+      {/* ---------------------------------------
+          Navigation
+      ---------------------------------------- */}
 
       {totalPages > 1 && (
         <div className="mt-6 flex items-center justify-center gap-3">
