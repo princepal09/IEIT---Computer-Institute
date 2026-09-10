@@ -53,7 +53,7 @@ const FAQ = () => {
         pb-8
         sm:pt-4
         sm:pb-10
-        lg:pt-29
+        lg:pt-1
         lg:pb-12
       "
     >

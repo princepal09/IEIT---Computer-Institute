@@ -1,5 +1,5 @@
 import { motion, useInView } from "motion/react";
-import { ArrowRightIcon, PlayIcon, TrendingUpIcon } from "lucide-react";
+import { ArrowRightIcon, PlayIcon} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import heroPhoto from "@/assets/gallery/two.jpeg";
@@ -55,7 +55,7 @@ const Hero = () => {
             </div>
 
             {/* Heading */}
-            <h1 className="max-w-lg text-4xl font-extrabold leading-[1.02] tracking-[-0.045em] text-slate-900 sm:text-5xl lg:text-[3.65rem]">
+            <h1 className="text-4xl font-extrabold leading-[1.02] tracking-[-0.045em] text-slate-900 sm:text-5xl lg:text-[3.65rem]">
               Empowering Futures,
               <span className="mt-1 block font-serif font-semibold italic tracking-[-0.035em] text-ieit-blue">
                 One Code at a Time.
